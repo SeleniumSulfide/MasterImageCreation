@@ -283,18 +283,18 @@
     ],
     "Copy":[
         {
-            "Name":"Maint",
+            "Name":"Temp",
             "Source":"\\\\domain.local\\files\\it\\vdi\\Temp",
             "Destination":"c:\\Temp"
         },
         {
             "Name":"ADMX",
-            "Source":"c:\\Maint\\Software\\ADMX\\*.admx",
+            "Source":"c:\\Temp\\Software\\ADMX\\*.admx",
             "Destination":"c:\\windows\\PolicyDefinitions"
         },
         {
             "Name":"ADML",
-            "Source":"c:\\Maint\\Software\\ADMX\\en-us\\*",
+            "Source":"c:\\Temp\\Software\\ADMX\\en-us\\*",
             "Destination":"c:\\windows\\PolicyDefinitions\\en-us"
         }
     ],
@@ -318,7 +318,7 @@
     "Phases":{
         "0":{
             "PreScriptBlocks":[
-                "Get-ChildItem \"C:\\Maint\\Software\\LangPacks\\*.cab\" | ForEach-Object { lpksetup /i * /p \"$($_.FullName)\" }"
+                "Get-ChildItem (Join-Path $Environment.Paths.Software \"LangPacks\\*.cab\") | ForEach-Object { lpksetup /i * /p \"$($_.FullName)\" }"
             ],
             "Applications":[
                 "MicrosoftVC2005",
@@ -335,7 +335,6 @@
                 "MicrosoftSQLAMO",
                 "MicrosoftSqlNativeClient2012",
                 "MicrosoftSQLOLEDBDriver",
-
                 "MicrosoftODBCSQLDriver",
                 "MicrosoftOffice365",
                 "Microsoft.NET"
@@ -443,67 +442,23 @@
                     "Type":"DWord"
                 }
             ],
-            "PostScriptBlocks":[
-                "Get-Service -Name wuauserv | Restart-Service",
-                "Get-WindowsCapability -Name \"RSAT.*\" -Online | ForEach-Object { Write-Host $_.Name; Add-WindowsCapability -Name $_.Name -Online | out-null; }",
-                "Update-Help",
-                "$State.Phase++",
-                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
-                "Update-Windows -Reboot"
-            ]
+            "PostScriptBlocks":[]
         },
         "1":{
-            "PreScriptBlocks":[
-                "Update-Windows -Reboot"
-            ],
+            "PreScriptBlocks":[],
             "Applications":[
-                {
-                    "Name":"MicrosoftEdge",
-                    "Path":"C:\\Maint\\Software\\MicrosoftEdge\\*.MSI",
-                    "Arguments":"/qn DONOTCREATEDESKTOPSHORTCUT=true DONOTCREATETASKBARSHORTCUT=true REBOOT=ReallySuppress"
-                },
-                {
-                    "Name":"MicrosoftEdgeWebView2",
-                    "Path":"C:\\Maint\\Software\\MicrosoftEdgeWebView2Runtime\\*.exe",
-                    "Arguments":"/silent /install"
-                }
+                "MicrosoftEdge",
+                "MicrosoftEdgeWebView2"
             ],
             "RegistrySettings":[],
-            "PostScriptBlocks":[
-                "Get-Service -Displayname *edge* | Set-Service -StartupType Disabled",
-                "Get-Process -Name *EdgeUpdate* | Stop-Process -Force",
-                "Rename-Item -Path \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\" -NewName \"EdgeUpdate.disabled\"",
-                "Get-Item \"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\*\\elevation_service.exe\" | Rename-Item -NewName \"elevation_service.disabled.exe\"",
-                "Get-ScheduledTask -TaskName *edge* | Disable-ScheduledTask",
-                "$State.Phase++",
-                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
-                "Restart-Computer"
-            ]
+            "PostScriptBlocks":[]
         },
         "2":{
-            "PreScriptBlocks":[
-                "Restart-OnPending"
-            ],
+            "PreScriptBlocks":[],
             "Applications":[
-                {
-                    "Name":"VMwareHorizonAgent",
-                    "Path":"c:\\Maint\\Software\\VMware\\VMware-Horizon-Agent-x86*",
-                    "Arguments":"/s /v\"/qn VDM_VC_MANAGED_AGENT=1 VDM_IP_PROTOCOL_USAGE=IPv4 RDP_CHOICE=1 ADDLOCAL=BlastUDP,ClientDriveRedirection,Core,HelpDesk,NGVC,PerfTracker,PrintRedir,PSG,RDP,RTAV,ScannerRedirection,SerialPortRedirection,TSMMR,USB,V4V,VmwVaudio,VmwVidd REBOOT=R\""
-                },
-                {
-                    "Name":"VMwareDEM",
-                    "Path":"c:\\Maint\\Software\\VMware\\VMware Dynamic Environment Manager*.msi",
-                    "Arguments":"/q ADDLOCAL=ALL REBOOT=R"
-                },
-                {
-                    "Name":"MicrosoftTeams",
-                    "Path":"c:\\Maint\\Software\\MicrosoftTeams\\*.MSI",
-                    "Arguments":"ALLUSER=1 ALLUSERS=1",
-                    "PostScriptBlocks":[
-                        "$Path = \"HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurentVersion\\Run\"",
-                        "if ((Get-Item -Path $Path).Property -Contains \"Teams\") { Remove-ItemProperty -Path $Path -Name \"Teams\" }"
-                    ]
-                }
+                "VMwareHorizonAgent",
+                "VMwareDEM",
+                "MicrosoftTeams"
             ],
             "RegistrySettings":[
                 {
@@ -513,46 +468,13 @@
                     "PropertyType":"DWord"
                 }
             ],
-            "PostScriptBlocks":[
-                "& \"C:\\Maint\\Optimization Tool\\LGPO.exe\" /r \"C:\\Maint\\Optimization Tool\\New_MachineRegPol.txt\" /w \"C:\\Windows\\System32\\GroupPolicy\\Machine\\Registry.pol\"",
-                "& \"C:\\Maint\\Optimization Tool\\LGPO.exe\" /r \"C:\\Maint\\Optimization Tool\\New_UserRegPol.txt\" /w \"C:\\Windows\\System32\\GroupPolicy\\User\\Registry.pol\"",
-                "& \"C:\\Maint\\Optimization Tool\\VMwareOSOptimizationTool.exe\" -v -optimize -VisualEffect Balanced -Notification disable -WindowsUpdate Disable -OfficeUpdate Disable -StoreApp remove-all --Exclude Camera Calculator Photos StickyNotes WebExtension -Firewall Disable -Antivirus Disable -SecurityCenter Disable -WindowsSearch searchboxasicon",
-                "& \"C:\\Maint\\Optimization Tool\\VMwareOSOptimizationTool.exe\" -g",
-                "$State.Phase++",
-                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
-                "Restart-Computer"
-            ]
+            "PostScriptBlocks":[]
         },
         "3":{
-            "PreScriptBlocks":[
-                "if ((get-service W32Time).Status -ne \"Running\") { Start-Service -Name W32Time }",
-                "C:\\windows\\system32\\w32tm.exe /config /update /manualpeerlist:domain.local",
-                "C:\\Windows\\System32\\w32tm.exe /resync /rediscover"
-            ],
+            "PreScriptBlocks":[],
             "Applications":[
-                {
-                    "PreScriptBlocks":[
-                        "$Application.Arguments = $Application.Arguments.Replace('[Manager1]',$Environment.Pod.($State.Pod).AppVol.Manager1)"
-                    ],
-                    "Name":"AppVol",
-                    "Path":"c:\\Maint\\Software\\VMware\\App Volumes Agent.msi",
-                    "Arguments":"/qn MANAGER_ADDR=[Manager1] MANAGER_PORT=443 EnforceSSLCertificateValidation=0 REBOOT=R"
-                },
-                {
-                    "Name":"SnowflakeODBC",
-                    "Path":"c:\\Maint\\Software\\SnowflakeODBCDriver\\*.msi",
-                    "Arguments":"/qn"
-                },
-                {
-                    "Name":"Syteline-Install",
-                    "Path":"c:\\Maint\\Software\\SyteLine\\Syteline-Install\\Infor Syteline.msi",
-                    "Arguments":"/qn ADDLOCAL=ClickOnceClient,Client,Common,CommonERP"
-                },
-                {
-                    "Name":"Syteline-PRD",
-                    "Path":"c:\\Maint\\Software\\SyteLine\\Copy-PRD.bat",
-                    "Arguments":""
-                }
+                "AppVol",
+                "SnowflakeODBC"
             ],
             "RegistrySettings":[
                 {
@@ -595,66 +517,13 @@
                     "PropertyType":"String"
                 }
             ],
-            "PostScriptBlocks":[
-                "ForEach ($Package in $Environment.AppXRemoval) { Get-AppXProvisionedPackage -Online | Where-Object { $_.DisplayName -eq $Package.Name } | ForEach-Object { Remove-AppXProvisionedPackage -Online -PackageName $_.PackageName } }",
-                "$Environment.AppXRemoval | ForEach-Object { Get-AppXPackage -Name $_.Name | Remove-AppXPackage }",
-                "$Command = { & \"C:\\Maint\\Optimization Tool\\VMwareOSOptimizationTool.exe\" -Finalize 0 1 2 3 4 5 6 }",
-                "PowerShell.exe -NonInteractive -Command $Command;",
-                "Enable-NetFirewallRule -DisplayGroup \"Remote Desktop\"",
-                "dism /online /cleanup-image /scanhealth",
-                "dism /online /cleanup-image /checkhealth",
-                "dism /online /cleanup-image /restorehealth",
-                "dism /online /cleanup-image /startcomponentcleanup /resetbase",
-                "sfc /scannow",
-                "$State.Phase++",
-                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
-                "Restart-Computer"
-            ]
+            "PostScriptBlocks":[]
         },
         "4":{
             "PreScriptBlocks":[],
-            "Applications":[
-                {
-                    "Name":"CortexXDR",
-                    "Path":"c:\\Maint\\Software\\CortexXDR\\*.msi",
-                    "Arguments":"/qn VDI_ENABLED=1 TS_ENABLED=1"
-                },
-                {
-                    "Name":"CortexXDR-Checkin",
-                    "Path":"C:\\Program Files\\Palo Alto Networks\\Traps\\cytool.exe",
-                    "Arguments":"checkin"
-                },
-                {
-                    "Name":"Powershell-Sleep",
-                    "Path":"c:\\windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
-                    "Arguments":"-command Start-Sleep -Seconds 30"
-                },
-                {
-                    "Name":"CortexXDR-ImagePrep",
-                    "Path":"",
-                    "Arguments":"imageprep scan timeout 4 upload 5 path c:\\Maint\\",
-                    "PostScriptBlocks":[
-                        "$Application.Path = \"C:\\Program Files\\Palo Alto Networks\\Traps\\cytool.exe\"",
-                        "Do { Start-Process -FilePath $Application.Path -ArgumentList $Application.Arguments -wait; [XML]$XML = Get-Content (Get-ChildItem C:\\Maint\\ImagePrep*.xml)[-1].FullName; } While ($xml.Traps.Scanreport.Summary.TotalFiles -eq 0)"
-                    ]
-                }
-            ],
+            "Applications":[],
             "RegistrySettings":[],
-            "PostScriptBlocks":[
-                "Get-ChildItem \"c:\\users\\Public\\Desktop\\*.lnk\" | Remove-Item -Force",
-                "Remove-Item C:\\Maint\\Software -Recurse -Force",
-                "If (Test-Path C:\\Maint\\Drivers) { Remove-Item C:\\Maint\\Drivers -Recurse -Force }",
-                "defrag C: /PrintProgress",
-                "New-LocalUser -name \"AppCap\" -password (ConvertTo-SecureString -String \"D@ffyduck82\" -AsPlainText -Force) -PasswordNeverExpires -UserMayNotchangePassword",
-                "Add-LocalGroupMember -group \"Administrators\" -Member \"AppCap\"",
-                "#Set-LocalUser -Name \"Administrator\" -Password (ConvertTo-SecureString -String \"D@ffyduck82\" -AsPlainText -Force)",
-                "$Run = \"hklm:\\software\\microsoft\\windows\\currentversion\\run\"",
-                "If ((Get-Item $Run).Property -contains \"*Image\") { Remove-ItemProperty -Path $Run -Name \"*Image\" }",
-                "Get-NetFirewallProfile | Where-Object -Property Enabled -eq $true | Set-NetFirewallProfile -Enabled False -Confirm:$False",
-                "$Command = { & \"C:\\Maint\\Optimization Tool\\VMwareOSOptimizationTool.exe\" -Finalize All }",
-                "PowerShell.exe -NonInteractive -Command $Command",
-                "Stop-Computer"
-            ]
+            "PostScriptBlocks":[]
         }
     }
 }

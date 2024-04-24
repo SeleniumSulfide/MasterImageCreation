@@ -4,7 +4,7 @@ Param(
         [String]$ConfigFile,
 
     [Parameter()]
-        [ValidateSet("Pod1","Pod1")]
+        [ValidateSet("Pod1","Pod2")]
         [String]$Pod,
 
     [Parameter()]
@@ -48,10 +48,7 @@ If (!(Test-Path HKCR:\)){
     New-PSDrive -Name "HKCR" -PSProvider Registry -Root "HKEY_Classes_Root"
 }
 
-<#
-    Logs Commands ran in the PS Session should they need reviewed later
-#>
-Start-Transcript -Path c:\Maint\powershell\build.log -Append -Force
+
 
 <#
     Change the Execution Policy to allow custom code
@@ -77,9 +74,14 @@ $Script:Environment = Get-Content (Join-Path $CommandPath "Environment.json") | 
 If ($State.ConfigFile) { $Script:Config = Get-Content -Path (Join-Path $CommandPath $State.ConfigFile) | ConvertFrom-Json }
 
 <#
+    Logs Commands ran in the PS Session should they need reviewed later
+#>
+Start-Transcript -Path (Join-Path $Environment.Paths.Working "BuildTranscript.log") -Append -Force
+
+<#
     Set the location of where to find/download software to the path specified in Environment.JSON
 #>
-$Script:SoftwarePath = $Environment.Paths.SoftwarePath
+$Script:SoftwarePath = $Environment.Paths.Software
 $Script:FontPath = $Environment.Paths.FontPath
 
 <#
@@ -95,10 +97,8 @@ if ($State.Shares) {
 <#
     If a ConfigFile is being used to add to the standard environment, the sections are combined prior to being ran
 #>
-$PreReqs          = @($Config.PreReqs                                + $Environment.PreReqs)
-$CopyItems        = @($Config.Copy                                   + $Environment.Copy)
-$AppsEvergreen    = @($Config.Evergreen                              + $Environment.Evergreen)
-$AppsDownload     = @($Config.Download                               + $Environment.Download)
+$Script:PreReqs   = @($Config.PreReqs                                + $Environment.PreReqs)
+$Script:CopyItems = @($Config.Copy                                   + $Environment.Copy)
 $PreScriptBlocks  = @($Config.Phases.($State.Phase).PreScriptBlocks  + $Environment.Phases.($State.Phase).PreScriptBlocks)
 $Applications     = @($Config.Phases.($State.Phase).Applications     + $Environment.Phases.($State.Phase).Applications)
 $RegistrySettings = @($Config.Phases.($State.Phase).RegistrySettings + $Environment.Phases.($State.Phase).RegistrySettings)
@@ -109,22 +109,11 @@ $PostScriptBlocks = @($Config.Phases.($State.Phase).PostScriptBlocks + $Environm
 #>
 Initialize-PreReqs    -PreReqs $PreReqs
 #Process First Phase only tasks
-If ($State.Phase -eq 0)
-{
-    Get-CopyItems -Items $CopyItems
-    Get-AppsEvergreen -Applications $AppsEvergreen -DownloadPath $SoftwarePath
-    Get-AppsDownload -Applications $AppsDownload -DownloadPath $SoftwarePath
-    Get-VCRedist -DownloadPath $SoftwarePath
 
-    Install-Drivers $Environment.Paths.Drivers
-    
-    Initialize-PrinterDrivers $Environment.PrinterDrivers
-    Initialize-ZebraDrivers $Environment.ZebraDrivers
-    
-    Get-ChildItem (Join-Path $FontPath "*.?tf") -recurse | ForEach-Object { Add-Font -Path $_.Fullname }
-}
-Connect-FileShares    -FileShares $FileShares
-Invoke-ScriptBlocks   -ScriptBlocks $PreScriptBlocks
-Install-Applications  -Applications $Applications
-Sync-RegistrySettings -RegistrySettings $RegistrySettings
-Invoke-ScriptBlocks   -ScriptBlocks $PostScriptBlocks
+Connect-FileShares          -FileShares         $FileShares
+Invoke-PhasePreCommands     -Phase              $State.Phase
+Invoke-ScriptBlocks         -ScriptBlocks       $PreScriptBlocks
+Start-ApplicationInstall    -Applications       $Applications
+Sync-RegistrySettings       -RegistrySettings   $RegistrySettings
+Invoke-ScriptBlocks         -ScriptBlocks       $PostScriptBlocks
+Invoke-PhasePostCommands    -Phase              $State.Phase
