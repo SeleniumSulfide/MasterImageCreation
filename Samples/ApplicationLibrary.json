@@ -1,0 +1,867 @@
+{
+    "Template":  [
+                     {
+                         "Name":  "Template",
+                         "Source":  "",
+                         "Evergreen":  {
+                                           "PreScriptBlocks":  [
+
+                                                               ],
+                                           "EvergreenApp":  "",
+                                           "Filter":  "",
+                                           "PostScriptBlocks":  [
+
+                                                                ]
+                                       },
+                         "Download":  {
+                                          "FileName":  "",
+                                          "PreScriptBlocks":  [
+
+                                                              ],
+                                          "URI":  [
+                                                      ""
+                                                  ],
+                                          "PostScriptBlocks":  [
+
+                                                               ]
+                                      },
+                         "Path":  {
+                                      "PreScriptBlocks":  [
+
+                                                          ],
+                                      "Path":  "",
+                                      "PostScriptBlocks":  [
+
+                                                           ]
+                                  },
+                         "Script":  {
+                                        "Modules":  [
+
+                                                    ],
+                                        "ScriptBlocks":  [
+
+                                                     ]
+                                    },
+                         "Installation":  {
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "InstallerMask":  "",
+                                              "Recruse":true,
+                                              "Arguments":  "",
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                         "Detection":  [
+
+                                       ]
+                     }
+                 ],
+    "Applications":  [
+                         {
+                             "Name":  "FileOpen",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://plugin.fileopen.com/current/FileOpenInstaller.exe"
+                                                      ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "FileOpenInstaller.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "Microsoft.NET",
+                             "Source":  "Evergreen",
+                             "Evergreen":  {
+                                               "EvergreenApp":  "Microsoft.NET",
+                                               "Filter":  "$_.Architecture -eq \"x64\" -and $_.Installer -eq \"windowsdesktop\" -and $_.Channel -eq \"LTS\""
+                                           },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "windowsdesktop-runtime*.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q /norestart",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftEdge",
+                             "Source":  "Evergreen",
+                             "Evergreen":  {
+                                               "EvergreenApp":  "MicrosoftEdge",
+                                               "Filter":  "$_.Platform -eq \"Windows\" -and $_.Channel -eq \"Stable\" -and $_.Release -eq \"Enterprise\" -and $_.Architecture -eq \"x64\""
+                                           },
+                             "Installation":  {                                              "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "MicrosoftEdgeEnterprise.msi",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/qn DONOTCREATEDESKTOPSHORTCUT=true DONOTCREATETASKBARSHORTCUT=true REBOOT=ReallySuppress",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftEdgeWebView2Runtime",
+                             "Source":  "Evergreen",
+                             "Evergreen":  {
+                                               "EvergreenApp":  "MicrosoftEdgeWebView2Runtime",
+                                               "Filter":  "$_.Architecture -eq \"x64\""
+                                           },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/silent /install",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftFSLogixApps",
+                             "Source":  "Evergreen",
+                             "Evergreen":  {
+                                               "EvergreenApp":  "MicrosoftFSLogixApps",
+                                               "Filter":  "",
+                                               "PostScriptBlocks":  [
+                                                                        "Get-ChildItem (Join-Path $DownloadPath \"*.zip\") -recurse | Expand-Archive -DestinationPath $Destination"
+                                                                    ]
+                                           },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+                                                                        "FileName FSLogixAppsSetup.exe"
+                                                                      ],
+                                                  "InstallerMask":  "",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/install /passive /norestart",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftODBCSqlDriver13",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/1/E/7/1E7B1181-3974-4B29-9A47-CC857B271AA2/English/X64/msodbcsql.msi"
+                                                      ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "msodbcsql.msi",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/qn ADDLOCAL=ALL IACCEPTMSODBCSQLLICENSETERMS=YES",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftODBCSqlDriver17",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "msodbcsql.msi",
+                                              "URI":  [
+                                                          "https://go.microsoft.com/fwlink/?linkid=2239168"
+                                                      ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "msodbcsql.msi",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/qn ADDLOCAL=ALL IACCEPTMSODBCSQLLICENSETERMS=YES",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftODBCSqlDriver18",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "msodbcsql.msi",
+                                              "URI":  [
+                                                          "https://go.microsoft.com/fwlink/?linkid=2239549"
+                                                      ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "msodbcsql.msi",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/qn ADDLOCAL=ALL IACCEPTMSODBCSQLLICENSETERMS=YES",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftOneDrive",
+                             "Source":  "Evergreen",
+                             "Evergreen":  {
+                                               "EvergreenApp":  "MicrosoftOneDrive",
+                                               "Filter":  "$_.Architecture -eq \"AMD64\" -and $_.Ring -eq \"Production\""
+                                           },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftSQLAMO",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "sqlamo.msi",
+                                              "URI":  [
+                                                          "https://go.microsoft.com/fwlink/?linkid=829578"
+                                                      ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "sqlamo.msi",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftSqlNativeClient2012",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/B/E/D/BED73AAC-3C8A-43F5-AF4F-EB4FEA6C8F3A/ENU/x64/sqlncli.msi"
+                                                      ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "sqlncli.msi",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftSQLOLEDBDriver",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "msoledbsql.msi",
+                                              "URI":  [
+                                                          "https://go.microsoft.com/fwlink/?linkid=2238602"
+                                                      ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "msoledbsql.msi",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/qn IAcceptSqlLocalDBLicenseTerms=Yes",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftTeams",
+                             "Source":  "Evergreen",
+                             "Evergreen":  {
+                                               "EvergreenApp":  "MicrosoftTeams",
+                                               "Filter":  "$_.Ring -eq \"General\" -and $_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\""
+                                           },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "ALLUSER=1 ALLUSERS=1",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVC2005",
+                             "Source":  "Download",
+                             "Evergreen":  {
+                                               "PreScriptBlocks":  [
+
+                                                                   ],
+                                               "EvergreenApp":  "",
+                                               "Filter":  "",
+                                               "PostScriptBlocks":  [
+
+                                                                    ]
+                                           },
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.EXE",
+                                                          "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.EXE"
+                                                      ],
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vcredist_*.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVC2008",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe",
+                                                          "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe"
+                                                      ],
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vcredist_*.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVC2010",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe",
+                                                          "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe"
+                                                      ],
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vcredist_*.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVSTA2015",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/2/D/F/2DFCD7D9-821C-4637-8F94-3FAD73BDD1CD/vsta_setup.exe"
+                                                      ],
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vsta_setup.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/quiet /norestart",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVSTA2017",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/0/6/6/0660AD34-264B-4ED2-B975-ABFE255DAD47/vsta_setup.exe"
+                                                      ],
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vsta_setup.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/quiet /norestart",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVSTA2019",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/4/F/2/4F21B022-D6C2-4A95-9F3B-AB575EAA4A28/vsta_setup.exe"
+                                                      ],
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vsta_setup.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/quiet /norestart",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVSTA2022",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/4/2/7/42769e95-1bd9-47e8-a758-7bd3921a4aa9/vsta_setup.exe"
+                                                      ],
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vsta_setup.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/quiet /norestart",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVSTO2010",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://download.microsoft.com/download/7/A/F/7AFA5695-2B52-44AA-9A2D-FC431C231EDC/vstor_redist.exe"
+                                                      ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vstor_redist.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q /norestart",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "SnowflakeODBCDriver",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+                                                                      "$URI = (Invoke-WebRequest -UseBasicParsing -URI $URI).Links -Match \".*win64.*\")[0].Href"
+                                                                  ],
+                                              "URI":  [
+                                                          "https://developers.snowflake.com/odbc/"
+                                                      ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "snowflake*.msi",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/qn",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVC2012",
+                             "Source":  "Script",
+                             "Script":  {
+                                            "Modules":  [
+                                                            "VCRedist"
+                                                        ],
+                                            "ScriptBlocks":  [
+                                                             "Get-VCList -Release 2012 | Save-VCRedist -Path $DownloadPath",
+                                                             "Get-ChildItem -Path $DownloadPath"
+                                                         ]
+                                        },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vcredist_*.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVC2013",
+                             "Source":  "Script",
+                             "Script":  {
+                                            "Modules":  [
+                                                            "VCRedist"
+                                                        ],
+                                            "ScriptBlocks":  [
+                                                             "Get-VCList -Release 2013 | Save-VCRedist -Path $DownloadPath",
+                                                             "Get-ChildItem -Path $DownloadPath"
+                                                         ]
+                                        },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vcredist_*.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "MicrosoftVC2022",
+                             "Source":  "Script",
+                             "Script":  {
+                                            "Modules":  [
+                                                            "VCRedist"
+                                                        ],
+                                            "ScriptBlocks":  [
+                                                             "Get-VCList -Release 2022 | Save-VCRedist -Path $DownloadPath",
+                                                             "Get-ChildItem -Path $DownloadPath"
+                                                         ]
+                                        },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "vcredist_*.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "VMwareAppVol",
+                             "Source":  "Path",
+                             "Path":  {
+                                          "PreScriptBlocks":  [
+
+                                                              ],
+                                          "Path":  "[Software]\\VMwareAppVol\\App Volumes Agent.msi",
+                                          "PostScriptBlocks":  [
+
+                                                               ]
+                                      },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+                                                                          "$Application.Arguments = $Application.Arguments.Replace(\u0027[Manager1]\u0027,$Environment.Pod.($State.Pod).AppVol.Manager1)"
+                                                                      ],
+                                                  "InstallerMask":  "",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/qn MANAGER_ADDR=[Manager1] MANAGER_PORT=443 EnforceSSLCertificateValidation=0 REBOOT=R",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "VMwareDEM",
+                             "Source":  "Path",
+                             "Path":  {
+                                          "PreScriptBlocks":  [
+
+                                                              ],
+                                          "Path":  "[SoftwarePath]\\VMwareDEM\\VMware Dynamic Enironment Manager*.msi",
+                                          "PostScriptBlocks":  [
+
+                                                               ]
+                                      },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/q ADDLOCAL=ALL REBOOT=R",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "VMwareHorizonAgent",
+                             "Source":  "Path",
+                             "Path":  {
+                                          "PreScriptBlocks":  [
+
+                                                              ],
+                                          "Path":  "",
+                                          "PostScriptBlocks":  [
+
+                                                               ]
+                                      },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "VMware-Hoirizon-Agent-x86*",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "/s /v\"/qn VDM_VC_MANAGED_AGENT=1 VDM_IP_PROTOCOL_USAGE=IPv4 RDP_CHOICE=1 ADDLOCAL=BlastUDP,ClientDriveRedirection,Core,HelpDesk,NGVC,PerfTracker,PrintRedir,PSG,RDP,RTAV,ScannerRedirection,SerialPortRedirection,TSMMR,USB,V4V,VmwVaudio,VmwVidd REBOOT=R\"",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "WindowsADK",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "adksetup.exe",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://go.microsoft.com/fwlink/?linkid=2120254"
+                                                      ],
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "adksetup.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         },
+                         {
+                             "Name":  "wkHTMLtoPDF",
+                             "Source":  "Download",
+                             "Download":  {
+                                              "FileName":  "",
+                                              "PreScriptBlocks":  [
+
+                                                                  ],
+                                              "URI":  [
+                                                          "https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.msvc2015-win64.exe"
+                                                      ],
+                                              "PostScriptBlocks":  [
+
+                                                                   ]
+                                          },
+                             "Installation":  {
+                                                  "PreScriptBlocks":  [
+
+                                                                      ],
+                                                  "InstallerMask":  "wkhtmltox*.exe",
+                                                  "Recruse":  true,
+                                                  "Arguments":  "",
+                                                  "PostScriptBlocks":  [
+
+                                                                       ]
+                                              },
+                             "Detection":  [
+
+                                           ]
+                         }
+                     ]
+}

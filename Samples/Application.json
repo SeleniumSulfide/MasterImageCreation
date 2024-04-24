@@ -1,0 +1,55 @@
+{
+    "Name":  "",
+    "Source":  "",
+    "Evergreen":  {
+                      "PreScriptBlocks":  [
+
+                                          ],
+                      "EvergreenApp":  "",
+                      "Filter":  "",
+                      "PostScriptBlocks":  [
+
+                                           ]
+                  },
+    "Download":  {
+                     "FileName":  "",
+                     "PreScriptBlocks":  [
+
+                                         ],
+                     "URI":  [
+                                 ""
+                             ],
+                     "PostScriptBlocks":  [
+
+                                          ]
+                 },
+    "Path":  {
+                 "PreScriptBlocks":  [
+
+                                     ],
+                 "Path":  "",
+                 "PostScriptBlocks":  [
+
+                                      ]
+             },
+    "Script":  {
+                   "Modules":  [
+
+                               ],
+                   "Commands":  [
+
+                                ]
+               },
+    "Installation":  {
+                         "PreScriptBlocks":  [
+
+                                             ],
+                         "Arguments":  "",
+                         "PostScriptBlocks":  [
+
+                                              ]
+                     },
+    "Detection":  [
+
+                  ]
+}

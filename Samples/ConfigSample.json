@@ -1,0 +1,94 @@
+{
+    "FileShares":[
+        {
+            "Name":"S",
+            "Root":"\\\\sccm.domain.local\\distribution sources",
+            "UserName":"",
+            "Password":""
+        }
+    ],
+    "Phases":{
+        "4":{
+            "PreScriptBlocks":[],
+            "Applications":[
+                {
+                    "Name":"NVIDIA Grid",
+                    "Path":"C:\\Maint\\Software\\NVIDIA\\*.EXE",
+                    "Arguments":"-s -n"
+                },
+                {
+                    "Name":"SolidWorks",
+                    "Path": "\\\\sccm.domain.local\\Distribution Sources\\Current\\Solidworks_2022SP5_Image\\StartSWInstall.exe",
+                    "Arguments":"/install /now /showui",
+                    "NonRecurse":true
+                },
+                {
+                    "Name":"SolidWorks-PDM",
+                    "Path":"\\\\sccm.domain.local\\Distribution Sources\\Current\\Solidworks_2022SP5_Image\\64bit\\SOLIDWORKS PDM Client\\SOLIDWORKS PDM Client.msi",
+                    "Arguments":"INSTALLDIR=\"C:\\Program Files\\SOLIDWORKS Corp\\SOLIDWORKS PDM\" PDMTYPE=1 PTID={SAMPLGUID} ADDLOCAL=Client,Shared,Shared64,InsoViewer,SolidWorks,Office /qn",
+                    "NonRecurse":true,
+                    "PostScriptBlock":[
+                        "$Path = \"HKCU:\\SOFTWARE\\SolidWorks\\Applications\\PDMWorks Enterprise\\Security\"",
+                        "$Name = \"EULA Accepted 2022 30 5 $($ENV:ComputerName)\"",
+                        "$Value = \"Yes\"",
+                        "$Type = \"String\"",
+                        "New-ItemProperty -Path $Path -Name $Name -Value $Value -PropertyType $Type"
+                    ]
+                },
+                {
+                    "Name":"PDM-ViewSetup",
+                    "Path":"C:\\Program Files\\SOLIDWORKS Corp\\SOLIDWORKS PDM\\ViewSetup.exe",
+                    "Arguments":"\"\\\\sccm\\Distribution Sources\\Current\\Solidworks_2022SP5_Image\\PDM_Install\\Engineering.cvs\" /q",
+                    "NonRecurse":true,
+                    "Monitor":false
+                },
+                {
+                    "Name":"PDM-ViewSetup",
+                    "Path":"C:\\Program Files\\SOLIDWORKS Corp\\SOLIDWORKS PDM\\ViewSetup.exe",
+                    "Arguments":"\"\\\\sccm\\Distribution Sources\\Current\\Solidworks_2022SP5_Image\\PDM_Install\\DEV_Engineering.cvs\" /q",
+                    "NonRecurse":true,
+                    "Monitor":false
+                }
+            ],
+            "RegistrySettings":[
+                {
+                    "PreScriptBlocks":[
+                        "$RegistrySetting.Value = $Environment.DC.($State.DC).NVIDIALicensingServer"
+                    ],
+                    "Path":"hklm:\\SOFTWARE\\NVIDIA Corporation\\Global\\GridLicensing",
+                    "Name":"ServerAddress",
+                    "Value":"",
+                    "PropertyType":"string"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\NVIDIA Corporation\\Global\\GridLicensing",
+                    "Name":"ServerPort",
+                    "Value":"7070",
+                    "PropertyType":"String"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\NVIDIA Corporation\\Global\\GridLicensing",
+                    "Name":"FeatureType",
+                    "Value":"1",
+                    "PropertyType":"DWORD"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\NVIDIA Corporation\\Global\\GridLicensing",
+                    "Name":"DisableSpecificPopups",
+                    "Value":"1",
+                    "PropertyType":"DWORD"
+                },
+                {
+                    "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\nvlddmkm",
+                    "Name":"NVFBCEnable",
+                    "Value":"1",
+                    "PropertyType":"DWORD"
+                }
+            ],
+            "PostScriptBlocks":[
+                "Copy-Item C:\\Maint\\Software\\NVIDIA\\*.tok 'c:\\program files\\NVIDIA Corporation\\vGPU Licensing\\ClientConfigToken'",
+                "$FileShares | ForEach-Object { Remove-PSDrive -Name $_.Name -Force }"
+            ]
+        }
+    }
+}

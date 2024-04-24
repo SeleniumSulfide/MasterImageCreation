@@ -1,0 +1,704 @@
+{ 
+    "DC": {
+        "CH3":{
+                "VCSA":"na-ch3-w1-vc.pneu.local",
+                "ConnectionServers":[
+                    "na-ch3-vdim-p02.smcusa.com",
+                    "na-ch3-vdim-p03.smcusa.com"
+                ],
+                "AppVol":{
+                    "Manager1":"na-ch3-vdim-p03.smcusa.com",
+                    "Manager2":"na-ch3-vdim-p04.smcusa.com"
+                },
+                "NVIDIALicensingServer":"na-nvli-ut-p01.smcusa.com"
+        },
+        "DA11":{
+            "VCSA":"na-da11-w1-vc.pneu.local",
+            "ConnectionServers":[
+                "da11-vdim-p02.smcusa.com",
+                "da11-vdim-p03.smcusa.com"
+            ],
+            "AppVol":{
+                "Manager1":"da11-vdim-p03.smcusa.com",
+                "Manager2":"da11-vdim-p04.smcusa.com"
+            },
+            "NVIDIALicensingServer":"na-nvli-ut-p01.smcusa.com"
+        },
+        "OLT":{
+            "VCSA":"na-vdi-vcenthorizon1.smcusa.com",
+            "ConnectionServers":[
+                "na-vdi-conn1a.smcusa.com",
+                "na-vdi-conn1b.smcusa.com",
+                "na-vdi-conn1c.smcusa.com",
+                "na-vdi-conn1d.smcusa.com"
+            ],
+            "AppVol":{
+                "Manager1":"na-vdi-appvol1.smcusa.com",
+                "Manager2":"na-vdi-appvol2.smcusa.com"
+            },
+            
+            "NVIDIALicensingServer":""
+        }
+    },
+    "PrinterDrivers":[
+        "Datamax-O\u0027Neil H-4212",
+        "Datamax-O\u0027Neil H-4212X",
+        "Datamax-O\u0027Neil RL4",
+        "Generic / Text Only",
+        "HP Color LaserJet Flow MFP M577 PCL 6",
+        "HP Designjet 500 42 by HP",
+        "HP DesignJet T1700 PS",
+        "HP Designjet T2530 PS PS3",
+        "HP DeskJet 612C",
+        "HP LaserJet 4200/4300 PCL6",
+        "HP LaserJet 4250 PCL6",
+        "HP LaserJet 4250 PCL6 Class Driver",
+        "HP LaserJet 500 color MFP M570 PCL 6",
+        "HP LaserJet 500 color MFP M570 PCL6 Class Driver",
+        "HP LaserJet 600 M601 M602 M603 PCL6",
+        "HP LaserJet 700 M712 PCL 6",
+        "HP LaserJet E60055-E60075 PCL-6 (V4)",
+        "HP LaserJet Enterprise 600 M601 M602 M603 PCL6 Class Driver",
+        "HP LaserJet M604 PCL 6",
+        "HP LaserJet M605 PCL 6",
+        "HP LaserJet M607 M608 M609 PCL-6 (V4)",
+        "HP LaserJet P4014/P4015 PCL6",
+        "HP Universal Printing PCL 6",
+        "HP Universal Printing PS",
+        "KX DRIVER for Universal Printing",
+        "Kyocera CS 406ci KX",
+        "Kyocera ECOSYS P3260dn KX",
+        "Kyocera ECOSYS P4060dn KX",
+        "Kyocera ECOSYS P5026cdw KX",
+        "Kyocera TASKalfa 2550ci KX",
+        "Kyocera TASKalfa 4002i KX",
+        "Kyocera TASKalfa 4052ci KX",
+        "Kyocera TASKalfa 4053ci KX",
+        "Kyocera TASKalfa 406ci KX",
+        "Kyocera TASKalfa 5002i KX",
+        "Kyocera TASKalfa 5052ci KX",
+        "Kyocera TASKalfa 508ci KX",
+        "Xerox ColorQube 8700/8900 Series Class Driver",
+        "Xerox ColorQube 8700S PCL6",
+        "Xerox ColorQube 8700X PCL6",
+        "Xerox ColorQube 8900S PCL6",
+        "Xerox ColorQube 8900X PCL6",
+        "Xerox ColorQube 9302 PCL6",
+        "Xerox ColorQube 9303 PCL6",
+        "Xerox ColorQube 9303 PS",
+        "Xerox Global Print Driver PCL6",
+        "Xerox Global Print Driver PS",
+        "Xerox Phaser 5550N PCL6",
+        "Xerox WorkCentre 5335 PCL6",
+        "Xerox WorkCentre 6515 V4 PS",
+        "Xerox WorkCentre 6655",
+        "Xerox WorkCentre 7535 PS",
+        "Xerox WorkCentre 7835 PS",
+        "Xerox WorkCentre 7845 PS"
+    ],
+    "ZebraDrivers":[
+        "Zebra 105Se (203 dpi)",
+        "Zebra 105Se (300 dpi)",
+        "Zebra 105SL (300 dpi)",
+        "Zebra 105SL Plus (300 dpi)",
+        "Zebra 110Xi4 (300 dpi)",
+        "Zebra 110XiIII Plus (300 dpi)",
+        "Zebra GX430t - EPL",
+        "Zebra GX430t - ZPL",
+        "Zebra R4M Plus (203 dpi)",
+        "Zebra Z4M Plus (203 dpi)",
+        "Zebra Z4M Plus (300 dpi)",
+        "Zebra ZM400 (203 dpi) - EPL",
+        "Zebra ZM400 (203 dpi) - ZPL",
+        "Zebra ZM400 (300 dpi) - ZPL",
+        "Zebra ZT220 (300 dpi)",
+        "Zebra ZT230 (300 dpi)",
+        "Zebra ZT410 (203 dpi)",
+        "Zebra ZT410 (300 dpi)",
+        "Zebra ZT411 (300 dpi)",
+        "Zebra ZT610 (203 dpi)"
+    ],
+    "AppXRemoval":[
+        { "Name":"Microsoft.549981C3F5F10"},
+        { "Name":"Microsoft.BingWeather"},
+        { "Name":"Microsoft.MicrosoftSolitaireCollection"},
+        { "Name":"Microsoft.MixedReality.Portal"},
+        { "Name":"Microsoft.Office.OneNote"},
+        { "Name":"Microsoft.People"},
+        { "Name":"Microsoft.SkypeApp"},
+        { "Name":"Microsoft.Wallet"},
+        { "Name":"Microsoft.WindowsAlarms"},
+        { "Name":"microsoft.windowscommunicationsapps"},
+        { "Name":"Microsoft.WindowsFeedbackHub"},
+        { "Name":"Microsoft.WindowsMaps"},
+        { "Name":"Microsoft.Xbox.TCUI"},
+        { "Name":"Microsoft.XboxApp"},
+        { "Name":"Microsoft.XboxGameOverlay"},
+        { "Name":"Microsoft.XboxGamingOverlay"},
+        { "Name":"Microsoft.XboxIdentityProvider"},
+        { "Name":"Microsoft.XboxSpeechToTextOverlay"},
+        { "Name":"Microsoft.YourPhone"},
+        { "Name":"Microsoft.ZuneMusic"},
+        { "Name":"Microsoft.ZuneVideo"}
+    ],
+    "Evergreen":[
+        {
+            "Name":  "Microsoft.NET",
+            "EvergreenApp":  "Microsoft.NET",
+            "Filter":  "$_.Architecture -eq \"x64\" -and $_.Installer -eq \"windowsdesktop\" -and $_.Channel -eq \"LTS\""
+        },
+        {
+            "Name":  "MicrosoftOneDrive",
+            "EvergreenApp":  "MicrosoftOneDrive",
+            "Filter":  "$_.Architecture -eq \"AMD64\" -and $_.Ring -eq \"Production\""
+        },
+        {
+            "Name":  "MicrosoftEdge",
+            "EvergreenApp":  "MicrosoftEdge",
+            "Filter":  "$_.Platform -eq \"Windows\" -and $_.Channel -eq \"Stable\" -and $_.Release -eq \"Enterprise\" -and $_.Architecture -eq \"x64\""
+        },
+        {
+            "Name":  "MicrosoftTeams",
+            "EvergreenApp":  "MicrosoftTeams",
+            "Filter":  "$_.Ring -eq \"General\" -and $_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\""
+        },
+        {
+            "Name":  "MicrosoftEdgeWebView2Runtime",
+            "EvergreenApp":  "MicrosoftEdgeWebView2Runtime",
+            "Filter":  "$_.Architecture -eq \"x64\""
+        },
+        {
+            "Name":"MicrosoftFSLogixApps",
+            "EvergreenApp":"MicrosoftFSLogixApps",
+            "Filter":"",
+            "PostScriptBlocks":[
+                "Get-ChildItem $Destination\\*.zip -recurse | Expand-Archive -DestinationPath $Destination"
+            ]
+        }
+    ],
+    "Download":[
+        {
+            "Name":"MicrosoftODBCSqlDriver13",
+            "FileName":"msodbcsql.msi",
+            "URI":[
+                "https://download.microsoft.com/download/1/E/7/1E7B1181-3974-4B29-9A47-CC857B271AA2/English/X64/msodbcsql.msi"
+            ]
+        },
+        {
+            "Name":"MicrosoftODBCSqlDriver17",
+            "FileName":"msodbcsql.msi",
+            "URI":[
+                "https://go.microsoft.com/fwlink/?linkid=2239168"
+            ]
+        },
+        {
+            "Name":"MicrosoftODBCSqlDriver18",
+            "FileName":"msodbcsql.msi",
+            "URI":[
+                "https://go.microsoft.com/fwlink/?linkid=2239549"
+            ]
+        },
+        {
+            "Name":"MicrosoftSQLOLEDBDriver",
+            "FileName":"msoledbsql.msi",
+            "URI":[
+                "https://go.microsoft.com/fwlink/?linkid=2238602"
+            ]
+        },
+        {
+            "Name":"MicrosoftSqlNativeClient2012",
+            "URI":[
+                "https://download.microsoft.com/download/B/E/D/BED73AAC-3C8A-43F5-AF4F-EB4FEA6C8F3A/ENU/x64/sqlncli.msi"
+            ]
+        },{
+            "Name":"MicrosoftSQLAMO",
+            "FileName":"sqlamo.msi",
+            "URI":[
+                "https://go.microsoft.com/fwlink/?linkid=829578"
+            ]
+        },
+        {
+            "Name":"SnowflakeODBCDriver",
+            "URI":[
+                "https://sfc-repo.snowflakecomputing.com/odbc/win64/2.24.5/snowflake64_odbc-2.24.5.msi"
+            ]
+        },
+        {
+            "Name":"FileOpen",
+            "URI":[
+                "https://plugin.fileopen.com/current/FileOpenInstaller.exe"
+            ]
+        },
+        {
+            "Name":"MicrosoftVSTO2010",
+            "URI":[
+                "https://download.microsoft.com/download/7/A/F/7AFA5695-2B52-44AA-9A2D-FC431C231EDC/vstor_redist.exe"
+            ]
+        },
+        {
+            "Name":"MicrosoftVSTA2015",
+            "URI":[
+                "https://download.microsoft.com/download/2/D/F/2DFCD7D9-821C-4637-8F94-3FAD73BDD1CD/vsta_setup.exe"
+            ]
+        },
+        {
+            "Name":"MicrosoftVSTA2017",
+            "URI":[
+                "https://download.microsoft.com/download/0/6/6/0660AD34-264B-4ED2-B975-ABFE255DAD47/vsta_setup.exe"
+            ]
+        },
+        {
+            "Name":"MicrosoftVSTA2019",
+            "URI":[
+                "https://download.microsoft.com/download/4/F/2/4F21B022-D6C2-4A95-9F3B-AB575EAA4A28/vsta_setup.exe"
+            ]
+        },
+        {
+            "Name":"MicrosoftVSTA2022",
+            "URI":[
+                "https://download.microsoft.com/download/4/2/7/42769e95-1bd9-47e8-a758-7bd3921a4aa9/vsta_setup.exe"
+            ]
+        },
+        {
+            "Name":"MicrosoftVC2005",
+            "URI":[
+                "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.EXE",
+                "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.EXE"
+            ]
+        },
+        {
+            "Name":"MicrosoftVC2008",
+            "URI":[
+                "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe",
+                "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe"
+            ]
+        },
+        {
+            "Name":"MicrosoftVC2010",
+            "URI":[
+                "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe",
+                "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe"
+            ]
+        },
+        {
+            "Name":"wkHTMLtoPDF",
+            "URI":[
+                "https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.msvc2015-win64.exe"
+            ]
+        },
+        {
+            "Name":"WindowsADK",
+            "FileName":"adksetup.exe",
+            "URI":[
+                "https://go.microsoft.com/fwlink/?linkid=2120254"
+            ]
+        }
+    ],
+    "Copy":[
+        {
+            "Name":"Maint",
+            "Source":"\\\\smcusa.com\\files\\it\\vdi\\Maint",
+            "Destination":"c:\\"
+        },
+        {
+            "Name":"ADMX",
+            "Source":"c:\\Maint\\Software\\ADMX\\*.admx",
+            "Destination":"c:\\windows\\PolicyDefinitions"
+        },
+        {
+            "Name":"ADML",
+            "Source":"c:\\Maint\\Software\\ADMX\\en-us\\*",
+            "Destination":"c:\\windows\\PolicyDefinitions\\en-us"
+        }
+    ],
+    "Fileshares":[],
+    "LocalPaths":{
+        "SoftwarePath":"C:\\Maint\\Software"
+    },
+    "Phases":{
+        "0":{
+            "PreScriptBlocks":[
+                "$Environment.Copy | ForEach-Object { Copy-ItemWrapper -Path $_.Source -Destination $_.Destination }",
+                "Get-AppsEvergreen -Applications $Environment.Evergreen -DownloadPath $SoftwarePath",
+                "Get-AppsDownload -Applications $Environment.Download -DownloadPath $SoftwarePath",
+                "$VCRedistPath = Join-Path $SoftwarePath \"VCRedist\"",
+                "New-ItemWrapper $VCRedistPath",
+                "Get-VCList | Save-VCRedist -Path $VCRedistPath",
+                "Get-ChildItem (Join-Path $SoftwarePath \"Fonts\\*.?tf\") -recurse | ForEach-Object { C:\\Maint\\Powershell\\Add-Font.ps1 -Path $_.Fullname }",
+                "$Cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2",
+                "Get-ChildItem \"\\\\smcusa.com\\files\\it\\vdi\\Drivers\\*.cer\" -Recurse | ForEach-Object { $Cert.Import($_.FullName); If (!(Test-Path \"Cert:\\LocalMachine\\TrustedPublisher\\$($Cert.Thumbprint)\")) { Import-Certificate $_.FullName -CertStoreLocation Cert:\\LocalMachine\\TrustedPublisher; } }",
+                "Get-ChildItem \"\\\\smcusa.com\\files\\it\\vdi\\Drivers\\*.inf\" -Recurse | ForEach-Object { PnPUtil.exe /add-driver \"$($_.FullName)\" /install /subdirs }",
+                "Initialize-PrinterDrivers $Script:Environment.PrinterDrivers",
+                "Initialize-ZebraDrivers $Script:Environment.ZebraDrivers",
+                "Get-ChildItem \"C:\\Maint\\Software\\LangPacks\\*.cab\" | ForEach-Object { lpksetup /i * /p \"$($_.FullName)\" }"
+            ],
+            "Applications":[
+                {
+                    "Name":"LegacyVCRedist",
+                    "Path":"C:\\Maint\\Software\\MicrosoftVC*\\vcredist*",
+                    "Arguments":"/q"
+                },
+                {
+                    "Name":"SupportedVCRedist",
+                    "Path":"c:\\Maint\\Software\\VCRedist\\vc*redist*",
+                    "Arguments":"/q"
+                },
+                {
+                    "Name":"MicrosoftODBCSQLDriver",
+                    "Path":"c:\\Maint\\Software\\MicrosoftODBC*\\*.MSI",
+                    "Arguments":"/qn ADDLOCAL=ALL IACCEPTMSODBCSQLLICENSETERMS=YES"
+                },
+                {
+                    "Name":"MicrosoftSQLAMO",
+                    "Path":"c:\\Maint\\Software\\MicrosoftSQLAMO*\\*.MSI",
+                    "Arguments":"/q"
+                },
+                {
+                    "Name":"MicrosoftSQLNativeClient",
+                    "Path":"c:\\Maint\\Software\\MicrosoftSQLNativeClient*\\*.MSI",
+                    "Arguments":"/q"
+                },
+                {
+                    "Name":"MicrosoftSQLOLEDBDriver",
+                    "Path":"c:\\Maint\\Software\\MicrosoftSQLOLEDBDriver*\\*.MSI",
+                    "Arguments":"/qn IAcceptSqlLocalDBLicenseTerms=Yes"
+                },
+                {
+                    "Name":"MicrosoftOffice365",
+                    "Path":"c:\\Maint\\Software\\MicrosoftOffice365\\setup.exe",
+                    "Arguments":"/configure c:\\Maint\\Software\\MicrosoftOffice365\\VDI_x64_NoTeams.xml"
+                },
+                {
+                    "Name":"MicrosoftVSTA",
+                    "Path":"c:\\Maint\\Software\\MicrosoftVSTA*\\*.exe",
+                    "Arguments":"/quiet /norestart"
+                },
+                {
+                    "Name":"MicrosoftVSTO",
+                    "Path":"c:\\Maint\\Software\\MicrosoftVSTO*\\*.exe",
+                    "Arguments":"/q /norestart"
+                },
+                {
+                    "Name":"Microsoft.NET4",
+                    "Path":"c:\\Maint\\Software\\Microsoft.NET4\\*.exe",
+                    "Arguments":"/q /norestart"
+                }
+            ],
+            "RegistrySettings":[
+                {
+                    "Path":"hklm:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+                    "Name":"Wallpaper",
+                    "Value":"C:\\Maint\\WallPaper.jpg",
+                    "Type":"String"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+                    "Name":"WallpaperStyle",
+                    "Value":"3",
+                    "Type":"String"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\VMware, Inc.\\VMware Optimization Tool",
+                    "Name":"EUALAcceptedV1",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Google\\Chrome",
+                    "Name":"RendererCodeIntegrityEnabled",
+                    "Value":"0",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+                    "Name":"ExcludeWUDriversInQualityUpdate",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+                    "Name":"TargetReleaseVersion",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+                    "Name":"TargetReleaseVersionInfo",
+                    "Value":"21H2",
+                    "Type":"String"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+                    "Name":"NoAutoUpdate",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+                    "Name":"EnableFeaturedSoftware",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+                    "Name":"AutoInstallMinorUpdates",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+                    "Name":"AllowMUUpdateService",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\VMware, Inc.\\VMware VDM\\PrintRedir",
+                    "Name":"PrinterFilterString",
+                    "Value":"DriverName=\"(Microsoft)|(Adobe)|(Sharp)\" or PrinterName=\"(Microsoft)|(Fax)|(OneNote)\"",
+                    "Type":"String"
+                },
+                {"Path":"hklm:\\SOFTWARE\\Policies\\VMware, Inc.\\VMware VDM\\Agent\\RTAV",
+                    "Name":"WebcamMaxFrameRate",
+                    "Value":"25",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\VMware, Inc.\\VMware VDM\\Agent\\RTAV",
+                    "Name":"WebcamDefaultResHeight",
+                    "Value":"720",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\VMware, Inc.\\VMware VDM\\Agent\\RTAV",
+                    "Name":"WebcamDefaultResWidth",
+                    "Value":"1080",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\VMware, Inc.\\VMware WebRTCRedir",
+                    "Name":"teamsEnabled",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Microsoft\\Teams",
+                    "Name":"IsWVDEnvironment",
+                    "Value":"1",
+                    "Type":"DWord"
+                }
+            ],
+            "PostScriptBlocks":[
+                "Get-Service -Name wuauserv | Restart-Service",
+                "Get-WindowsCapability -Name \"RSAT.*\" -Online | ForEach-Object { Write-Host $_.Name; Add-WindowsCapability -Name $_.Name -Online | out-null; }",
+                "Update-Help",
+                "$State.Phase++",
+                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
+                "Update-Windows -Reboot"
+            ]
+        },
+        "1":{
+            "PreScriptBlocks":[
+                "Update-Windows -Reboot"
+            ],
+            "Applications":[
+                {
+                    "Name":"MicrosoftEdge",
+                    "Path":"C:\\Maint\\Software\\MicrosoftEdge\\*.MSI",
+                    "Arguments":"/qn DONOTCREATEDESKTOPSHORTCUT=true DONOTCREATETASKBARSHORTCUT=true REBOOT=ReallySuppress"
+                },
+                {
+                    "Name":"MicrosoftEdgeWebView2",
+                    "Path":"C:\\Maint\\Software\\MicrosoftEdgeWebView2Runtime\\*.exe",
+                    "Arguments":"/silent /install"
+                }
+            ],
+            "RegistrySettings":[],
+            "PostScriptBlocks":[
+                "Get-Service -Displayname *edge* | Set-Service -StartupType Disabled",
+                "Get-Process -Name *EdgeUpdate* | Stop-Process -Force",
+                "Rename-Item -Path \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\" -NewName \"EdgeUpdate.disabled\"",
+                "Get-Item \"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\*\\elevation_service.exe\" | Rename-Item -NewName \"elevation_service.disabled.exe\"",
+                "Get-ScheduledTask -TaskName *edge* | Disable-ScheduledTask",
+                "$State.Phase++",
+                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
+                "Restart-Computer"
+            ]
+        },
+        "2":{
+            "PreScriptBlocks":[
+                "Restart-OnPending"
+            ],
+            "Applications":[
+                {
+                    "Name":"VMwareHorizonAgent",
+                    "Path":"c:\\Maint\\Software\\VMware\\VMware-Horizon-Agent-x86*",
+                    "Arguments":"/s /v\"/qn VDM_VC_MANAGED_AGENT=1 VDM_IP_PROTOCOL_USAGE=IPv4 RDP_CHOICE=1 ADDLOCAL=BlastUDP,ClientDriveRedirection,Core,HelpDesk,NGVC,PerfTracker,PrintRedir,PSG,RDP,RTAV,ScannerRedirection,SerialPortRedirection,TSMMR,USB,V4V,VmwVaudio,VmwVidd REBOOT=R\""
+                },
+                {
+                    "Name":"VMwareDEM",
+                    "Path":"c:\\Maint\\Software\\VMware\\VMware Dynamic Environment Manager*.msi",
+                    "Arguments":"/q ADDLOCAL=ALL REBOOT=R"
+                },
+                {
+                    "Name":"MicrosoftTeams",
+                    "Path":"c:\\Maint\\Software\\MicrosoftTeams\\*.MSI",
+                    "Arguments":"ALLUSER=1 ALLUSERS=1",
+                    "PostScriptBlocks":[
+                        "$Path = \"HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurentVersion\\Run\"",
+                        "if ((Get-Item -Path $Path).Property -Contains \"Teams\") { Remove-ItemProperty -Path $Path -Name \"Teams\" }"
+                    ]
+                }
+            ],
+            "RegistrySettings":[
+                {
+                    "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\vmware-viewcomposer-ga",
+                    "Name":"ExecScriptTimeout",
+                    "Value":"60000",
+                    "PropertyType":"DWord"
+                }
+            ],
+            "PostScriptBlocks":[
+                "& \"C:\\Maint\\Optimization Tool\\LGPO.exe\" /r \"C:\\Maint\\Optimization Tool\\New_MachineRegPol.txt\" /w \"C:\\Windows\\System32\\GroupPolicy\\Machine\\Registry.pol\"",
+                "& \"C:\\Maint\\Optimization Tool\\LGPO.exe\" /r \"C:\\Maint\\Optimization Tool\\New_UserRegPol.txt\" /w \"C:\\Windows\\System32\\GroupPolicy\\User\\Registry.pol\"",
+                "& \"C:\\Maint\\Optimization Tool\\VMwareOSOptimizationTool.exe\" -v -optimize -VisualEffect Balanced -Notification disable -WindowsUpdate Disable -OfficeUpdate Disable -StoreApp remove-all --Exclude Camera Calculator Photos StickyNotes WebExtension -Firewall Disable -Antivirus Disable -SecurityCenter Disable -WindowsSearch searchboxasicon",
+                "& \"C:\\Maint\\Optimization Tool\\VMwareOSOptimizationTool.exe\" -g",
+                "$State.Phase++",
+                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
+                "Restart-Computer"
+            ]
+        },
+        "3":{
+            "PreScriptBlocks":[
+                "if ((get-service W32Time).Status -ne \"Running\") { Start-Service -Name W32Time }",
+                "C:\\windows\\system32\\w32tm.exe /config /update /manualpeerlist:smcusa.com",
+                "C:\\Windows\\System32\\w32tm.exe /resync /rediscover"
+            ],
+            "Applications":[
+                {
+                    "PreScriptBlocks":[
+                        "$Application.Arguments = $Application.Arguments.Replace('[Manager1]',$Environment.DC.($State.DC).AppVol.Manager1)"
+                    ],
+                    "Name":"AppVol",
+                    "Path":"c:\\Maint\\Software\\VMware\\App Volumes Agent.msi",
+                    "Arguments":"/qn MANAGER_ADDR=[Manager1] MANAGER_PORT=443 EnforceSSLCertificateValidation=0 REBOOT=R"
+                },
+                {
+                    "Name":"SnowflakeODBC",
+                    "Path":"c:\\Maint\\Software\\SnowflakeODBCDriver\\*.msi",
+                    "Arguments":"/qn"
+                },
+                {
+                    "Name":"Syteline-Install",
+                    "Path":"c:\\Maint\\Software\\SyteLine\\Syteline-Install\\Infor Syteline.msi",
+                    "Arguments":"/qn ADDLOCAL=ClickOnceClient,Client,Common,CommonERP"
+                },
+                {
+                    "Name":"Syteline-PRD",
+                    "Path":"c:\\Maint\\Software\\SyteLine\\Copy-PRD.bat",
+                    "Arguments":""
+                }
+            ],
+            "RegistrySettings":[
+                {
+                    "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
+                    "Name":"AllowInstallerModification",
+                    "Value":"1",
+                    "PropertyType":"Dword"
+                },
+                {
+                    "PreScriptBlocks":[
+                        "$RegistrySetting.Value = $RegistrySetting.Value.Replace('[Manager2]',$Environment.DC.($State.DC).AppVol.Manager2)"
+                    ],
+                    "Path":"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\svservice\\Parameters",
+                    "Name":"Manager2",
+                    "Value":"[Manager2]:443",
+                    "PropertyType":"String"
+                },
+                {
+                    "Path":"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap\\Domains\\smcusa.com",
+                    "Name":"*",
+                    "Value":"1",
+                    "PropertyType":"DWORD"
+                },
+                {
+                    "Path":"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap\\Domains\\smcusa.com",
+                    "Name":"file",
+                    "Value":"1",
+                    "PropertyType":"DWORD"
+                },
+                {
+                    "Path":"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMapKey",
+                    "Name":"smcusa.com",
+                    "Value":"1",
+                    "PropertyType":"String"
+                },
+                {
+                    "Path":"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMapKey",
+                    "Name":"file://smcusa.com",
+                    "Value":"1",
+                    "PropertyType":"String"
+                }
+            ],
+            "PostScriptBlocks":[
+                "ForEach ($Package in $Environment.AppXRemoval) { Get-AppXProvisionedPackage -Online | Where-Object { $_.DisplayName -eq $Package.Name } | ForEach-Object { Remove-AppXProvisionedPackage -Online -PackageName $_.PackageName } }",
+                "$Environment.AppXRemoval | ForEach-Object { Get-AppXPackage -Name $_.Name | Remove-AppXPackage }",
+                "$Command = { & \"C:\\Maint\\Optimization Tool\\VMwareOSOptimizationTool.exe\" -Finalize 0 1 2 3 4 5 6 }",
+                "PowerShell.exe -NonInteractive -Command $Command;",
+                "Enable-NetFirewallRule -DisplayGroup \"Remote Desktop\"",
+                "dism /online /cleanup-image /scanhealth",
+                "dism /online /cleanup-image /checkhealth",
+                "dism /online /cleanup-image /restorehealth",
+                "dism /online /cleanup-image /startcomponentcleanup /resetbase",
+                "sfc /scannow",
+                "$State.Phase++",
+                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
+                "Restart-Computer"
+            ]
+        },
+        "4":{
+            "PreScriptBlocks":[],
+            "Applications":[
+                {
+                    "Name":"CortexXDR",
+                    "Path":"c:\\Maint\\Software\\CortexXDR\\*.msi",
+                    "Arguments":"/qn VDI_ENABLED=1 TS_ENABLED=1"
+                },
+                {
+                    "Name":"CortexXDR-Checkin",
+                    "Path":"C:\\Program Files\\Palo Alto Networks\\Traps\\cytool.exe",
+                    "Arguments":"checkin"
+                },
+                {
+                    "Name":"Powershell-Sleep",
+                    "Path":"c:\\windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                    "Arguments":"-command Start-Sleep -Seconds 30"
+                },
+                {
+                    "Name":"CortexXDR-ImagePrep",
+                    "Path":"",
+                    "Arguments":"imageprep scan timeout 4 upload 5 path c:\\Maint\\",
+                    "PostScriptBlocks":[
+                        "$Application.Path = \"C:\\Program Files\\Palo Alto Networks\\Traps\\cytool.exe\"",
+                        "Do { Start-Process -FilePath $Application.Path -ArgumentList $Application.Arguments -wait; [XML]$XML = Get-Content (Get-ChildItem C:\\Maint\\ImagePrep*.xml)[-1].FullName; } While ($xml.Traps.Scanreport.Summary.TotalFiles -eq 0)"
+                    ]
+                }
+            ],
+            "RegistrySettings":[],
+            "PostScriptBlocks":[
+                "Get-ChildItem \"c:\\users\\Public\\Desktop\\*.lnk\" | Remove-Item -Force",
+                "Remove-Item C:\\Maint\\Software -Recurse -Force",
+                "If (Test-Path C:\\Maint\\Drivers) { Remove-Item C:\\Maint\\Drivers -Recurse -Force }",
+                "defrag C: /PrintProgress",
+                "New-LocalUser -name \"AppCap\" -password (ConvertTo-SecureString -String \"D@ffyduck82\" -AsPlainText -Force) -PasswordNeverExpires -UserMayNotchangePassword",
+                "Add-LocalGroupMember -group \"Administrators\" -Member \"AppCap\"",
+                "#Set-LocalUser -Name \"Administrator\" -Password (ConvertTo-SecureString -String \"D@ffyduck82\" -AsPlainText -Force)",
+                "$Run = \"hklm:\\software\\microsoft\\windows\\currentversion\\run\"",
+                "If ((Get-Item $Run).Property -contains \"*Image\") { Remove-ItemProperty -Path $Run -Name \"*Image\" }",
+                "Get-NetFirewallProfile | Where-Object -Property Enabled -eq $true | Set-NetFirewallProfile -Enabled False -Confirm:$False",
+                "$Command = { & \"C:\\Maint\\Optimization Tool\\VMwareOSOptimizationTool.exe\" -Finalize All }",
+                "PowerShell.exe -NonInteractive -Command $Command",
+                "Stop-Computer"
+            ]
+        }
+    }
+}
