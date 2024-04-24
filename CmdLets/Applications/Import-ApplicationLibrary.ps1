@@ -6,10 +6,8 @@ Function Import-ApplicationLibrary() {
     )
 
     $Files = Get-childItem (Join-Path $Path "*.json")
-    $ApplicationLibrary = @()
+    $Script:ApplicationLibrary = @()
     ForEach ($File in $Files) { 
         $ApplicationLibrary += Get-Content $file.Fullname | ConvertFrom-Json
     }
-
-    $ApplicationLibrary
 }

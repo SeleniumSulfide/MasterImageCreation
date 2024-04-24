@@ -25,10 +25,11 @@
 
                                                                ]
                                       },
-                         "Path":  {
+                         "FileSystem":  {
                                       "PreScriptBlocks":  [
 
                                                           ],
+                                      "Copy":  false,
                                       "Path":  "",
                                       "PostScriptBlocks":  [
 
@@ -47,7 +48,7 @@
 
                                                                   ],
                                               "InstallerMask":  "",
-                                              "Recruse":true,
+                                              "Recurse":true,
                                               "Arguments":  "",
                                               "PostScriptBlocks":  [
 
@@ -76,7 +77,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "FileOpenInstaller.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "",
                                                   "PostScriptBlocks":  [
 
@@ -98,7 +99,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "windowsdesktop-runtime*.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q /norestart",
                                                   "PostScriptBlocks":  [
 
@@ -119,7 +120,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "MicrosoftEdgeEnterprise.msi",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/qn DONOTCREATEDESKTOPSHORTCUT=true DONOTCREATETASKBARSHORTCUT=true REBOOT=ReallySuppress",
                                                   "PostScriptBlocks":  [
 
@@ -141,7 +142,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/silent /install",
                                                   "PostScriptBlocks":  [
 
@@ -166,7 +167,7 @@
                                                                         "FileName FSLogixAppsSetup.exe"
                                                                       ],
                                                   "InstallerMask":  "",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/install /passive /norestart",
                                                   "PostScriptBlocks":  [
 
@@ -190,7 +191,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "msodbcsql.msi",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/qn ADDLOCAL=ALL IACCEPTMSODBCSQLLICENSETERMS=YES",
                                                   "PostScriptBlocks":  [
 
@@ -214,7 +215,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "msodbcsql.msi",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/qn ADDLOCAL=ALL IACCEPTMSODBCSQLLICENSETERMS=YES",
                                                   "PostScriptBlocks":  [
 
@@ -238,7 +239,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "msodbcsql.msi",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/qn ADDLOCAL=ALL IACCEPTMSODBCSQLLICENSETERMS=YES",
                                                   "PostScriptBlocks":  [
 
@@ -260,7 +261,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "",
                                                   "PostScriptBlocks":  [
 
@@ -284,7 +285,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "sqlamo.msi",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q",
                                                   "PostScriptBlocks":  [
 
@@ -308,7 +309,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "sqlncli.msi",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q",
                                                   "PostScriptBlocks":  [
 
@@ -332,7 +333,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "msoledbsql.msi",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/qn IAcceptSqlLocalDBLicenseTerms=Yes",
                                                   "PostScriptBlocks":  [
 
@@ -354,7 +355,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "ALLUSER=1 ALLUSERS=1",
                                                   "PostScriptBlocks":  [
 
@@ -395,7 +396,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vcredist_*.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q",
                                                   "PostScriptBlocks":  [
 
@@ -426,7 +427,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vcredist_*.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q",
                                                   "PostScriptBlocks":  [
 
@@ -457,7 +458,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vcredist_*.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q",
                                                   "PostScriptBlocks":  [
 
@@ -487,7 +488,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vsta_setup.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/quiet /norestart",
                                                   "PostScriptBlocks":  [
 
@@ -517,7 +518,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vsta_setup.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/quiet /norestart",
                                                   "PostScriptBlocks":  [
 
@@ -547,7 +548,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vsta_setup.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/quiet /norestart",
                                                   "PostScriptBlocks":  [
 
@@ -577,7 +578,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vsta_setup.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/quiet /norestart",
                                                   "PostScriptBlocks":  [
 
@@ -604,7 +605,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vstor_redist.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q /norestart",
                                                   "PostScriptBlocks":  [
 
@@ -631,7 +632,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "snowflake*.msi",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/qn",
                                                   "PostScriptBlocks":  [
 
@@ -658,7 +659,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vcredist_*.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q",
                                                   "PostScriptBlocks":  [
 
@@ -685,7 +686,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vcredist_*.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q",
                                                   "PostScriptBlocks":  [
 
@@ -712,7 +713,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "vcredist_*.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q",
                                                   "PostScriptBlocks":  [
 
@@ -724,12 +725,13 @@
                          },
                          {
                              "Name":  "VMwareAppVol",
-                             "Source":  "Path",
-                             "Path":  {
+                             "Source":  "FileSystem",
+                             "FileSystem":  {
                                           "PreScriptBlocks":  [
 
                                                               ],
-                                          "Path":  "[Software]\\VMwareAppVol\\App Volumes Agent.msi",
+                                          "Copy":  false,
+                                          "Path":  "[Software]\\VMwareAppVol",
                                           "PostScriptBlocks":  [
 
                                                                ]
@@ -738,8 +740,8 @@
                                                   "PreScriptBlocks":  [
                                                                           "$Application.Arguments = $Application.Arguments.Replace(\u0027[Manager1]\u0027,$Environment.Pod.($State.Pod).AppVol.Manager1)"
                                                                       ],
-                                                  "InstallerMask":  "",
-                                                  "Recruse":  true,
+                                                  "InstallerMask":  "App Volumes Agent.msi",
+                                                  "Recurse":  true,
                                                   "Arguments":  "/qn MANAGER_ADDR=[Manager1] MANAGER_PORT=443 EnforceSSLCertificateValidation=0 REBOOT=R",
                                                   "PostScriptBlocks":  [
 
@@ -751,12 +753,13 @@
                          },
                          {
                              "Name":  "VMwareDEM",
-                             "Source":  "Path",
-                             "Path":  {
+                             "Source":  "FileSystem",
+                             "FileSystem":  {
                                           "PreScriptBlocks":  [
 
                                                               ],
-                                          "Path":  "[SoftwarePath]\\VMwareDEM\\VMware Dynamic Enironment Manager*.msi",
+                                          "Copy":  false,
+                                          "Path":  "[Software]\\VMwareDEM",
                                           "PostScriptBlocks":  [
 
                                                                ]
@@ -765,8 +768,8 @@
                                                   "PreScriptBlocks":  [
 
                                                                       ],
-                                                  "InstallerMask":  "",
-                                                  "Recruse":  true,
+                                                  "InstallerMask":  "VMware Dynamic Enironment Manager*.msi",
+                                                  "Recurse":  true,
                                                   "Arguments":  "/q ADDLOCAL=ALL REBOOT=R",
                                                   "PostScriptBlocks":  [
 
@@ -778,12 +781,13 @@
                          },
                          {
                              "Name":  "VMwareHorizonAgent",
-                             "Source":  "Path",
-                             "Path":  {
+                             "Source":  "FileSystem",
+                             "FileSystem":  {
                                           "PreScriptBlocks":  [
 
                                                               ],
-                                          "Path":  "",
+                                          "Copy":  false,
+                                          "Path":  "[Software]\\VMwareHorizonAgent",
                                           "PostScriptBlocks":  [
 
                                                                ]
@@ -793,7 +797,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "VMware-Hoirizon-Agent-x86*",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "/s /v\"/qn VDM_VC_MANAGED_AGENT=1 VDM_IP_PROTOCOL_USAGE=IPv4 RDP_CHOICE=1 ADDLOCAL=BlastUDP,ClientDriveRedirection,Core,HelpDesk,NGVC,PerfTracker,PrintRedir,PSG,RDP,RTAV,ScannerRedirection,SerialPortRedirection,TSMMR,USB,V4V,VmwVaudio,VmwVidd REBOOT=R\"",
                                                   "PostScriptBlocks":  [
 
@@ -823,7 +827,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "adksetup.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "",
                                                   "PostScriptBlocks":  [
 
@@ -853,7 +857,7 @@
 
                                                                       ],
                                                   "InstallerMask":  "wkhtmltox*.exe",
-                                                  "Recruse":  true,
+                                                  "Recurse":  true,
                                                   "Arguments":  "",
                                                   "PostScriptBlocks":  [
 
