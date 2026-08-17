@@ -1,0 +1,34 @@
+{
+    "Name":"Bastian",
+    "DownloadPath":"C:\\Maint\\Software",   
+    "Evergreen":[
+	],
+    "Download":[
+    ],
+    "Copy":[
+        {
+            "PreScriptBlocks":[],
+            "Name":"Studio5000",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\Studio 5000\\32.00.00-Studio5000-Web",
+            "PostScriptBlocks":[]
+        }
+    ],
+    "PreScriptBlocks":[],
+    "Install":[
+        {
+            "PreScriptBlocks":[
+                "$Application.Arguments = $Application.Arguments.Replace('[DownloadPath]',$DownloadPath)"
+            ],
+            "Name":"Studio5000",
+            "Path":"Studio5000\\CommonInstall.EXE",
+            "Arguments":"/Q /IAcceptAllLicenseTerms /Playback=\"[DownloadPath]\\Studio5000\\Studio 5000.rec\"",
+            "NonRecurse":false,
+            "PostScriptBlocks":[]
+        }
+    ],
+    "RegistrySettings":[
+    ],
+    "PostScriptBlocks":[
+        "Get-ChildItem (Join-Path $env:UserProfile \"Desktop\\*.lnk\") | Remove-Item -Force"
+    ]
+}

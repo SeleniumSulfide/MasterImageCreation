@@ -1,0 +1,654 @@
+{ 
+    "DC": {
+        "Domain":"Contoso.COM",
+        "Indianapolis":{
+            "VCSA":"INDvcenter.contoso.com",
+            "ConnectionServers":[
+                "INDHorizon1.contoso.com",
+                "INDHorizon2.contoso.com"
+            ],
+            "AppVol":{
+                "Manager1":"INDAppVol1.contoso.com",
+                "Manager2":"INDAppVol2.contoso.com"
+            },
+            "NVIDIALicensingServer":"",
+            "FSLogixPaths":[
+            ],
+            "OSOT":{
+                "Optimize":{
+                    "Refernce":"https://docs.omnissa.com/bundle/Optimizing-Images-for-Horizon/page/OptimizationParameters.html",
+                    "UseCommon":false,
+                    "UseSettings":false,
+                    "Common":{
+                        "SyncHkuWithHku":"enable",
+                        "VisualEffect":"balanced",
+                        "Notification":"disable",
+                        "WindowsUpdate":"disable",
+                        "OfficeUpdate":"disable",
+                        "WindowsSearch":"searchboxasicon",
+                        "StoreApp":"remove-all",
+                        "Exclude":"Alarms ScreenSketch Camera Calculator MSPaint Photos WebExtension",
+                        "Background":"#000000",
+                        "Firewall":"disable",
+                        "Antivirus":"disable",
+                        "SecurityCenter":"disable"
+                    },
+                    "SettingsJSON":""
+                }
+            }
+        },
+        "Columbus":{
+            "VCSA":"COLvcenter.contoso.com",
+            "ConnectionServers":[
+                "COLHorizon1.contoso.com",
+                "COLHorizon2.contoso.com"
+            ],
+            "AppVol":{
+                "Manager1":"COLAppVol1.contoso.com",
+                "Manager2":"COLAppVol2.contoso.com"
+            },
+            "NVIDIALicensingServer":"",
+            "FSLogixPaths":[
+            ],
+            "OSOT":{
+                "Optimize":{
+                    "Refernce":"https://docs.omnissa.com/bundle/Optimizing-Images-for-Horizon/page/OptimizationParameters.html",
+                    "UseCommon":false,
+                    "UseSettings":false,
+                    "Common":{
+                        "SyncHkuWithHku":"enable",
+                        "VisualEffect":"balanced",
+                        "Notification":"disable",
+                        "WindowsUpdate":"disable",
+                        "OfficeUpdate":"disable",
+                        "WindowsSearch":"searchboxasicon",
+                        "StoreApp":"remove-all",
+                        "Exclude":"Alarms ScreenSketch Camera Calculator MSPaint Photos WebExtension",
+                        "Background":"#000000",
+                        "Firewall":"disable",
+                        "Antivirus":"disable",
+                        "SecurityCenter":"disable"
+                    },
+                    "SettingsJSON":""
+                }
+            }
+        }
+    },
+    "PrinterDrivers":[
+    ],
+    "ZebraDrivers":[
+    ],
+    "AppXRemoval":[
+        { "Name":"Microsoft.549981C3F5F10"},
+        { "Name":"Microsoft.BingWeather"},
+        { "Name":"Microsoft.MicrosoftSolitaireCollection"},
+        { "Name":"Microsoft.MixedReality.Portal"},
+        { "Name":"Microsoft.Office.OneNote"},
+        { "Name":"Microsoft.People"},
+        { "Name":"Microsoft.SkypeApp"},
+        { "Name":"Microsoft.Wallet"},
+        { "Name":"Microsoft.WindowsAlarms"},
+        { "Name":"microsoft.windowscommunicationsapps"},
+        { "Name":"Microsoft.WindowsFeedbackHub"},
+        { "Name":"Microsoft.WindowsMaps"},
+        { "Name":"Microsoft.Xbox.TCUI"},
+        { "Name":"Microsoft.XboxApp"},
+        { "Name":"Microsoft.XboxGameOverlay"},
+        { "Name":"Microsoft.XboxGamingOverlay"},
+        { "Name":"Microsoft.XboxIdentityProvider"},
+        { "Name":"Microsoft.XboxSpeechToTextOverlay"},
+        { "Name":"Microsoft.YourPhone"},
+        { "Name":"Microsoft.ZuneMusic"},
+        { "Name":"Microsoft.ZuneVideo"}
+    ],
+    "Evergreen":[
+        {
+            "Name":  "MicrosoftEdge",
+            "EvergreenApp":  "MicrosoftEdge",
+            "Filter":  "$_.Release -eq \"Enterprise\" -and $_.Type -eq \"MSI\" -and $_.Channel -eq \"Stable\" -and $_.Architecture -eq \"x64\""
+        },
+        {
+            "Name":  "MicrosoftEdgeWebView2Runtime",
+            "EvergreenApp":  "MicrosoftEdgeWebView2Runtime",
+            "Filter":  "$_.Architecture -eq \"x64\""
+        },
+        {
+            "Name":"MicrosoftFSLogixApps",
+            "EvergreenApp":"MicrosoftFSLogixApps",
+            "Filter":"",
+            "PostScriptBlocks":[
+                "Get-ChildItem $Destination\\*.zip -recurse | Expand-Archive -DestinationPath $Destination -Force"
+            ]
+        },
+        {
+            "Name":  "MicrosoftODBCDriverForSQLServer17",
+            "EvergreenApp":  "MicrosoftODBCDriverForSQLServer17",
+            "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.Language -eq \"English\""
+        },
+        {
+            "Name":  "MicrosoftOLEDBDriverForSQLServer",
+            "EvergreenApp":  "MicrosoftOLEDBDriverForSQLServer",
+            "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.Language -eq \"English\""
+        },
+        {
+            "Name":  "MicrosoftOpenJDK21",
+            "EvergreenApp":  "MicrosoftOpenJDK21",
+            "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\""
+        },
+        {
+            "Name":  "MicrosoftTeams",
+            "EvergreenApp":  "MicrosoftTeams",
+            "Filter":  "$_.Architecture -eq \"x64\" -and $_.Release -eq \"Enterprise\""
+        },
+        {
+            "Name":  "OracleJava8",
+            "EvergreenApp":  "OracleJava8",
+            "Filter":  "$_.Architecture -eq \"x64\""
+        }
+    ],
+    "Download":[
+        {
+            "Name":"BGInfo",
+            "URIs":[
+                {
+                    "URI":"https://download.sysinternals.com/files/BGInfo.zip"
+                }
+            ],
+            "PostScriptBlocks":[
+                "Get-ChildItem $Destination\\*.zip -recurse | Expand-Archive -DestinationPath $Destination -Force"
+            ]
+        },
+        {
+            "Name":"Microsoft.NetSDK",
+            "URIs":[
+                {
+                    "PreScriptBlocks":[
+                        "$Arch = \"x64\"",
+                        "$URL = \"https://dotnet.microsoft.com/en-us/download/dotnet/8.0\"",
+                        "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                        "$HREF = (($Response.Links | Where-Object { $_.href -like \"*sdk*windows*installer*\" -and $_.href -like \"*$Arch*\" } | sort-Object -Property \"data-bi-dlid\")[-1]).href",
+                        "$URL = \"https://dotnet.microsoft.com$href\"",
+                        "$Response = Invoke-WebRequest -UseBasicParsing -URI $URL",
+                        "$URI.URI = ($Response.LINKS | Where-Object { $_.ID -eq \"directLink\"}).HREF"
+                    ],
+                    "URI":""
+                },
+                {
+                    "PreScriptBlocks":[
+                        "$Arch = \"x86\"",
+                        "$URL = \"https://dotnet.microsoft.com/en-us/download/dotnet/8.0\"",
+                        "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                        "$HREF = (($Response.Links | Where-Object { $_.href -like \"*sdk*windows*installer*\" -and $_.href -like \"*$Arch*\" } | sort-Object -Property \"data-bi-dlid\")[-1]).href",
+                        "$URL = \"https://dotnet.microsoft.com$href\"",
+                        "$Response = Invoke-WebRequest -UseBasicParsing -URI $URL",
+                        "$URI.URI = ($Response.LINKS | Where-Object { $_.ID -eq \"directLink\"}).HREF"
+                    ],
+                    "URI":""
+                }
+            ]
+        },
+        {
+            "Name":"MicrosoftReportViewerRuntime",
+            "URIs":[
+                {
+                    "URI":"https://download.microsoft.com/download/f/b/7/fb728406-a1ee-4ab5-9c56-74eb8bddf2ff/ReportViewer.msi"
+                }
+            ]
+        },
+        {
+            "Name":"MicrosoftSqlNativeClient2012",
+            "URIs":[
+                {
+                    "URI":"https://download.microsoft.com/download/B/E/D/BED73AAC-3C8A-43F5-AF4F-EB4FEA6C8F3A/ENU/x64/sqlncli.msi"
+                }
+            ]
+        },
+        {
+            "Name":"MicrosoftVSTA2017",
+            "URIs":[
+                {
+                    "URI":"https://download.microsoft.com/download/VSTA_2017_ENU_setup.exe"
+                }
+            ]
+        },
+        {
+            "Name":"MicrosoftTeams",
+            "URIs":[
+                {
+                    "FileName":"teamsbootstrapper.exe",
+                    "URI":"https://go.microsoft.com/fwlink/?linkid=2243204&clcid=0x409"
+                }
+            ]
+        },
+        {
+            "Name":"MicrosoftWSE3",
+            "URIs":[
+                {
+                    "PreScriptBlocks":[
+                        "$URL = \"https://www.microsoft.com/en-us/download/details.aspx?id=14089&msockid=309b14ebc278605016fb028fc3066164\"",
+                        "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                        "$URI.URI = ($Response.Links | Where-Object { $_.HREF -like \"*.msi*\" }).href"
+                    ],
+                    "URI":""
+                }
+            ]
+        }
+    ],
+    "VCRedist":[
+        "2005",
+        "2008",
+        "2010",
+        "2012",
+        "2013",
+        "14"
+    ],
+    "Copy":[
+        {
+            "Name":"Root",
+            "Source":"[RemoteRoot]\\*",
+            "Destination":"[LocalRoot]"
+        },
+        {
+            "Name":"Software",
+            "Source":"\\\\tmwdtahou702.contoso.com\\Horizon\\Software\\*",
+            "Destination":"c:\\Temp\\Software\\"
+        }
+    ],
+    "Fileshares":[],
+    "Variables":[
+        {
+            "Name":"DriverPath",
+            "Value":"\\\\contoso.com\\Horizon\\Master\\Drivers"
+        },
+        {
+            "Name":"OSOTPath",
+            "Value":"C:\\Temp\\OSOT"
+        },
+        {
+            "PreScriptBlocks":[
+                "$Variable.Value = (Get-ChildItem (Join-Path $OSOTPath \"*OSOptimizationTool*.exe\") -ErrorAction SilentlyContinue).FullName"
+            ],
+            "Name":"OSOT",
+            "Value":""
+        },
+        {
+            "Name":"ScriptPath",
+            "Value":"C:\\Temp\\Scripts"
+        },
+        {
+            "Name":"SoftwarePath",
+            "Value":"C:\\Temp\\Software"
+        }
+    ],
+    "Phases":{
+        "0":{
+            "PreScriptBlocks":[
+                "$Environment.Copy | ForEach-Object { Copy-ItemWrapper -Path $_.Source -Destination $_.Destination }",
+                "Initialize-Variables -Variables $Variables",
+                "Unblock-File -Path (Join-Path $ScriptPath \"Start-BaseCreation.bat\")",
+                "Get-AppsEvergreen -Applications $Environment.Evergreen -DownloadPath $SoftwarePath",
+                "Get-AppsDownload -Applications $Environment.Download -DownloadPath $SoftwarePath",
+                "Get-AppsVCRedist -Releases $Environment.VCRedist -Path (Join-Path $SoftwarePath \"VCRedist\")",
+                "Install-Drivers -Path $DriverPath",
+                "Initialize-PrinterDrivers $Environment.PrinterDrivers",
+                "Initialize-ZebraDrivers $Environment.ZebraDrivers",
+                "Add-AntivirusExclusions -FSLogixPaths $Environment.DC.($State.DC).FSLogixPaths"
+            ],
+            "Applications":[
+                {
+                    "Name":"VCRedist200X_2010_2012",
+                    "Path":"[SoftwarePath]\\VCRedist\\20[01][5802]\\vcredist*",
+                    "Arguments":"/q"
+                },
+                {
+                    "Name":"VCRedist2013",
+                    "Path":"[SoftwarePath]\\VCRedist\\2013\\vcredist*",
+                    "Arguments":"/install /quiet /norestart"
+                },
+                {
+                    "Name":"VCRedist14",
+                    "Path":"[SoftwarePath]\\VCRedist\\14\\vcredist*",
+                    "Arguments":"/install /quiet /norestart"
+                },
+                {
+                    "Name":"MicrosoftSQLNativeClient",
+                    "Path":"[SoftwarePath]\\MicrosoftSQLNativeClient*\\*.MSI",
+                    "Arguments":"/q IACCEPTSQLNCLILICENSETERMS=YES"
+                },
+                {
+                    "Name":"Microsoft.NetSDK",
+                    "Path":"[SoftwarePath]\\Microsoft.NetSDK\\*.exe",
+                    "Arguments":"/install /quiet /norestart"
+                },
+                {
+                    "Name":"MicrosoftEdge",
+                    "Path":"[SoftwarePath]\\MicrosoftEdge\\*.MSI",
+                    "Arguments":"/qn DONOTCREATEDESKTOPSHORTCUT=true DONOTCREATETASKBARSHORTCUT=true REBOOT=ReallySuppress",
+                    "PostScriptBlocks":[
+                        "Get-Service -Displayname *edge* | Set-Service -StartupType Disabled",
+                        "Get-Process -Name *EdgeUpdate* | Stop-Process -Force",
+                        "Rename-Item -Path \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\" -NewName \"EdgeUpdate.disabled\"",
+                        "Get-Item \"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\*\\elevation_service.exe\" | Rename-Item -NewName \"elevation_service.disabled.exe\"",
+                        "Get-ScheduledTask -TaskName *edge* | Disable-ScheduledTask | Out-Null"
+                    ]
+                },
+                {
+                    "Name":"MicrosoftEdgeWebView2",
+                    "Path":"[SoftwarePath]\\MicrosoftEdgeWebView2Runtime\\*.exe",
+                    "Arguments":"/silent /install",
+                    "PostScriptBlocks":[
+                        "Get-Service -Displayname *edge* | Set-Service -StartupType Disabled",
+                        "Get-Process -Name *EdgeUpdate* | Stop-Process -Force",
+                        "Rename-Item -Path \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\" -NewName \"EdgeUpdate.disabled\"",
+                        "Get-Item \"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\*\\elevation_service.exe\" | Rename-Item -NewName \"elevation_service.disabled.exe\"",
+                        "Get-ScheduledTask -TaskName *edge* | Disable-ScheduledTask | Out-Null"
+                    ]
+                },
+                {
+                    "Name":"MicrosoftVSTA2017",
+                    "Path":"[SoftwarePath]\\MicrosoftVSTA2017\\*.exe",
+                    "Arguments":"/quiet /norestart"
+                },
+                {
+                    "Name":"MicrosoftReportViewerRuntime",
+                    "Path":"[SoftwarePath]\\MicrosoftReportViewerRuntime\\*.msi",
+                    "Arguments":"/qn"
+                },
+                {
+                    "Name":"MicrosoftODBCDriverForSQLServer17",
+                    "Path":"[SoftwarePath]\\MicrosoftODBCDriverForSQLServer17\\*.msi",
+                    "Arguments":"/qn IACCEPTMSODBCSQLLICENSETERMS=YES"
+                },
+                {
+                    "Name":"MicrosoftOLEDBDriverForSQLServer",
+                    "Path":"[SoftwarePath]\\MicrosoftOLEDBDriverForSQLServer\\*.msi",
+                    "Arguments":"/qn IACCEPTMSOLEDBSQLLICENSETERMS=YES"
+                },
+                {
+                    "Name":"MicrosoftOpenJDK21",
+                    "Path":"[SoftwarePath]\\MicrosoftOpenJDK21\\*.msi",
+                    "Arguments":"/qn"
+                },
+                {
+                    "Name":"MicrosoftWSE3",
+                    "Path":"[SoftwarePath]\\MicrosoftWSE3\\*.msi",
+                    "Arguments":"/qn"
+                },
+                {
+                    "PreScriptBlocks":[
+                        "$ISO = Get-ChildItem (Join-Path $SoftwarePath \"MicrosoftWindowsOptionalFeatures\\*.iso\")",
+                        "$ISO | Mount-DiskImage",
+                        "$Source = (Get-Volume -DiskImage (Get-DiskImage -ImagePath $ISO.FullName)).DriveLetter + \":\\LanguagesAndOptionalFeatures\"",
+                        "Get-WindowsCapability -Online -Name RSAT* | %{ Write-Host $_.DisplayName -ForegroundColor Cyan; $_ | Add-WindowsCapability -Online -LimitAccess -Source $Source; }"
+                    ],
+                    "Name":"RSAT-Offline"
+                }
+                 
+            ],
+            "RegistrySettings":[
+                {
+                    "Path":"hklm:\\SOFTWARE\\Omnissa\\Horizon\\OS Optimization Tool",
+                    "Name":"EUALAcceptedV1",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Google\\Chrome",
+                    "Name":"RendererCodeIntegrityEnabled",
+                    "Value":"0",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+                    "Name":"ExcludeWUDriversInQualityUpdate",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+                    "Name":"TargetReleaseVersion",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+                    "Name":"TargetReleaseVersionInfo",
+                    "Value":"25H2",
+                    "Type":"String"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+                    "Name":"NoAutoUpdate",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+                    "Name":"EnableFeaturedSoftware",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+                    "Name":"AutoInstallMinorUpdates",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+                    "Name":"AllowMUUpdateService",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Omnissa\\Horizon\\VMware VDM\\Agent\\RTAV",
+                    "Name":"WebcamMaxFrameRate",
+                    "Value":"25",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Omnissa\\Horizon\\VMware VDM\\Agent\\RTAV",
+                    "Name":"WebcamDefaultResHeight",
+                    "Value":"720",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Omnissa\\Horizon\\VMware VDM\\Agent\\RTAV",
+                    "Name":"WebcamDefaultResWidth",
+                    "Value":"1080",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Omnissa\\Horizon\\VMware WebRTCRedir",
+                    "Name":"teamsEnabled",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Microsoft\\Teams",
+                    "Name":"IsWVDEnvironment",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Microsoft\\Windows\\Appx",
+                    "Name":"AllowAllTrustedApps",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Microsoft\\Windows\\Appx",
+                    "Name":"MdmHosts",
+                    "Value":"^(?:[^\/]*)\\.MANAGE[^\\.]*\\.(MICROSOFT\\.(COM|US)|MICROSOFTONLINE\\.CN)$",
+                    "Type":"String"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WorkplaceJoin",
+                    "Name":"BlockAADWorkplaceJoin",
+                    "Value":"1",
+                    "PropertyType":"Dword"
+                }
+            ],
+            "PostScriptBlocks":[
+                "$ISO = Get-Childitem (Join-Path $softwarePath \"WindowsOptionalFeatures\\*.iso\")",
+                "$Mount = $ISO | Mount-DiskImage",
+                "$Source = (Get-Volume -DiskImage ($ISO | Get-DiskImage)).Driveleter += \":\\LanguagesAndOptionalFeatures\"",
+                "Get-WindowsCapability -Online -Name RSAT* | Add-WindowsCapability -Online -LimitAccess -Source $Source",
+                "Get-Service -Name wuauserv | Restart-Service",
+                "Update-Help -ErrorAction SilentlyContinue -Force",
+                "$State.Phase++",
+                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
+                "Update-Windows",
+                "If ($State.Pause) { Read-Host \"Pausing before reboot, press enter to continue\" }",
+                "Restart-Computer -Force"
+            ]
+        },
+        "1":{
+            "PreScriptBlocks":[
+                "Update-Windows -Reboot",
+                "Restart-OnPending"
+            ],
+            "Applications":[
+                {
+                    "Name":"VMwareHorizonAgent",
+                    "Path":"[SoftwarePath]\\Omnissa\\Omnissa-Horizon-Agent-x86*",
+                    "Arguments":"/s /v\"/qn VDM_VC_MANAGED_AGENT=1 VDM_IP_PROTOCOL_USAGE=IPv4 RDP_CHOICE=1 ADDLOCAL=ALL REMOVE=GEOREDIR,PerfTracker,RDSH3D,SdoSensor,SmartCard REBOOT=R\""
+                },
+                {
+                    "Name":"VMwareDEM",
+                    "Path":"[SoftwarePath]\\Omnissa\\Omnissa Dynamic Environment Manager*.msi",
+                    "Arguments":"/q ADDLOCAL=ALL REBOOT=R"
+                }
+            ],
+            "RegistrySettings":[],
+            "PostScriptBlocks":[
+                "$State.Phase++",
+                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
+                "If ($State.Pause) { Read-Host \"Pausing before Optimize & Generalize, press enter to continue\" }",
+                "Restart-Computer"
+            ]
+        },
+        "2":{
+            "PreScriptBlocks":[
+                "Update-Windows -Reboot",
+                "Restart-OnPending"
+            ],
+            "Applications":[
+            ],
+            "RegistrySettings":[
+            ],
+            "PostScriptBlocks":[
+                "$State.Phase++",
+                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
+                "If ($State.Pause) { Read-Host \"Pausing before reboot, press enter to continue\" }",
+                "& \"$OSOT\" -generalize -reboot"
+            ]
+        },
+        "3":{
+            "PreScriptBlocks":[
+                "Update-Windows -Reboot",
+                "Restart-OnPending",
+                "if ((get-service W32Time).Status -ne \"Running\") { Start-Service -Name W32Time }",
+                "C:\\windows\\system32\\w32tm.exe /config /update /manualpeerlist:\"$($Environment.DC.Domain)\"",
+                "C:\\Windows\\System32\\w32tm.exe /resync /rediscover"
+            ],
+            "Applications":[
+                {
+                    "PreScriptBlocks":  [
+                        "$Application.Arguments = $Application.Arguments.Replace(\"[Manager1]\",$Environment.DC.($State.DC).AppVol.Manager1)"
+                    ],
+                    "Name":  "AppVolumes",
+                    "Path":  "[SoftwarePath]\\Omnissa\\*AppVolumes*.MSI",
+                    "Arguments":  "/qn MANAGER_ADDR=[Manager1] MANAGER_PORT=443 EnforceSSLCertificateValidation=0 REBOOT=R",
+                    "NonRecurse":  false,
+                    "PostScriptBlocks":  [
+
+                    ]
+                },
+                {
+                    "Name": "MicrosoftFSLogixApps",
+                    "Path":"[SoftwarePath]\\MicrosoftFSLogixApps\\*.exe",
+                    "Arguments":"/silent /install /norestart"
+                }
+            ],
+            "RegistrySettings":[
+                {
+                    "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
+                    "Name":"AllowInstallerModification",
+                    "Value":"1",
+                    "PropertyType":"Dword"
+                },
+                {
+                    "PreScriptBlocks":  [
+                        "$RegistrySetting.Value = $RegistrySetting.Value.Replace(\"[Manager2]\",$Environment.DC.($State.DC).AppVol.Manager2)"
+                    ],
+                    "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
+                    "Name":"Manager2",
+                    "Value":"[Manager2]",
+                    "PropertyType":"String"
+                }
+            ],
+            "PostScriptBlocks":[
+                "$State.Phase++",
+                "Set-ItemProperty -Path $EnvironmentVariables -Name \"State\" -value ($State | ConvertTo-Json)",
+                "If ($State.Pause) { Read-Host \"Pausing before reboot, press enter to continue\" }",
+                "& \"$OSOT\" -optimize -v",
+                "Restart-Computer"
+            ]
+        },
+        "4":{
+            "PreScriptBlocks":[
+                "#Read-Host \"Please make any manual changes, press Enter to continue\""
+            ],
+            "Applications":[
+                {
+                    "Name":"MicrosoftTeamsBootStrapper",
+                    "Path":"[SoftwarePath]\\MicrosoftTeams\\teamsbootstrapper.exe",
+                    "Arguments":"-p -o \"[SoftwarePath]\\MicrosoftTeams\\MSTeamsx-64.msix\" --installTMA",
+                    "PostScriptBlocks":[
+                    ]
+                },
+                {
+                    "PreScriptBlocks":[
+                    ],
+                    "Name":"DISM-MicrosoftTeams",
+                    "Path":"C:\\Windows\\System32\\Dism.exe",
+                    "Arguments":"/Online /Add-ProvisionedAppxPackage /PackagePath:\"[SoftwarePath]\\MicrosoftTeams\\MSTeams-x64.msix\" /SkipLicense",
+                    "NonRecurse":true,
+                    "PostScriptBlocks":[
+                    ]
+                },
+                {
+                    "PreScriptBlocks":  [
+                        "$Destination = (Split-Path $Application.Path)",
+                        "New-ItemWrapper -Path $Destination",
+                        "Copy-Item -Path (Join-Path $SoftwarePath \"$($Application.Name)\\*\") -Destination $Destination"
+                    ],
+                    "Name":  "BGInfo",
+                    "Path":  "C:\\Program Files\\BGInfo\\Bginfo64.exe",
+                    "Arguments":  "\"C:\\Program Files\\BGInfo\\BGInfo.bgi\" /nolicprompt /timer:60",
+                    "NonRecurse":  false,
+                    "PostScriptBlocks":  [
+                        "$Run = \"hklm:\\software\\microsoft\\windows\\currentversion\\run\"",
+                        "New-ItemProperty -path $Run -Name \"*BGInfo\" -Value \"$($Application.Path) $($Application.Arguments)\" -PropertyType String | Out-Null"
+                    ]
+                }
+            ],
+            "RegistrySettings":[
+            ],
+            "PostScriptBlocks":[
+                "Get-ChildItem \"c:\\users\\*\\Desktop\\*.lnk\" | Remove-Item -Force",
+                "Remove-Item $SoftwarePath -Recurse -Force",
+                "#New-LocalUser -name \"AppCap\" -password (ConvertTo-SecureString -String \"P@ssw0rd\" -AsPlainText -Force) -PasswordNeverExpires -UserMayNotchangePassword",
+                "#Add-LocalGroupMember -group \"Administrators\" -Member \"AppCap\"",
+                "#Set-LocalUser -Name \"Administrator\" -Password (ConvertTo-SecureString -String \"P@ssw0rd\" -AsPlainText -Force)",
+                "$Run = \"hklm:\\software\\microsoft\\windows\\currentversion\\run\"",
+                "If ((Get-Item $Run).Property -contains \"*Image\") { Remove-ItemProperty -Path $Run -Name \"*Image\" }",
+                "#PowerShell.exe -NonInteractive -Command { & (Join-Path $OSOTPath \"OmnissaHorizonOSOptimizationTool.exe\") -Finalize All }",
+                "& \"$OSOT\" -Finalize All",
+                "If ($State.Pause) { Read-Host \"Pausing before shutdown, press enter to continue\" }",
+                "Stop-Computer"
+            ]
+        }
+    }
+}

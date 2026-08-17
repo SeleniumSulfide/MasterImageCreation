@@ -1,0 +1,32 @@
+{
+    "Name":"Qlikview",
+    "DownloadPath":"C:\\Maint\\Software",   
+    "Evergreen":[
+	],
+    "Download":[
+    ],
+    "Copy":[
+        {
+            "PreScriptBlocks":[],
+            "Name":"Qlikview",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\Qlikview",
+            "PostScriptBlocks":[]
+        }
+    ],
+    "Install":[
+        {
+            "PreScriptBlocks":[],
+            "Name":"Qlikview",
+            "Path":"Qlikview\\QlikView*.msi",
+            "Arguments":"/qn ADDLOCAL=ALL ALLUSERS=1",
+            "NonRecurse":false,
+            "PostScriptBlocks":[]
+        }
+    ],
+    "PreScriptBlocks":[],
+    "RegistrySettings":[
+    ],
+    "PostScriptBlocks":[
+        "Get-ChildItem (Join-Path $env:UserProfile \"Desktop\\*.lnk\") | Remove-Item -Force"
+    ]
+}

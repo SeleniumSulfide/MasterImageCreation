@@ -1,0 +1,1 @@
+conhost powershell.exe c:\temp\scripts\Start-BaseCreation.ps1

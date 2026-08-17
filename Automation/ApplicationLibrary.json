@@ -1,0 +1,2053 @@
+[
+    {
+        "Name":  "7zip",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "7Zip",
+                          "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\7zip\\7z*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Registry":[],
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "AdobeAcrobatReaderDC",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "AdobeAcrobatReaderDC",
+                          "Filter":  "$_.Language -eq \"English\" -and $_.Architecture -eq \"x64\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\AdobeAcrobatReaderDC\\AcroRdrDC*.exe",
+                        "Arguments":  "/sALL /msi ROAMIDENTITY=1 ROAMLICENSING=1",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+                                                 "Get-ScheduledTask *Acrobat* | Disable-ScheduledTask | Out-Null"
+                                             ]
+                    },
+        "Registry":[],
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+        {
+        "Name":  "AIPhoneIXGSupportTool",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://know.aiphone.com/en_US/ix-ixg-series-software/ixg-support-tool-download\"",
+                "$Application.URIs[0].URI = (Invoke-WebRequest -UseBasicParsing -Uri $URL).href | Where-Object { $_ -like \"*exe*\" }",
+                "$Application.Filename = \"$($Application.URIs[0].URI | Split-Path -Leaf).zip\""
+            ],
+            "URIs":  [
+                {
+                    "FileName":  "",
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+                "Get-ChildItem $Destination\\*.zip -recurse | Expand-Archive -DestinationPath $Destination -Force"
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "AutoHotKey",
+        "Source":  "Download",
+        "Download":  {
+                         "PreScriptBlocks":  [
+
+                                             ],
+                         "URIs":  [
+                                      {
+                                          "FileName":  "",
+                                          "URI":  "https://www.autohotkey.com/download/ahk-v2.exe"
+                                      }
+                                  ],
+                         "PostScriptBlocks":  [
+
+                                              ]
+                     },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\AutoHotKey\\ahk-v2.exe",
+                        "Arguments":  "/silent /elevate",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Registry":[],
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "CitrixWorkspaceApp",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "CitrixWorkspaceApp",
+                          "Filter":  "$_.Stream -eq \"LTSR\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\CitrixWorkspaceApp\\CitrixWorkspaceApp*.exe",
+                        "Arguments":  "/silent  AutoUpdateCheck=disabled ADDLOCAL=ALL ADDONS=ZoomVDIPlugin  /InstallMSTeamsPlugin=Y",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Registry":[],
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+        {
+        "Name":  "Cursor",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$Response = (Invoke-WebRequest -UseBasicParsing -Uri \"https://cursor.com/download\")",
+                "$URI.URI = ($Response.Links.Href | Where-Object { $_ -like \"*download*win32-x64/cursor*\"} | Sort-Object)[-1]"
+            ],
+            "URIs":  [
+                {
+                    "FileName":  "CursorSetup-x64.exe",
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "Dbeaver",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                            "PreScriptBlocks":  [
+                                                ],
+                            "EvergreenApp":  "dbeaver",
+                            "Filter":  "$_.Architecture -eq \"x64\"",
+                            "PostScriptBlocks":  [
+                                                ]
+                    },
+        "Install":  {
+                        "PreScriptBlocks":  [
+                                            ],
+                        "Path":  "[SoftwarePath]\\dbeaver\\dbeaver*.exe",
+                        "Arguments":  "/S /allusers",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+                                            ]
+                    },
+        "Registry":  [
+        ],
+        "Detection":  {
+                            "Method":  "",
+                            "DisplayName":  "",
+                            "RegKey":  {
+                                            "Path":"",
+                                            "Property":"",
+                                            "Value":""
+                                        },
+                            "File":  ""
+                    }
+    },
+        {
+        "Name":  "GitHubCLI",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "GitHubCLI",
+            "Filter":  "$_.Architecture -eq \"x64\"",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\GitHubCLI\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+            {
+                "PreScriptBlocks":  [
+                ],
+                "Path":"",
+                "Name":"",
+                "Value":"",
+                "Type":"",
+                "PostScriptBlocks":  [
+                ]
+            }
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+        {
+        "Name":  "GitHubDesktop",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "GitHubDesktop",
+            "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\GitHubDesktop\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+            {
+                "PreScriptBlocks":  [
+                ],
+                "Path":"",
+                "Name":"",
+                "Value":"",
+                "Type":"",
+                "PostScriptBlocks":  [
+                ]
+            }
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "GoogleChrome",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "GoogleChrome",
+                          "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.Channel -eq \"Stable\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\GoogleChrome\\googlechrome*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+                                                 "Get-ScheduledTask -TaskName *Google* | Disable-ScheduledTask | Out-Null",
+                                                 "Get-Service -Displayname *Google* | Set-Service -StartupType Disabled"
+                                             ]
+                    },
+        "Registry":  [
+                {
+                    "Path":"hklm:\\SOFTWARE\\Policies\\Google\\Chrome",
+                    "Name":"RendererCodeIntegrityEnabled",
+                    "Value":"0",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"HKLM:\\Software\\Policies\\Google\\Update",
+                    "Name":"AutoUpdatecheckPeriodMinutes",
+                    "Value":"0",
+                    "Type":"DWORD"
+                },
+                {
+                    "Path":"HKLM:\\Software\\Policies\\Google\\Update",
+                    "Name":"DisableAutoUpdateChecksCheckboxValue",
+                    "Value":"1",
+                    "Type":"DWORD"
+                },
+                {
+                    "Path":"HKLM:\\Software\\Policies\\Google\\Update",
+                    "Name":"UpdateDefault",
+                    "Value":"0",
+                    "Type":"DWORD"
+                },
+                {
+                    "Path":"HKLM:\\Software\\Wow6432Node\\Google\\Update",
+                    "Name":"AutoUpdatecheckPeriodMinutes",
+                    "Value":"0",
+                    "Type":"DWORD"
+                },
+                {
+                    "Path":"HKLM:\\Software\\Wow6432Node\\Google\\Update",
+                    "Name":"DisableAutoUpdateChecksCheckboxValue",
+                    "Value":"1",
+                    "Type":"DWORD"
+                },
+                {
+                    "Path":"HKLM:\\SOFTWARE\\Wow6432Node\\Google\\Update",
+                    "Name":"UpdateDefault",
+                    "Value":"0",
+                    "Type":"DWORD"
+                }
+            ],
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+        {
+        "Name":  "GoogleCloudCLI",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+            ],
+            "URIs":  [
+                {
+                    "URI":  "https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe"
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "/S /allusers /noreporting",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "Microsoft.NetDesktopRuntime8",
+        "Source":  "Download",
+        "Download":  {
+                         "PreScriptBlocks":  [
+
+                                             ],
+                         "URIs":  [
+                                      {
+                                          "FileName":  "",
+                                          "URI":  "https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/8.0.22/windowsdesktop-runtime-8.0.22-win-x64.exe"
+                                      },
+                                      {
+                                          "FileName":  "",
+                                          "URI":  "https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/8.0.22/windowsdesktop-runtime-8.0.22-win-x86.exe"
+                                      }
+                                  ],
+                         "PostScriptBlocks":  [
+
+                                              ]
+                     },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\Microsoft.NETDesktopRuntime8\\*.exe",
+                        "Arguments":  "/install /quiet /norestart",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "MicrosoftEdge",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "MicrosoftEdge",
+                          "Filter":  "$_.Release -eq \"Enterprise\" -and $_.Type -eq \"MSI\" -and $_.Channel -eq \"Stable\" -and $_.Architecture -eq \"x64\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftEdge\\*.MSI",
+                        "Arguments":  "/qn DONOTCREATEDESKTOPSHORTCUT=true DONOTCREATETASKBARSHORTCUT=true REBOOT=ReallySuppress",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "MicrosoftEdgeWebView2Runtime",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "MicrosoftEdgeWebView2Runtime",
+                          "Filter":  "$_.Architecture -eq \"x64\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftEdgeWebView2Runtime\\*.exe",
+                        "Arguments":  "/silent /install",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "MicrosoftFSLogixApps",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                        "PreScriptBlocks":  [
+                        ],
+                        "EvergreenApp":  "MicrosoftFSLogixApps",
+                        "Filter":  "",
+                        "PostScriptBlocks":  [
+                            "Get-ChildItem $Destination\\*.zip -recurse | Expand-Archive -DestinationPath $Destination -Force"
+                        ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftFSLogixApps\\*.exe",
+                        "Arguments":  "/silent /install /norestart",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "MicrosoftOffice365",
+        "Source":  "Manual",
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "/configure [SoftwarePath]\\[Name]\\Horizon.xml",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "MicrosoftOneDrive",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "MicrosoftOneDrive",
+                          "Filter":  "$_.Architecture -eq \"x64\" -and $_.Ring -eq \"Enterprise\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftOneDrive\\*.exe",
+                        "Arguments":  "/AllUsers",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+        {
+        "Name":  "MicrosoftPowerAutomateDesktop",
+        "Source":  "",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "MicrosoftPowerAutomateDesktop",
+            "Filter":  "",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "-Install -ACCEPTEULA -Silent",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "MicrosoftPowerBIDesktop",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://www.microsoft.com/en-us/download/details.aspx?id=58494&msockid=309b14ebc278605016fb028fc3066164\"",
+                "$Application.URIs[0].URL = ($Response.Links.Href | Where-Object { $_ -like \"*exe*\"})"
+            ],
+            "URIs":  [
+                {
+                    "FileName":  "PBIDesktopSetup_x64.exe",
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "-s -norestart ACCEPT_EULA=1 INSTALLDESKTOPSHORTCUT=0 ENABLECXP=0 DISABLE_UPDATE_NOTIFICATION=1",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "MicrosoftReportViewerRuntime",
+        "Source":  "Download",
+        "Download":  {
+                         "PreScriptBlocks":  [
+
+                                             ],
+                         "URIs":  [
+                                      {
+                                          "FileName":  "",
+                                          "URI":  "https://download.microsoft.com/download/f/b/7/fb728406-a1ee-4ab5-9c56-74eb8bddf2ff/ReportViewer.msi"
+                                      }
+                                  ],
+                         "PostScriptBlocks":  [
+
+                                              ]
+                     },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftReportViewerRuntime\\*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+        {
+        "Name":  "MicrosoftSsms",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "MicrosoftSsms",
+            "Filter":  "",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\MicrosoftSsms\\*.exe",
+            "Arguments":  "/install /quiet /norestart",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+            {
+                "PreScriptBlocks":  [
+                ],
+                "Path":"",
+                "Name":"",
+                "Value":"",
+                "Type":"",
+                "PostScriptBlocks":  [
+                ]
+            }
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "MicrosoftSQLCLR",
+        "Source":  "Download",
+        "Download":  {
+                         "PreScriptBlocks":  [
+
+                                             ],
+                         "URIs":  [
+                                      {
+                                          "FileName":  "SQLSysClrTypes-x86.msi",
+                                          "URI":  "http://go.microsoft.com/fwlink/?LinkID=239643\u0026clcid=0x409"
+                                      },
+                                      {
+                                          "FileName":  "SQLSysClrTypes-x64.msi",
+                                          "URI":  "http://go.microsoft.com/fwlink/?LinkID=239644\u0026clcid=0x409"
+                                      }
+                                  ],
+                         "PostScriptBlocks":  [
+
+                                              ]
+                     },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftSQLCLR\\*.MSI",
+                        "Arguments":  "/q",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "MicrosoftSqlNativeClient2012",
+        "Source":  "Download",
+        "Download":  {
+                         "PreScriptBlocks":  [
+
+                                             ],
+                         "URIs":  [
+                                      {
+                                          "FileName":  "",
+                                          "URI":  "https://download.microsoft.com/download/B/E/D/BED73AAC-3C8A-43F5-AF4F-EB4FEA6C8F3A/ENU/x64/sqlncli.msi"
+                                      }
+                                  ],
+                         "PostScriptBlocks":  [
+
+                                              ]
+                     },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftSqlNativeClient2012*\\*.MSI",
+                        "Arguments":  "/q IACCEPTSQLNCLILICENSETERMS=YES",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "MicrosoftTeams",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "MicrosoftTeams",
+                          "Filter":  "$_.Architecture -eq \"x64\" -and $_.Release -eq \"Enterprise\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "C:\\Windows\\System32\\Dism.exe",
+                        "Arguments":  "/Online /Add-ProvisionedAppxPackage /PackagePath:\"[SoftwarePath]\\MicrosoftTeams\\MSTeams-x64.msix\" /SkipLicense",
+                        "Recurse":  false,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Registry": [
+                {
+                    "Path":"hklm:\\SOFTWARE\\Microsoft\\Windows\\Appx",
+                    "Name":"AllowAllTrustedApps",
+                    "Value":"1",
+                    "Type":"DWord"
+                },
+                {
+                    "Path":"hklm:\\SOFTWARE\\Microsoft\\Windows\\Appx",
+                    "Name":"MdmHosts",
+                    "Value":"^(?:[^\/]*)\\.MANAGE[^\\.]*\\.(MICROSOFT\\.(COM|US)|MICROSOFTONLINE\\.CN)$",
+                    "Type":"String"
+                }
+                    ],
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "MicrosoftTeamsBootStrapper",
+        "Source":  "Download",
+        "Download":  {
+                         "PreScriptBlocks":  [
+
+                                             ],
+                         "URIs":  [
+                                      {
+                                          "FileName":  "teamsbootstrapper.exe",
+                                          "URI":  "https://go.microsoft.com/fwlink/?linkid=2243204\u0026clcid=0x409"
+                                      }
+                                  ],
+                         "PostScriptBlocks":  [
+
+                                              ]
+                     },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftTeams\\teamsbootstrapper.exe",
+                        "Arguments":  "-p --installTMA",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "MicrosoftVisualStudioCode",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "MicrosoftVisualStudioCode",
+                          "Filter":  "$_.Channel -eq \"Stable\" -and $_.Architecture -eq \"x64\" -and $_.Platform -eq \"win32-x64\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+                        ],
+                        "Path":  "[SoftwarePath]\\MicrosoftVisualStudioCode\\*.exe",
+                        "Arguments":  "/VERYSILENT /NORESTART /mergetasks=!runcode",
+                        "Recurse":  false,
+                        "PostScriptBlocks":  [
+                        ]
+                    },
+        "Registry": [
+                    ],
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "MicrosoftVSTO2010",
+        "Source":  "Download",
+        "Download":  {
+                         "PreScriptBlocks":  [
+
+                                             ],
+                         "URIs":  [
+                                      {
+                                          "FileName":  "",
+                                          "URI":  "https://download.microsoft.com/download/7/A/F/7AFA5695-2B52-44AA-9A2D-FC431C231EDC/vstor_redist.exe"
+                                      }
+                                  ],
+                         "PostScriptBlocks":  [
+
+                                              ]
+                     },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftVSTO2010\\*.exe",
+                        "Arguments":  "/q /norestart",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+        {
+        "Name":  "MozillaFirefox",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "MozillaFirefox",
+            "Filter":  "$_.Channel -eq \"Extended Support\" -and $_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\MozillaFirefox\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "MTPuTTY",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+            ],
+            "URIs":  [
+                {
+                    "URI":  "https://ttyplus.com/download/mtputty_setup.exe"
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "/VERYSILENT /NORESTART /ALLUSERS",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "mySQLWorkbench",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "mySQLWorkbench",
+            "Filter":  "",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\mySQLWorkbench\\*.msi",
+            "Arguments":  "/qn ALLUSERS=1",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "OmnissaAppVolumesAgent",
+        "Source":  "Manual",
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "",
+                        "Arguments":  "",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+        {
+        "Name":  "NodeJs",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "NodeJs",
+            "Filter":  "$_.Architecture -eq \"x64\" -and $_.Channel -eq \"LTS\" -and $_.Type -eq \"msi\"",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\NodeJs\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+        {
+        "Name":  "NotepadPlusPlus",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "NotepadPlusPlus",
+            "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Application]\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "NVMforWindows",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://github.com/coreybutler/nvm-windows\"",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                "$Version = Split-Path ($Response.Links | Where-Object { $_.OuterHTML -like \"*Download Stable*\"}).HREF -leaf",
+                "$Application.URIs[0].URI = \"https://github.com/coreybutler/nvm-windows/releases/download/$Version/nvm-setup.exe\""
+            ],
+            "URIs":  [
+                {
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "NodeVersionSwitcher",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://github.com/jasongin/nvs/releases\"",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                "$Version = (Split-Path ($Response.Links | Where-Object { $_.HREF -like \"*releases/tag*\"})[0].HREF -leaf).Replace(\"v\",\"\")",
+                "$Application.URIs[0].URI = \"https://github.com/jasongin/nvs/releases/download/v$Version/nvs-$Version.msi\""
+            ],
+            "URIs":  [
+                {
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "OmnissaDEM",
+        "Source":  "Manual",
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "",
+                        "Arguments":  "",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "OmnissaHorizonAgent",
+        "Source":  "Manual",
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "",
+                        "Arguments":  "",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "OracleDBExpressEdition",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://www.oracle.com/database/technologies/xe-downloads.html\"",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                "$Application.URIs[0].URI = ($response.Links | Where-Object { $_.HREF -like \"*otn*.zip\" }).href"
+            ],
+            "URIs":  [
+                {
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+                "Get-ChildItem $Destination\\*.zip -recurse | Expand-Archive -DestinationPath $Destination -Force"
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\setup.exe",
+            "Arguments":  "/S /v/qn",
+            "Recurse":  false,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "OracleJava8",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "OracleJava8",
+                          "Filter":  "$_.Architecture -eq \"x64\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\OracleJava8\\jre*.exe",
+                        "Arguments":  "INSTALLCFG=\"[SoftwarePath]\\oraclejava8\\InstallConfig.ini\"",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+                                                 "$Path = \"HKLM:\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Run\"",
+                                                 "If ((Get-Item -Path $Path).Property -Contains \"SunJavaUpdateSched\") { Remove-ItemProperty -Path $Path -Name \"SunJavaUpdateSched\" }"
+                                             ]
+                    },
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    },
+    {
+        "Name":  "pgAdmin",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://www.pgadmin.org/download/pgadmin-4-windows/\"",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                "$URL = ($response.Links.HREF | Where-Object { $_ -like \"*ftp*\" })[0]",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                "$Application.URIs[0].URI = ($Response.Links.HREF | Where-Object { $_ -like \"*.exe*\")[0]"
+            ],
+            "URIs":  [
+                {
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Path]\\pgadmin*.exe",
+            "Arguments":  "/VERYSILENT /NORESTART /ALLUSERS /SUPPRESSMSGBOXES",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "postgreSQL",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://www.enterprisedb.com/downloads/postgres-postgresql-downloads\"",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                "$URI.URI = ($Response.Links.HREF | Where-Object { $_ -like \"*fileid*\" })[1]"
+            ],
+            "URIs":  [
+                {
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "",
+            "Arguments":  "",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "psqlODBC",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://www.postgresql.org/ftp/odbc/releases/\"",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                "$HREF = Join-Path $URL ($Response.Links.HREF | Where-Object { $_ -like \"REL-*mimalloc*\" })[0]",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri \"$URL$HREF\"",
+                "$Application.URIs[0].URI = ($Response.Links.Href | where-object { $_ -like \"*x64*msi*\" })[0]"
+            ],
+            "URIs":  [
+                {
+                    "FileName":"psqlodbc_x64-mimalloc.msi",
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "PuTTY",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "PuTTY",
+            "Filter":  "$_.Architecture -eq \"x64\"",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+        {
+        "Name":  "ScooterBeyondCompare",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "ScooterBeyondCompare",
+            "Filter":  "$_.Language \"English\"",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\ScooterBeyondCompare\\*.Exe",
+            "Arguments":  "/VERYSILENT /NORESTART /ALLUSERS /DISABLEUPDATES /SUPPRESSMSGBOXES",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+            {
+                "PreScriptBlocks":  [
+                ],
+                "Path":"",
+                "Name":"",
+                "Value":"",
+                "Type":"",
+                "PostScriptBlocks":  [
+                ]
+            }
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "SmartBearSoapUI",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "SmartBearSoapUI",
+            "Filter":  "",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "-q",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "SuperPutty",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://github.com/jimradford/superputty/releases/latest\"",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                "$Version = (Split-Path ($Response.Links | Where-Object { $_.HREF -like \"*releases/tag*\"})[0].HREF -leaf)",
+                "$Application.URIs[0].URI = \"https://github.com/jimradford/superputty/releases/download/$Version/SuperPuttySetup-$Version.msi\""
+            ],
+            "URIs":  [
+                {
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+        {
+        "Name":  "TableauDesktop",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "TableauDesktop",
+            "Filter":  "",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "/quiet /norestart ACCEPTEULA=1",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "TextPad9",
+        "Source":  "Manual",
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftrwarePath]\\[Name]\\*.exe",
+            "Arguments":  "/S /v/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "TortoiseGIT",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://tortoisegit.org/download\"",
+                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                "$Application.URIs[0].URI = $Response.Links.Href | Where-Object { $_ -like \"*64bit.msi*\" }"
+            ],
+            "URIs":  [
+                {
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "TortoiseSVN",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+                "$URL = \"https://tortoisesvn.net/downloads.html\"",
+                "$Response = Invoke-WebRequest -UseBasicParsing -URI $URL",
+                "$Application.URIs[0].URL = ($Response.Links.Href | Where-Object { $_ -like \"*x64-svn*.msi*\"})"
+            ],
+            "URIs":  [
+                {
+                    "URI":  ""
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "UIPathStudio",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+            ],
+            "URIs":  [
+                {
+                    "URI":  "https://download.uipath.com/UiPathStudioCloud.msi"
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+            "Arguments":  "/qn ORCHESTRATOR_URL=\"\"",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+        {
+        "Name":  "WinSCP",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+            "PreScriptBlocks":  [
+            ],
+            "EvergreenApp":  "WinSCP",
+            "Filter":  "$_.Type -eq \"msi\"",
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "Xming",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+            ],
+            "URIs":  [
+                {
+                    "FileName":  "Xming-Setup.exe",
+                    "URI":  "https://sourceforge.net/projects/xming/files/latest/download"
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+            "Arguments":  "/SILENT",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "Yarn",
+        "Source":  "Download",
+        "Download":  {
+            "PreScriptBlocks":  [
+            ],
+            "URIs":  [
+                {
+                    "URI":  "https://classic.yarnpkg.com/latest.msi"
+                }
+            ],
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Install":  {
+            "PreScriptBlocks":  [
+            ],
+            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+            "Arguments":  "/qn",
+            "Recurse":  true,
+            "PostScriptBlocks":  [
+            ]
+        },
+        "Registry":  [
+        ],
+        "Detection":  {
+            "Method":  "",
+            "DisplayName":  "",
+            "RegKey":  {
+                "Path":"",
+                "Property":"",
+                "Value":""
+            },
+            "File":  ""
+        }
+    },
+    {
+        "Name":  "ZoomVDI",
+        "Source":  "Evergreen",
+        "Evergreen":  {
+                          "PreScriptBlocks":  [
+
+                                              ],
+                          "EvergreenApp":  "ZoomVDI",
+                          "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.URI -like \"*ZoomInstallerVDI.msi\"",
+                          "PostScriptBlocks":  [
+
+                                               ]
+                      },
+        "Install":  {
+                        "PreScriptBlocks":  [
+                        ],
+                        "Path":  "[SoftwarePath]\\ZoomVDI\\ZoomInstaller*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+                        ]
+                    },
+        "Registry":  [
+        ],
+        "Detection":  {
+                          "Method":  "",
+                          "DisplayName":  "",
+                          "RegKey":  {
+                                        "Path":"",
+                                        "Property":"",
+                                        "Value":""
+                                    },
+                          "File":  ""
+                      }
+    }
+]

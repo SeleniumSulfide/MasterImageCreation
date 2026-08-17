@@ -1,0 +1,24 @@
+{
+    "Name":"LabView",
+    "DownloadPath":"C:\\Maint\\Software",   
+    "Evergreen":[],
+    "Download":[],
+    "Copy":[
+        {
+            "Name":"NationalInstruments",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\NationalInstruments"
+        }
+    ],
+    "PreScriptBlocks":[],
+    "Install":[
+        {
+            "Name":"Labview",
+            "Path":"NationalInstruments\\LabView2018_RunTime-18.6.4\\Install.exe",
+            "Arguments":"--accept-eulas --prevent-reboot"
+        }
+    ],
+    "RegistrySettings":[],
+    "PostScriptBlocks":[
+        "Get-ChildItem (Join-Path $env:UserProfile \"Desktop\\*.lnk\") | Remove-Item -Force"
+    ]
+}

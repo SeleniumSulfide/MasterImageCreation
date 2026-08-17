@@ -1,0 +1,69 @@
+
+    {
+        "Name":  "",
+        "Source":  {
+            "PreScriptBlocks":  [],
+            "Copy":[
+                {
+                    "PreScriptBlocks":[],
+                    "Source": "",
+                    "PostScriptBlocks":[]
+                }
+            ],
+            "Download":  [
+                {
+                    "PreScriptBlocks":[],
+                    "FileName":  "",
+                    "URI":  "",
+                    "PostScriptBlocks":[]
+                }
+            ],
+            "Evergreen": [
+                {
+                    "PreScriptBlocks":[],
+                    "Name":  "",
+                    "Filter":  "",
+                    "PostScriptBlocks":[]
+                }
+            ],
+            "Manual":false,
+            "WinGet":[
+                {
+                    "PreScriptBlocks":[],
+                    "Name":  "",
+                    "PostScriptBlocks":[]
+                }
+            ],
+            "PostScriptBlocks":  []
+        },
+        "Install":  [
+            {
+                "PreScriptBlocks":  [],
+                "Path":  "",
+                "Arguments":  "",
+                "Recurse":  true,
+                "PostScriptBlocks":  []
+            }
+        ],
+        "Registry":  [
+            {
+                "PreScriptBlocks":  [],
+                "Path":"",
+                "Name":"",
+                "Value":"",
+                "Type":"",
+                "PostScriptBlocks":  []
+            }
+        ],
+        "Detection":  {
+            "DisplayName":  [""],
+            "RegKey":  [
+                {
+                "Path":"",
+                "Property":"",
+                "Value":""
+                }
+            ],
+            "File":  [""]
+        }
+    }

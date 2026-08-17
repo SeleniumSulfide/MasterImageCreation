@@ -1,0 +1,352 @@
+{
+    "Name":"Standard",
+    "DownloadPath":"C:\\Maint\\Software",   
+    "Evergreen":[
+		{
+			"Name":  "AdobeAcrobatReaderDC",
+			"EvergreenApp":  "AdobeAcrobatReaderDC",
+			"Filter":  "$_.Language -eq \"English\""
+		},
+        {
+            "Name":  "MicrosoftEdgeWebView2Runtime",
+            "EvergreenApp":  "MicrosoftEdgeWebView2Runtime",
+            "Filter":  "$_.Architecture -eq \"x64\""
+        },
+		{
+			"Name":  "GoogleChrome",
+			"EvergreenApp":  "GoogleChrome",
+			"Filter":  "$_.Architecture -eq \"x64\" -and $_.Channel -eq \"stable\""
+		},
+		{
+			"Name":  "MozillaFirefox",
+			"EvergreenApp":  "MozillaFirefox",
+			"Filter":  "$_.Architecture -eq \"x64\" -and $_.Channel -eq \"LATEST_FIREFOX_VERSION\" -and $_.Type -eq \"msi\""
+		},
+		{
+			"Name":  "Greenshot",
+			"EvergreenApp":  "Greenshot",
+			"Filter":  "$_.InstallerType -eq \"Default\""
+		},
+		{
+			"Name":  "NotepadPlusPlus",
+			"EvergreenApp":  "NotePadPlusPlus",
+			"Filter":  "$_.Architecture -eq \"x64\" -and $_.InstallerType -eq \"Default\""
+		},
+		{
+			"Name":  "TeamViewer",
+			"EvergreenApp":  "TeamViewer",
+			"Filter":  ""
+		},
+		{
+			"Name":  "VideoLanVlcPlayer",
+			"EvergreenApp":  "VideoLanVlcPlayer",
+			"Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"MSI\""
+		},
+		{
+			"Name":  "Zoom",
+			"EvergreenApp":  "Zoom",
+			"Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"MSI\" -and $_.Platform -eq \"Meetings\""
+		},
+		{
+			"Name":  "AdoptOpenJDK16",
+			"EvergreenApp":  "AdoptOpenJDK16",
+			"Filter":  "$_.URI -like \"*jre*\""
+		}
+	],
+    "Download":[
+        {
+            "Name":"AdobeAsianFontPack",
+            "URI":[
+                "https://ardownload3.adobe.com/pub/adobe/reader/win/AcrobatDC/misc/FontPack2200120085_XtdAlf_Lang_DC.msi"
+            ]
+        },
+        {
+            "Name":"FileOpen",
+            "URI":[
+                "https://plugin.fileopen.com/current/FileOpenInstaller64.msi"
+            ]
+        },
+        {
+            "Name":"wkHTMLtoPDF",
+            "URI":[
+                "https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.msvc2015-win64.exe"
+            ]
+        },
+        {
+            "Name":"DBeaver",
+            "URI":[
+                "https://dbeaver.io/files/dbeaver-ce-latest-x86_64-setup.exe"
+            ]
+        },
+		{
+			"Name":"3dXMLPlayer",
+			"URI":[
+				"https://www.3ds.com/fileadmin/PRODUCTS-SERVICES/3DXML/3DXMLPlayer_x64.msi"
+			]
+		},
+        {
+            "Name":"7zip",
+            "URI":[
+                "https://www.7-zip.org/download.html"
+            ],
+            "ScriptBlocks":[
+                "$URI = \"https://www.7-zip.org/\"+((invoke-webrequest -UseBasicParsing -Uri $URI).Links | where-object { $_.HREF -like \"*-x64.msi*\" }).HREF[0]"
+            ]
+        }
+    ],
+    "Copy":[
+        {
+            "Name":"IBM",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\IBM"
+        },
+        {
+            "Name":"CiscoJabber",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\Cisco\\Jabber\\Windows\\12.9.1"
+        },
+        {
+            "Name":"eDrawings",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\SolidWorks\\eDrawings - Viewer\\31.30.41"
+        },
+        {
+            "Name":"JAVA",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\JAVA"
+        },
+        {
+            "Name":"PowerBI",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\Microsoft\\PowerBI\\2.119.986"
+        },
+        {
+            "Name":"PowerBIRS",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\Microsoft\\PowerBI-RS\\2.117.984"
+        },
+        {
+            "Name":"SMCApps",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\SMCApps"
+        },
+        {
+            "Name":"TACTON",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\TACTON\\4.11.0"
+        },
+        {
+            "Name":"VNCViewer",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\VNCViewer\\7.5.1"
+        }
+    ],
+    "PreScriptBlocks":[
+    ],
+    "Install":[
+        {
+            "Name":"IBMiAccess",
+            "Path":"IBM\\iAccess\\Installer\\Windows\\Image64a-Updated\\Setup.exe",
+            "Arguments":"/s /v\"/qn\""
+        },
+        {
+            "Name":"3dXMLPlayer",
+            "Path":"3dXMLPlayer\\3DXMLPlayer_x64.msi",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"7zip",
+            "Path":"7zip\\7z*-x64.msi",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"AdobeAcrobatReaderDC",
+            "Path":"AdobeAcrobatReaderDC\\AcroRdrDC*.exe",
+            "Arguments":"/sALL /rs /msi EULA_ACCEPT=YES"
+        },
+        {
+            "Name":"AdobeAsianFontPack",
+            "Path":"AdobeAsianFontPack\\FontPack*.MSI",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"AdoptOpenJDK16",
+            "Path":"AdoptOpenJDK16\\OpenJDK16u*.msi",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"CiscoJabber",
+            "Path":"CiscoJabber\\CiscoJabberSetup.MSI",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"DBeaver",
+            "Path":"DBeaver\\dbeaver-ce*.exe",
+            "Arguments":"/allusers /S"
+        },
+        {
+            "Name":"FileOpen",
+            "Path":"FileOpen\\FileOpenInstaller*.msi",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"GoogleChrome",
+            "Path":"GoogleChrome\\googlechrome*.msi",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"Greenshot",
+            "Path":"Greenshot\\Greenshot-INSTALLER*.exe",
+            "Arguments":""
+        },
+        {
+            "Name":"IBMNotesStandard",
+            "Path":"IBM\\Notes\\IBMNotesStandard\\Setup.exe",
+            "Arguments":"/s /v\"TRANSFORMS=IBMNotes901SE_SMCwMCDLL.mst /qn\""
+        },
+        {
+            "Name":"IBMNotesFP8",
+            "Path":"IBM\\Notes\\IBMNotesFP8\\clientUpdate.EXE",
+            "Arguments":"/s /v\"/qn\""
+        },
+        {
+            "Name":"IBMNotesHotFix",
+            "Path":"IBM\\Notes\\IBMNotesHotfix\\HotfixFP8.msi",
+            "Arguments":"/qn /noreboot"},
+        {
+            "Name":"IBMNotesFiles",
+            "Path":"IBM\\Notes\\IBMNotesFiles\\Copyfiles.BAT",
+            "Arguments":""
+        },
+        {
+            "Name":"MozillaFirefox",
+            "Path":"MozillaFirefox\\Firefox*.msi",
+            "Arguments":"/qn TASKBAR_SHORTCUT=false DESKTOP_SHORTCUT=false INSTALL_MAINTENANCE_SERVICE=false"
+        },
+        {
+            "Name":"NotePadPlusPlus",
+            "Path":"NotePadPlusPlus\\npp*.exe",
+            "Arguments":"/S"
+        },
+        {
+            "PreScriptBlocks":[
+                "$SunPath = \"C:\\Windows\\Sun\\Java\\Deployment\\Security\"",
+                "If (!(Test-Path $SunPath)) { New-Item -Path $SunPath -ItemType Directory -Force }"
+            ],
+            "Name":"OracleJava8",
+            "Path":"JAVA\\jre-8u*.exe",
+            "Arguments":"/s AUTO_UPDATE=0 INSTALL_SILENT=1 EULA=0 WEB_ANALYTICS=0 WEB_JAVA=1",
+            "PostScriptBlocks":[
+                "$Path = \"HKLM:\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Run\"",
+                "If ((Get-Item -Path $Path).Property -Contains \"SunJavaUpdateSched\") { Remove-ItemProperty -Path $Path -Name \"SunJavaUpdateSched\" }"
+            ]
+        },
+        {
+            "PreScriptBlocks":[
+                "$Path = \"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\*\\Installer\\Setup.exe\"",
+                "$Arguments = \"--uninstall --msedgewebview --system-level --verbose-logging\"",
+                "Install-Software -Path $Path -Arguments $Arguments"
+            ],
+            "Name":"PowerBI",
+            "Path":"PowerBI\\PBIDesktopSetup*.exe",
+            "Arguments":"-quiet -norestart ACCEPT_EULA=1 INSTALLDESKTOPSHORTCUT=0 DISABLE_UPDATE_NOTIFICATION=1 ENABLECXP=0"
+        },
+        {
+            "Name":"PowerBIRS",
+            "Path":"PowerBIRS\\PBIDesktopSetupRS*.exe",
+            "Arguments":"-quiet -norestart ACCEPT_EULA=1 INSTALLDESKTOPSHORTCUT=0 DISABLE_UPDATE_NOTIFICATION=1 ENABLECXP=0"
+        },
+        {
+            "Name":"eDrawings",
+            "Path":"eDrawings\\eDrawingsFull*.exe",
+            "Arguments":""
+        },
+        {
+            "Name":"SMCApps",
+            "Path":"SMCApps\\Setup*.exe",
+            "Arguments":"/s /v\"/qn\""
+        },
+        {
+            "Name":"SMCDraw",
+            "Path":"SMCApps\\*SMCDrawSetup.exe",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"TACTON",
+            "Path":"TACTON\\*.msi",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"TeamViewer",
+            "Path":"TeamViewer\\TeamViewer_Setup.exe",
+            "Arguments":"/S"
+        },
+        {
+            "Name":"VideoLanVlcPlayer",
+            "Path":"VideoLanVlcPlayer\\vlc-*.msi",
+            "Arguments":"/qn"},
+        {
+            "Name":"VNCViewer",
+            "Path":"VNCViewer\\VNC-Viewer*.msi",
+            "Arguments":"/qn"
+        },
+        {
+            "Name":"wkHTMLtoPDF",
+            "Path":"wkHTMLtoPDF\\wkhtmltox*.exe",
+            "Arguments":"/S"
+        },
+        {
+            "Name":"Zoom",
+            "Path":"Zoom\\ZoomInstallerFull.msi",
+            "Arguments":"/qn zSilentStart=1 zNoDesktopShortCut=true ZoomAutoUpdate=0"
+        }
+    ],
+    "RegistrySettings":[
+        {
+            "Path":"HKLM:\\Software\\Policies\\Google\\Update",
+            "Name":"UpdateDefault",
+            "Value":"0",
+            "Type":"DWORD"
+        },
+        {
+            "Path":"HKLM:\\Software\\Policies\\Google\\Update",
+            "Name":"AutoUpdatecheckPeriodMinutes",
+            "Value":"0",
+            "Type":"DWORD"
+        },
+        {
+            "Path":"HKLM:\\SOFTWARE\\Wow6432Node\\Google\\Update",
+            "Name":"UpdateDefault",
+            "Value":"0",
+            "Type":"DWORD"
+        },
+        {
+            "Path":"HKLM:\\Software\\Wow6432Node\\Google\\Update",
+            "Name":"AutoUpdatecheckPeriodMinutes",
+            "Value":"0",
+            "Type":"DWORD"
+        },
+        {
+            "Path":"HKLM:\\Software\\Policies\\Google\\Update",
+            "Name":"DisableAutoUpdateChecksCheckboxValue",
+            "Value":"1",
+            "Type":"DWORD"
+        },
+        {
+            "Path":"HKLM:\\Software\\Wow6432Node\\TeamViewer",
+            "Name":"AutoupdateMode",
+            "Value":"3",
+            "Type":"DWORD"
+        },
+        {
+            "Path":"HKLM:\\Software\\Wow6432Node\\TeamViewer",
+            "Name":"UpdateCheckInterval",
+            "Value":"2",
+            "Type":"DWORD"
+        }
+    ],
+    "PostScriptBlocks":[
+        "Get-ScheduledTask -TaskName *Google* | Disable-ScheduledTask",
+        "Get-Service -Displayname *Google* | Set-Service -StartupType Disabled",
+        "Get-ScheduledTask -TaskName *Adobe* | Disable-ScheduledTask",
+        "Get-Service -Displayname *Adobe* | Set-Service -StartupType Disabled",
+        "Get-Service -Displayname *edge* | Set-Service -StartupType Disabled",
+        "Get-Process -Name *EdgeUpdate* | Stop-Process -Force",
+        "If (Test-Path \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate.disabled\") { Remove-Item \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate.disabled\" -Force -Recurse }",
+        "Rename-Item -Path \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\" -NewName \"EdgeUpdate.disabled\"",
+        "Get-Item \"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\*\\elevation_service.exe\" | Rename-Item -NewName \"elevation_service.disabled.exe\"",
+        "Get-ScheduledTask -TaskName *edge* | Disable-ScheduledTask",
+        "#Get-ChildItem (Join-Path $env:UserProfile \"Desktop\\*.lnk\") | Remove-Item -Force"
+    ]
+}

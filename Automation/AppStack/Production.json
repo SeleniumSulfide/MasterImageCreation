@@ -1,0 +1,73 @@
+{
+    "Name":"Production",
+    "DownloadPath":"C:\\Maint\\Software",   
+    "Evergreen":[
+	],
+    "Download":[
+        {
+            "Name":"MicrosoftReportViewer2008",
+            "URI":[
+                "https://www.microsoft.com/en-US/download/details.aspx?id=3203"
+            ],
+            "ScriptBlocks":[
+                "$URI = ((Invoke-WebRequest -UseBasicParsing -URI $URI).Links | where-object { $_.HREF -like \"*download*.exe*\" }).HREF"
+            ]
+        }
+    ],
+    "Copy":[
+        {
+            "Name":"Bartender",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\Bartender\\10.1sr4"
+        },
+        {
+            "Name":"CIMCO",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\CIMCO\\8.09.25"
+        },
+        {
+            "Name":"ShopTrak",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\ShopTrak"
+        },
+        {
+            "Name":"TWedge",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\TWedge\\3.5"
+        }
+    ],
+    "PreScriptBlocks":[],
+    "Install":[
+        {
+            "Name":"Bartender",
+            "Path":"Bartender\\BT101_SR4_2961_Suite.exe",
+            "Arguments":"/s /v\"/qn EDITION=EA REMOVE=Samples,BatchMaker,Commander,HistoryExplorer,LicenseServer,Librarian,PrinterMaestro,ReprintConsole,SDK,SecurityCenter,SystemDatabase PKC=W3L9-7VD9-M3L0-9P0H\""
+        },
+        {
+            "Name":"CIMCO",
+            "Path":"CIMCO\\Cimco.msi",
+            "Arguments":"/qn ADDLOCAL=EditMainProgram,DNCMaxClient,EditShortcuts,DNCMaxClientShortcuts"
+        },
+        {
+            "Name":"TWedge",
+            "Path":"TWedge\\Twedge_Setup.exe",
+            "Arguments":"/install /quiet"
+        },
+        {
+            "Name":"MicrosoftReportViewer2008",
+            "Path":"MicrosoftReportViewer2008\\ReportViewer.exe",
+            "Arguments":"/q"
+        },
+        {
+            "Name":"ShopTrak",
+            "Path":"",
+            "Arguments":"",
+            "PreScriptBlocks":[
+                "Copy-Item -Path (Join-Path $AppStack.DownloadPath 'ShopTrak') -Destination 'C:\\Program Files (x86)\\ShopTrak' -Force -Recurse",
+                "New-Item -ItemType SymbolicLink -Path 'C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs' -Name 'ShopTrak.lnk' -Value 'C:\\Program Files (x86)\\ShopTrak\\App\\ShopTrak.exe'"
+            ]
+        }
+    ],
+    "RegistrySettings":[],
+    "PostScriptBlocks":[
+        "Get-ChildItem (Join-Path $env:UserProfile \"Desktop\\*.lnk\") | Remove-Item -Force",
+        "Copy-Item -Path c:\\Maint\\Software\\Cimco\\cimco.ini -Destination c:\\cimco\\cimcoedit8\\cfg ",
+        "Copy-Item -Path c:\\Maint\\Software\\Cimco\\dncadm.ini -Destination c:\\cimco\\DNCMax8\\cfg "
+    ]
+}

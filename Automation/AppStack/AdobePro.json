@@ -1,0 +1,62 @@
+{
+    "Name":"Adobe",
+    "DownloadPath":"C:\\Maint\\Software",   
+    "Evergreen":[
+		{
+			"Name":  "AdobeAcrobatProStdDc",
+			"EvergreenApp":  "AdobeAcrobatProStdDc",
+			"Filter":  "$_.Architecture -eq \"x86\" -and $_.Sku -eq \"Pro\"",
+            "PostScriptBlocks":[
+                "Get-ChildItem (Join-Path $DownloadPath \"AdobeAcrobatProStdDc\\*.zip\") | Expand-Archive -DestinationPath (Join-Path $DownloadPath \"AdobeAcrobatProStdDc\") -Force"
+            ]
+		}
+	],
+    "Download":[
+    ],
+    "Copy":[
+        {
+            "Name":"AdobeAcrobatProStdDc",
+            "Path":"\\\\smcusa.com\\files\\it\\vdi\\AppStacks\\AdobeAcrobatProStdDc\\SMCVDI.mst",
+            "Force":true,
+            "PostScriptBlocks":[
+                "Copy-Item -Path (Join-Path $Destination \"SMCVDI.mst\") -Destination (Get-ChildItem -Directory -Path $Destination).FullName",
+                "$INI = Get-ChildItem $Destination\\Setup.INI -Recurse",
+                "$Content = (Get-Content $INI.FullName).Replace(\"[Startup]\",\"[StartUp]`nCmdLine=/sPB\").Replace(\"[Product]\",\"[Product]`nCmdLine=TRANSFORMS=`\"SMCVDI.mst`\" ROAMIDENTITY=1 ROAMLICENSING=1\")",
+                "$INI | Set-Content -Value $Content"
+            ]
+        }
+    ],
+    "Install":[
+        {
+            "Name":"AdobeAcrobatProStdDc",
+            "Path":"AdobeAcrobatProStdDc\\*\\Setup.exe",
+            "Arguments":"",
+            "NonRecurse":false,
+            "PostScriptBlocks":[]
+        }
+    ],
+    "PreScriptBlocks":[],
+    "RegistrySettings":[
+        {
+            "PreScriptBlocks":[],
+            "Path":"HKLM:\\SOFTWARE\\Adobe\\Licensing\\UserSpecificLicensing",
+            "Name":"Enabled",
+            "Value":"1",
+            "Type":"STRING",
+            "PostScriptBlocks":[]
+        },
+        {
+            "PreScriptBlocks":[],
+            "Path":"HKLM:\\SOFTWARE\\Adobe\\Identity\\UserSpecificIdentity",
+            "Name":"Enabled",
+            "Value":"1",
+            "Type":"STRING",
+            "PostScriptBlocks":[]
+        }
+    ],
+    "PostScriptBlocks":[
+        "Get-ScheduledTask -TaskName *Adobe* | Disable-ScheduledTask",
+        "Get-Service -Displayname *Adobe* | Set-Service -StartupType Disabled",
+        "Get-ChildItem (Join-Path $env:UserProfile \"Desktop\\*.lnk\") | Remove-Item -Force"
+    ]
+}
