@@ -3,7 +3,7 @@ Param(
         $Environment="Environment.JSON",
 
     [Parameter(Mandatory=$false)]
-        [System.IO.FileInfo]$Path = "\\tmwdtahou702.tmw.com\Horizon\Software",
+        [System.IO.FileInfo]$Path = "\\contoso.com\Horizon\Software",
 
     [Parameter(Mandatory=$false)]
         [switch]$ClearExisting
@@ -14,7 +14,7 @@ If ($MyInvocation.MyCommand.Path) {
 } elseIf (Test-Path "c:\Temp\Scripts") {
     $CommandPath = "C:\Temp\Scripts"
 } else {
-    $CommandPath = "\\tmwdtahou702.tmw.com\Horizon\Master\Scripts"
+    $CommandPath = "\\contoso.com\Horizon\Master\Scripts"
 }
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
