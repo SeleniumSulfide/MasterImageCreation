@@ -199,8 +199,8 @@ Function Install-LibraryApplication() {
         ForEach ($Item in $Application.Install) {
             Write-Progress -ID 0 -Activity "Installing Applications" -Status "Installing: $($Application.Name)"
             #This Replace is here while the Json contains both Relative paths and not, the goal is to have relative paths
-            $Item.Path = $Item.Path.Replace("[SoftwarePath]",$Path).Replace("[Name]",$Application.Name).Replace("\\","\")
-            $Item.Arguments = $Item.Arguments.Replace("[SoftwarePath]",$Path).Replace("[Name]",$Application.Name).Replace("\\","\")
+            $Item.Path = $Item.Path.Replace("[SoftwarePath]",$Path).Replace("[Name]",$Application.Name).Replace("\","")
+            $Item.Arguments = $Item.Arguments.Replace("[SoftwarePath]",$Path).Replace("[Name]",$Application.Name).Replace("\","")
             #The above line assumes relative and NON-UNC paths, so replace \\ with \
 
             ForEach ($ScriptBlock in $Item.PreScriptBlocks) { 
@@ -274,4 +274,66 @@ Function Sync-LibraryApplicationRegistry() {
         }
     }
     End{}
+}
+
+Function ConvertTo-LibraryAppvolCaputre() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
+            [System.Management.Automation.PSCredential]$LocalUser
+    )
+    New-LocalUser -name $LocalUser.UserName -password $LocalUser.Password -PasswordNeverExpires -UserMayNotchangePassword
+    Add-LocalGroupMember -group "Administrators" -Member $LocalUser.UserName
+
+    Get-AppxPackage -AllUsers | Where-Object { $_.Name -like "*Teams*"} | Remove-AppxPackage -AllUsers
+    Get-AppxProvisionedPackage -Online | Where-Object { $_.DisplayName -like "*Teams*" } | Remove-AppxProvisionedPackage -Online
+
+    $Paths = @(
+        "hklm:\\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
+        "hklm:\\SOFTWARE\WOW6432Node\Windows\CurrentVersion\Uninstall"
+    )
+
+    $Keys = $Paths | Get-Childitem | Where-Object { $_.Property -Contains "DisplayName" -and $_.Property -NotContains "SystemComponent" }
+    
+    $Uninstall = @()
+
+    $MSIs = @(
+        "Omnissa Horizon Agent",
+        "Omnissa Dynamic Environment Manager Enterprise"
+    )
+
+    ForEach ($MSI in $MSIs) {
+        $Command = $Keys | Where-Object { ($_ | Get-ItemPropertyValue -Name DisplayName) -eq $MSI } | Get-ItemPropertyValue -Name UninstallString
+        If ($Command) {
+            $Command = $Command.Split(" ")
+            $Uninstall += [PSCustomObject]@{
+                FilePath = "c:\Windows\System32\"+$Command[0]
+                ArgumentList = $Command[1].Replace('/I','/X')+" /qn /norestart"
+            }
+        }
+    }
+
+    $OneDrive = (Get-ChildItem (Join-Path $env:LocalAppData "Microsoft\OneDrive\*\OneDriveSetup.exe")).FullName
+    If ($OneDrive) {
+        $Uninstall+= [PSCustomObject]@{
+            FilePath = $OneDrive
+            ArgumentList = "/uninstall"
+        }
+    }
+
+    $FSLogix = $Keys | Where-Object { ($_ | Get-ItemPropertyValue -Name DisplayName) -eq "Microsoft FSlogix Apps" } | Get-ItemPropertyValue -Name UninstallString
+    If ($FSLogix) { 
+        $Command = $FSLogix.Split('"')
+        $Uninstall += [PSCustomObject]@{
+            FilePath = $Command[1]
+            ArgumentList = $Command[2].Trim()+" /quiet /norestart"
+        }
+    }
+
+    Write-Host "Begining Uninstalls" -ForegroundColor Cyan
+    $Unisntall | ForEach-Object {
+        $_ | Format-List
+        Watch-Process -Process (Start-Process -FilePath $_.FilePath -ArgumentList $_.ArgumentList -PassThru)
+    }
+
 }

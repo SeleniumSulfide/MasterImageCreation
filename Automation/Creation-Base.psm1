@@ -87,6 +87,10 @@ Function Initialize-PreReqs() {
     If (!(Test-Path HKCR:\)){
         New-PSDrive -Name "HKCR" -PSProvider Registry -Root "HKEY_Classes_Root" | out-null
     }
+
+    $PSModulePath = "C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules"
+    $Modules = Get-Childitem (Join-Path $CommandPath "*.psm1")
+    $Modules | Copy-Item -Destination $PSModulePath
 }
 
 
