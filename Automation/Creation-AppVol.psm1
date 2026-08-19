@@ -9,7 +9,7 @@ Function Initialize-Library() {
     }
     Process {
         $Applications = $Library | Get-Content | ConvertFrom-JSON | Where-Object { $_.Name -NotIn $Global:AppLibrary.Name }
-        $Global:AppLibrary += $Applications | %{ $_ }
+        $Global:AppLibrary += $Applications | ForEach-Object { $_ }
     }
 }
 
@@ -290,7 +290,7 @@ Function ConvertTo-LibraryAppvolCaputre() {
 
     $Paths = @(
         "hklm:\\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
-        "hklm:\\SOFTWARE\WOW6432Node\Windows\CurrentVersion\Uninstall"
+        "hklm:\\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
     )
 
     $Keys = $Paths | Get-Childitem | Where-Object { $_.Property -Contains "DisplayName" -and $_.Property -NotContains "SystemComponent" }
@@ -331,7 +331,7 @@ Function ConvertTo-LibraryAppvolCaputre() {
     }
 
     Write-Host "Begining Uninstalls" -ForegroundColor Cyan
-    $Unisntall | ForEach-Object {
+    $Uninstall | ForEach-Object {
         $_ | Format-List
         Watch-Process -Process (Start-Process -FilePath $_.FilePath -ArgumentList $_.ArgumentList -PassThru)
     }

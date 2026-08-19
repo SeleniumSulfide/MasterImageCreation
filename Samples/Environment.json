@@ -311,9 +311,19 @@
                     "Arguments":"/install /quiet /norestart"
                 },
                 {
+                    "Name":"MicrosoftOffice365",
+                    "Path":"[SoftwarePath]\\[Name]\\*.exe",
+                    "Arguments":"/configure [SoftwarePath]\\[Name]\\Configuration.xml"
+                },
+                {
                     "Name":"MicrosoftSQLNativeClient",
                     "Path":"[SoftwarePath]\\MicrosoftSQLNativeClient*\\*.MSI",
                     "Arguments":"/q IACCEPTSQLNCLILICENSETERMS=YES"
+                },
+                {
+                    "Name":"MicrosoftOffice365",
+                    "Path":"[SoftwarePath]\\[Name]\\*.exe",
+                    "Arguments":"/configure [SoftwarePath]\\[Name]\\Configuration.xml"
                 },
                 {
                     "Name":"Microsoft.NetSDK",

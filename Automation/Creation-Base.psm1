@@ -295,7 +295,7 @@ Function Watch-Process() {
 #>
 Function Sync-RegistrySettings() {
     Param(
-        [Parameter(Mandatory=$True)]
+        [Parameter(Mandatory=$False)]
             [PSCustomObject[]]$RegistrySettings
     )
 

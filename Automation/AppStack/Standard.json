@@ -21,6 +21,6 @@
         "WinSCP"
     ],
     "PostScriptBlocks":[
-        "Get-ChildItem (Join-Path $env:UserProfile \"Desktop\\*.lnk\") | Remove-Item -Force"
+        "Get-ChildItem \"C:\\Users\\*\\Desktop\\*.lnk\" | Remove-Item -Force"
     ]
 }
