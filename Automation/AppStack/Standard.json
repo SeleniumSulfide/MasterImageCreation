@@ -1,6 +1,13 @@
 {
     "Name":"Standard",
+    "Libraries":[
+        "ApplicationLibrary-v2.2.JSON"
+    ],
     "Variables":[
+        {
+            "Name":"LibrayPath",
+            "Value":"C:\\Temp\\Scripts\\Library"
+        },
         {
             "Name":"ScriptPath",
             "Value":"C:\\Temp\\Scripts"

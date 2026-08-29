@@ -308,7 +308,7 @@ Function ConvertTo-LibraryAppvolCaputre() {
             $Command = $Command.Split(" ")
             $Uninstall += [PSCustomObject]@{
                 FilePath = "c:\Windows\System32\"+$Command[0]
-                ArgumentList = $Command[1].Replace('/I','/X')+" /qn /norestart"
+                ArgumentList = $Command[1].Replace('/I','/X')+" /qn /norestart REBOOT=R"
             }
         }
     }

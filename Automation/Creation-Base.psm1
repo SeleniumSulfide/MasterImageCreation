@@ -74,9 +74,15 @@ Function Initialize-PreReqs() {
     )
     ForEach ($Module in $Modules) { 
         if(!(Confirm-PreReq -PreReq $Module.Name -Package $Module.Package)) {
-            ForEach ($ScriptBlock in $Module.PreScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+            ForEach ($ScriptBlock in $Module.PreScriptBlocks) { 
+                Write-Host $ScriptBlock
+                Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+            }
             Install-Prereq -PreReq $Module.Name -Package $Module.Package
-            ForEach ($ScriptBlock in $Module.PostScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+            ForEach ($ScriptBlock in $Module.PostScriptBlocks) { 
+                Write-Host $ScriptBlock
+                Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+            }
         }
     }
 
@@ -235,11 +241,14 @@ Function Install-Applications() {
     ForEach ($Application in $Applications) {
         $i++; Write-Progress -ID 0 -Activity "Installing Applications" -Status "Installing: $($Application.Name)" -PercentComplete (($i/$Applications.Count)*100);
         #This Replace is here while the Json contains both Relative paths and not, the goal is to have relative paths
-        $Application.Path = $Application.Path.Replace("[SoftwarePath]",$SoftwarePath).Replace("[Name]",$Application.Name).Replace("\\","\")
-        $Application.Arguments = $Application.Arguments.Replace("[SoftwarePath]",$SoftwarePath).Replace("[Name]",$Application.Name).Replace("\\","\")
+        If ($Application.Path) { $Application.Path = $Application.Path.Replace("[SoftwarePath]",$SoftwarePath).Replace("[Name]",$Application.Name).Replace("\\","\") }
+        If ($Application.Arguments) {$Application.Arguments = $Application.Arguments.Replace("[SoftwarePath]",$SoftwarePath).Replace("[Name]",$Application.Name).Replace("\\","\")}
         #The above line assumes relative and NON-UNC paths, so replace \\ with \
 
-        ForEach ($ScriptBlock in $Application.PreScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $Application.PreScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
 
         If ($Application.Path) {
             If ($Application.NonRecurse) {
@@ -260,7 +269,10 @@ Function Install-Applications() {
                 Start-Sleep -Seconds 1
             }
         }
-        ForEach ($ScriptBlock in $Application.PostScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $Application.PostScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
     }
     Write-Progress -ID 0 -Activity "Installing Applications" -Completed
 }
@@ -301,7 +313,10 @@ Function Sync-RegistrySettings() {
 
     ForEach ($RegistrySetting in $RegistrySettings) {
         $i++; Write-Progress -ID 0 -Activity "Synching Registry Settings" -Status "Synching: $($RegistrySetting.Name)" -PercentComplete (($i/$RegistrySettings.Count)*100);
-        ForEach ($ScriptBlock in $RegistrySettings.PreScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $RegistrySettings.PreScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
         if (!(Test-Path $RegistrySetting.Path )) {
             New-ItemWrapper $RegistrySetting.Path 
         }
@@ -318,7 +333,10 @@ Function Sync-RegistrySettings() {
                 -Value $RegistrySetting.Value `
                 -PropertyType $RegistrySetting.Type | out-null
         }
-        ForEach ($ScriptBlock in $RegistrySettings.PostScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $RegistrySettings.PostScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
     }
     Write-Progress -ID 0 -Activity "Synching Registry Settings"  -Completed
 
@@ -390,7 +408,10 @@ Function Initialize-Variables(){
         [Parameter(Mandatory=$True)]$Variables
     )
     ForEach ($Variable in $Variables) {
-        ForEach ($ScriptBlock in $Variable.PreScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $Variable.PreScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
         $Variable.Value = Convert-PlaceholderVariables -Value $Variable.Value -Variables $Variables
         if (Get-Variable -Name $Variable.Name -ErrorAction SilentlyContinue) {
             Write-Host "Setting Variable: $($Variable.Name)"
@@ -399,7 +420,10 @@ Function Initialize-Variables(){
             Write-Host "Creating Variable: $($Variable.Name)"
             New-Variable -Name $Variable.Name -Value $Variable.Value -Scope Global
         }
-        ForEach ($ScriptBlock in $Variable.PostScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $Variable.PostScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
     }
 }
 
@@ -458,7 +482,10 @@ Function Get-AppsEvergreen() {
     
     ForEach ($Application in $Applications) {
         $i++; Write-Progress -ID 0 -Activity "Downloading Applications" -Status "Downloading: $($Application.Name)" -PercentComplete (($i/$Applications.Count)*100);
-        ForEach ($ScriptBlock in $Application.PreScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $Application.PreScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
         $EvergreenApp = Get-EvergreenApp -Name $Application.EverGreenApp
         If ($Application.Filter -ne "") { 
             $Filter = [ScriptBlock]::Create($Application.Filter)
@@ -474,7 +501,10 @@ Function Get-AppsEvergreen() {
             Write-Host "Evergreen: $($Application.EvergreenApp)"
             Invoke-WebRequest -UseBasicParsing -Uri $EvergreenApp.uri -OutFile $OutFile
         }
-        ForEach ($ScriptBlock in $Application.PostScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $Application.PostScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
     }
     Write-Progress -ID 0 -Activity "Downloading Applications" -Completed
 }
@@ -500,9 +530,15 @@ Function Get-AppsDownload() {
         $i++; Write-Progress -ID 0 -Activity "Downloading Applications" -Status "Downloading: $($Application.Name)" -PercentComplete (($i/$Applications.Count)*100);
         $Destination = Join-Path $DownloadPath $Application.Name
         If (!(Test-Path $Destination)) { New-ItemWrapper -Path $Destination }
-        ForEach ($ScriptBlock in $Application.PreScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $Application.PreScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
         ForEach ($URI in $Application.URIs) {
-            ForEach ($ScriptBlock in $URI.PreScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+            ForEach ($ScriptBlock in $URI.PreScriptBlocks) { 
+                Write-Host $ScriptBlock
+                Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+            }
             if ($URI.FileName) {
                 $OutFile = Join-Path $Destination $URI.FileName
             } else {
@@ -513,9 +549,15 @@ Function Get-AppsDownload() {
                 Write-Host "Download: $($Application.Name)"
                 Invoke-WebRequest -UseBasicParsing -Uri $URI.URI -OutFile $OutFile
             }
-            ForEach ($ScriptBlock in $URI.PostScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+            ForEach ($ScriptBlock in $URI.PostScriptBlocks) { 
+                Write-Host $ScriptBlock
+                Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+            }
         }
-        ForEach ($ScriptBlock in $Application.PostScriptBlocks) { Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope }
+        ForEach ($ScriptBlock in $Application.PostScriptBlocks) { 
+            Write-Host $ScriptBlock
+            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+        }
     }
     Write-Progress -ID 0 -Activity "Downloading Applications" -Completed
 }

@@ -73,12 +73,15 @@ Start-Transcript -Path (Join-Path $LocalRoot "Phase-$($State.Phase).log") -Appen
 Set-ExecutionPolicy Bypass -Scope LocalMachine -Force
 If ($MyInvocation.MyCommand.Path) {
     $Global:CommandPath = Split-Path $MyInvocation.MyCommand.Path -Parent
-} elseIf (Test-Path "c:\Temp\Scripts") {
-    $Global:CommandPath = "C:\Temp\Scripts"
+} elseIf (Test-Path (Join-Path $LocalRoot "Scripts")) {
+    $Global:CommandPath = Join-Path $LocalRoot "Scripts"
 } else {
-    $Global:CommandPath = "contoso.com\Horizon\Master\Scripts"
+    $Global:CommandPath = Join-Path $RemoteRoot "Scripts"
 }
-Import-Module (Join-Path $CommandPath "Creation-Base.psm1") -ErrorAction Stop
+Get-Childitem (Join-Path $CommandPath "*.psm1") | ForEach-Object { 
+    Write-Host "Importing $($_.Name)"
+    Import-Module $_.Fullname -ErrorAction Stop
+}
 
 <#
     Read the Environment.JSON that is stored with the PowerShell Script
