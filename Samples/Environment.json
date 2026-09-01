@@ -131,6 +131,11 @@
             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.Language -eq \"English\""
         },
         {
+            "Name":  "MicrosoftOneDrive",
+            "EvergreenApp":  "MicrosoftOneDrive",
+            "Filter":  "$_.Architecture -eq \"x64\" -and $_.Ring -eq \"Enterprise\""
+        },
+        {
             "Name":  "MicrosoftOpenJDK21",
             "EvergreenApp":  "MicrosoftOpenJDK21",
             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\""
@@ -139,11 +144,6 @@
             "Name":  "MicrosoftTeams",
             "EvergreenApp":  "MicrosoftTeams",
             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Release -eq \"Enterprise\""
-        },
-        {
-            "Name":  "OracleJava8",
-            "EvergreenApp":  "OracleJava8",
-            "Filter":  "$_.Architecture -eq \"x64\""
         }
     ],
     "Download":[
@@ -316,14 +316,14 @@
                     "Arguments":"/configure [SoftwarePath]\\[Name]\\Configuration.xml"
                 },
                 {
+                    "Name":"MicrosoftOneDrive",
+                    "Path":"[SoftwarePath]\\[Name]\\*.exe",
+                    "Arguments":"/AllUsers"
+                },
+                {
                     "Name":"MicrosoftSQLNativeClient",
                     "Path":"[SoftwarePath]\\MicrosoftSQLNativeClient*\\*.MSI",
                     "Arguments":"/q IACCEPTSQLNCLILICENSETERMS=YES"
-                },
-                {
-                    "Name":"MicrosoftOffice365",
-                    "Path":"[SoftwarePath]\\[Name]\\*.exe",
-                    "Arguments":"/configure [SoftwarePath]\\[Name]\\Configuration.xml"
                 },
                 {
                     "Name":"Microsoft.NetSDK",

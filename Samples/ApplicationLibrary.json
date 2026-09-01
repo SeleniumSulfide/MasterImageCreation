@@ -3670,6 +3670,7 @@
 
                                                                  ],
                                              "Name":  "WinSCP",
+                                             "FileName": "WinSCP.msi",
                                              "Filter":  "$_.Type -eq \"msi\"",
                                              "PostScriptblocks":  [
 

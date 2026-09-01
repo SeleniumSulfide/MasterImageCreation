@@ -62,7 +62,7 @@ Function Save-LibraryApplication() {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
-            [PSCustomObject[]]$Application,
+            $Application,
         [Parameter(Mandatory=$True)]
             [System.IO.FileInfo]$Path,
         [Parameter(Mandatory=$False)]
@@ -139,7 +139,11 @@ Function Save-LibraryApplication() {
                 $EvergreenApp = ($EvergreenApp | Where-Object -FilterScript $Filter)[0]
             }
 
-            $File = [system.uri]::UnescapeDataString((Split-Path -Path $EvergreenApp.Uri -Leaf))
+            If ($Item.FileName){
+                $File = $Item.Filename
+            } Else {
+                $File = [system.uri]::UnescapeDataString((Split-Path -Path $EvergreenApp.Uri -Leaf))
+            }
             Write-Verbose "File: $File"
             $OutFile = Join-Path -Path $Destination -ChildPath ($File)
             Write-Verbose "OutFile: $OutFile"
@@ -188,9 +192,9 @@ Function Install-LibraryApplication() {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
-            [PsucstomObject[]]$Application,
+            $Application,
         [Parameter(Mandatory=$True)]
-            [System.IO.File]$Path
+            [System.IO.FileInfo]$Path
     )
     Begin {
         
@@ -199,8 +203,8 @@ Function Install-LibraryApplication() {
         ForEach ($Item in $Application.Install) {
             Write-Progress -ID 0 -Activity "Installing Applications" -Status "Installing: $($Application.Name)"
             #This Replace is here while the Json contains both Relative paths and not, the goal is to have relative paths
-            $Item.Path = $Item.Path.Replace("[SoftwarePath]",$Path).Replace("[Name]",$Application.Name).Replace("\","")
-            $Item.Arguments = $Item.Arguments.Replace("[SoftwarePath]",$Path).Replace("[Name]",$Application.Name).Replace("\","")
+            $Item.Path = $Item.Path.Replace("[SoftwarePath]",$Path).Replace("[Name]",$Application.Name).Replace("\\","")
+            $Item.Arguments = $Item.Arguments.Replace("[SoftwarePath]",$Path).Replace("[Name]",$Application.Name).Replace("\\","")
             #The above line assumes relative and NON-UNC paths, so replace \\ with \
 
             ForEach ($ScriptBlock in $Item.PreScriptBlocks) { 
@@ -276,10 +280,10 @@ Function Sync-LibraryApplicationRegistry() {
     End{}
 }
 
-Function ConvertTo-LibraryAppvolCaputre() {
+Function ConvertTo-LibraryCapture() {
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
+        [Parameter(Mandatory=$True)]
             [System.Management.Automation.PSCredential]$LocalUser
     )
     New-LocalUser -name $LocalUser.UserName -password $LocalUser.Password -PasswordNeverExpires -UserMayNotchangePassword
@@ -307,6 +311,7 @@ Function ConvertTo-LibraryAppvolCaputre() {
         If ($Command) {
             $Command = $Command.Split(" ")
             $Uninstall += [PSCustomObject]@{
+                Name = $MSI
                 FilePath = "c:\Windows\System32\"+$Command[0]
                 ArgumentList = $Command[1].Replace('/I','/X')+" /qn /norestart REBOOT=R"
             }
@@ -316,6 +321,7 @@ Function ConvertTo-LibraryAppvolCaputre() {
     $OneDrive = (Get-ChildItem (Join-Path $env:LocalAppData "Microsoft\OneDrive\*\OneDriveSetup.exe")).FullName
     If ($OneDrive) {
         $Uninstall+= [PSCustomObject]@{
+            Name = "OneDrive"
             FilePath = $OneDrive
             ArgumentList = "/uninstall"
         }
@@ -325,6 +331,7 @@ Function ConvertTo-LibraryAppvolCaputre() {
     If ($FSLogix) { 
         $Command = $FSLogix.Split('"')
         $Uninstall += [PSCustomObject]@{
+            Name = "FSLogix"
             FilePath = $Command[1]
             ArgumentList = $Command[2].Trim()+" /quiet /norestart"
         }
@@ -334,6 +341,7 @@ Function ConvertTo-LibraryAppvolCaputre() {
     $Uninstall | ForEach-Object {
         $_ | Format-List
         Watch-Process -Process (Start-Process -FilePath $_.FilePath -ArgumentList $_.ArgumentList -PassThru)
+        Start-Sleep -Seconds 1
     }
 
 }

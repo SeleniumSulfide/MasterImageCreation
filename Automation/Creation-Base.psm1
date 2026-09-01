@@ -40,6 +40,7 @@ Function Initialize-PreReqs() {
     Set-TLSVersion
 
     $PackageSources | ForEach-Object {
+        Write-Host "Package Source: $($_.Name)"
         if(!(get-packagesource -Name $_.Name -ErrorAction SilentlyContinue)){
             Register-PackageSource -Name $_.Name `
                 -Location $_.Location `
@@ -73,6 +74,7 @@ Function Initialize-PreReqs() {
         }
     )
     ForEach ($Module in $Modules) { 
+        Write-Host "Module: $($Module.Name)"
         if(!(Confirm-PreReq -PreReq $Module.Name -Package $Module.Package)) {
             ForEach ($ScriptBlock in $Module.PreScriptBlocks) { 
                 Write-Host $ScriptBlock
@@ -94,9 +96,10 @@ Function Initialize-PreReqs() {
         New-PSDrive -Name "HKCR" -PSProvider Registry -Root "HKEY_Classes_Root" | out-null
     }
 
-    $PSModulePath = "C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules"
+    $PSModulePath = "C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules\HorizonAutomation"
+    New-ItemWrapper $PSModulePath
     $Modules = Get-Childitem (Join-Path $CommandPath "*.psm1")
-    $Modules | Copy-Item -Destination $PSModulePath
+    #$Modules | Copy-Item -Destination $PSModulePath #Commented out till fixing Param PSCustomObject issue
 }
 
 
@@ -240,6 +243,7 @@ Function Install-Applications() {
 
     ForEach ($Application in $Applications) {
         $i++; Write-Progress -ID 0 -Activity "Installing Applications" -Status "Installing: $($Application.Name)" -PercentComplete (($i/$Applications.Count)*100);
+        Write-Host "Installing: $($Application.Name)"
         #This Replace is here while the Json contains both Relative paths and not, the goal is to have relative paths
         If ($Application.Path) { $Application.Path = $Application.Path.Replace("[SoftwarePath]",$SoftwarePath).Replace("[Name]",$Application.Name).Replace("\\","\") }
         If ($Application.Arguments) {$Application.Arguments = $Application.Arguments.Replace("[SoftwarePath]",$SoftwarePath).Replace("[Name]",$Application.Name).Replace("\\","\")}
@@ -313,6 +317,7 @@ Function Sync-RegistrySettings() {
 
     ForEach ($RegistrySetting in $RegistrySettings) {
         $i++; Write-Progress -ID 0 -Activity "Synching Registry Settings" -Status "Synching: $($RegistrySetting.Name)" -PercentComplete (($i/$RegistrySettings.Count)*100);
+        Write-Host "Syncing: $($RegistrySetting.Name)"
         ForEach ($ScriptBlock in $RegistrySettings.PreScriptBlocks) { 
             Write-Host $ScriptBlock
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
@@ -320,7 +325,6 @@ Function Sync-RegistrySettings() {
         if (!(Test-Path $RegistrySetting.Path )) {
             New-ItemWrapper $RegistrySetting.Path 
         }
-        Write-host $RegistrySetting.Name
         If ((Get-Item $RegistrySetting.Path).Property -Contains $RegistrySetting.Name) {
             Set-ItemProperty `
                 -Path $RegistrySetting.Path `
@@ -393,7 +397,7 @@ Function Initialize-PrinterDrivers(){
     ForEach ($PrinterDriver in $PrinterDrivers) {
         $i++; Write-Progress -ID 0 -Activity "Initializing PrintDrivers" -Status "Initializing: $($PrinterDriver)" -PercentComplete (($i/$PrinterDrivers.Count)*100);
         If (!(Get-PrinterDriver -Name $PrinterDriver -ErrorAction SilentlyContinue)) {
-            Write-Host "Adding PrinterDriver: $($PrinterDriver)"
+            Write-Host "Intializing PrinterDriver: $($PrinterDriver)"
             Add-PrinterDriver -Name $PrinterDriver
         }
     }
@@ -408,16 +412,17 @@ Function Initialize-Variables(){
         [Parameter(Mandatory=$True)]$Variables
     )
     ForEach ($Variable in $Variables) {
+        Write-Host "Processing Variable: $($Variable.Name)"
         ForEach ($ScriptBlock in $Variable.PreScriptBlocks) { 
             Write-Host $ScriptBlock
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
         }
         $Variable.Value = Convert-PlaceholderVariables -Value $Variable.Value -Variables $Variables
         if (Get-Variable -Name $Variable.Name -ErrorAction SilentlyContinue) {
-            Write-Host "Setting Variable: $($Variable.Name)"
+            Write-Host "`tSetting Value: $($Variable.Value)"
             Set-Variable -Name $Variable.Name -Value $Variable.Value -Scope Global
         } else {
-            Write-Host "Creating Variable: $($Variable.Name)"
+            Write-Host "`tCreating Value: $($Variable.Value)"
             New-Variable -Name $Variable.Name -Value $Variable.Value -Scope Global
         }
         ForEach ($ScriptBlock in $Variable.PostScriptBlocks) { 
@@ -482,6 +487,7 @@ Function Get-AppsEvergreen() {
     
     ForEach ($Application in $Applications) {
         $i++; Write-Progress -ID 0 -Activity "Downloading Applications" -Status "Downloading: $($Application.Name)" -PercentComplete (($i/$Applications.Count)*100);
+        Write-Host "Evergreen: $($Application.Name)"
         ForEach ($ScriptBlock in $Application.PreScriptBlocks) { 
             Write-Host $ScriptBlock
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
@@ -528,6 +534,7 @@ Function Get-AppsDownload() {
     
     ForEach ($Application in $Applications) {
         $i++; Write-Progress -ID 0 -Activity "Downloading Applications" -Status "Downloading: $($Application.Name)" -PercentComplete (($i/$Applications.Count)*100);
+        Write-Host "Download: $($Application.Name)"
         $Destination = Join-Path $DownloadPath $Application.Name
         If (!(Test-Path $Destination)) { New-ItemWrapper -Path $Destination }
         ForEach ($ScriptBlock in $Application.PreScriptBlocks) { 
@@ -546,7 +553,6 @@ Function Get-AppsDownload() {
             }
 
             If (!(Test-Path $OutFile) -or $Force.IsPresent ) {
-                Write-Host "Download: $($Application.Name)"
                 Invoke-WebRequest -UseBasicParsing -Uri $URI.URI -OutFile $OutFile
             }
             ForEach ($ScriptBlock in $URI.PostScriptBlocks) { 
@@ -575,7 +581,7 @@ Function Get-AppsVCRedist() {
 
     ForEach ($Release in $Releases) {
         $i++; Write-Progress -ID 0 -Activity "Downloading VCredist" -Status "Downloading: $($Release)" -PercentComplete (($i/$Releases.Count)*100);
-        Write-Host "Downloading VCRedist $Release"
+        Write-Host "VCRedist: $Release"
         $VC = Get-VCList -Export All | Where-Object { $_.Architecture -ne "ARM64" -and $_.Release -eq $Release}
         $Version = $VC.Version | Sort-Object -Unique
         If ($Version.Count -gt 1) {

@@ -6,11 +6,7 @@
     "Variables":[
         {
             "Name":"LibrayPath",
-            "Value":"C:\\Temp\\Scripts\\Library"
-        },
-        {
-            "Name":"ScriptPath",
-            "Value":"C:\\Temp\\Scripts"
+            "Value":"C:\\Temp\\Scripts\\AppLibrary"
         },
         {
             "Name":"SoftwarePath",
