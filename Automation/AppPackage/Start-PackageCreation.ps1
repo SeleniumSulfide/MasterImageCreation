@@ -1,5 +1,5 @@
 Param(
-    [Parameter(Mandatory=$True)][System.IO.FileInfo]$ConfigFile,
+    [Parameter(Mandatory=$True)][System.IO.FileInfo]$PackageFile,
     [Parameter(Madatory=$false)][System.IO.FileInfo]$ScriptRoot = "C:\Temp\Scripts",
     [Parameter(Mandatory=$False)][Switch]$Confirm
 )
@@ -15,7 +15,7 @@ $Services | ForEach-Object {
 
 Get-ChildItem (Join-Path $ScriptRoot "*.psm1") | Import-Module
 
-$Package = Get-Content $ConfigFile | ConvertFrom-Json
+$Package = Get-Content $PackageFile | ConvertFrom-Json
 
 Initialize-Variables $Package.Variables
 

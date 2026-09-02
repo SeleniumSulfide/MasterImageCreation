@@ -1,0 +1,3874 @@
+[
+    {
+        "Name":  "7zip",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "7Zip",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\7zip\\7z*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "AdobeAcrobatReaderDC",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "AdobeAcrobatReaderDC",
+                                             "Filter":  "$_.Language -eq \"English\" -and $_.Architecture -eq \"x64\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\AdobeAcrobatReaderDC\\AcroRdrDC*.exe",
+                            "Arguments":  "/sALL /msi ROAMIDENTITY=1 ROAMLICENSING=1",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "AIPhoneIXGSupportTool",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://know.aiphone.com/en_US/ix-ixg-series-software/ixg-support-tool-download\"",
+                                                                    "$Item.URI = (Invoke-WebRequest -UseBasicParsing -Uri $URL).Links.href | Where-Object { $_ -like \"*exe*\" }",
+                                                                    "$Item.Filename = \"$($Item.URI | Split-Path -Leaf).zip\""
+                                                                ],
+                                            "FileName":  "",
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+                                                                    "Get-ChildItem (Join-Path $Destination \"*.zip\") -recurse | Expand-Archive -DestinationPath $Destination -Force"
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "AutoHotKey",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://www.autohotkey.com/download/ahk-v2.exe",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\AutoHotKey\\ahk-v2.exe",
+                            "Arguments":  "/silent /elevate",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "BGInfo",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://download.sysinternals.com/files/BGInfo.zip",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+                                                "Get-ChildItem (Join-Path $Destination \"*.zip\") -recurse | Expand-Archive -DestinationPath $Destination -Force"
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "C:\\Program Files\\BGInfo\\Bginfo64.exe",
+                            "Arguments":  "\"C:\\Program Files\\BGInfo\\BGInfo.bgi\" /nolicprompt /timer:60",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "hklm:\\software\\microsoft\\windows\\currentversion\\run",
+                             "Name":  "*BGInfo",
+                             "Value":  "\"C:\\Program Files\\BGInfo\\Bginfo64.exe\" \"C:\\Program Files\\BGInfo\\BGInfo.bgi\" /nolicprompt /timer:60",
+                             "Type":  "String",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         }
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "CitrixWorkspaceApp",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "CitrixWorkspaceApp",
+                                             "Filter":  "$_.Stream -eq \"LTSR\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\CitrixWorkspaceApp\\CitrixWorkspaceApp*.exe",
+                            "Arguments":  "/silent  AutoUpdateCheck=disabled ADDLOCAL=ALL ADDONS=ZoomVDIPlugin  /InstallMSTeamsPlugin=Y",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "Cursor",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$Response = (Invoke-WebRequest -UseBasicParsing -Uri \"https://cursor.com/download\")",
+                                                                    "$Item.URI = ($Response.Links.Href | Where-Object { $_ -like \"*download*win32-x64/cursor*\"} | Sort-Object)[-1]"
+                                                                ],
+                                            "FileName":  "CursorSetup-x64.exe",
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "Dbeaver",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "dbeaver",
+                                             "Filter":  "$_.Architecture -eq \"x64\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\dbeaver\\dbeaver*.exe",
+                            "Arguments":  "/S /allusers",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "DockerDesktop",
+        "Source":  {
+            "PreScriptBlocks":  [],
+            "Download":  [
+                {
+                    "PreScriptBlocks":[],
+                    "FileName":  "DockerDesktopInstaller.exe",
+                    "URI":  "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe",
+                    "PostScriptBlocks":[]
+                }
+            ],
+            "PostScriptBlocks":  []
+        },
+        "Install":  [
+            {
+                "PreScriptBlocks":  [],
+                "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                "Arguments":  "install --quiet",
+                "Recurse":  true,
+                "PostScriptBlocks":  []
+            }
+        ],
+        "Registry":  [
+        ],
+        "Detection":  {
+            "DisplayName":  [""],
+            "RegKey":  [
+                {
+                "Path":"",
+                "Property":"",
+                "Value":""
+                }
+            ],
+            "File":  [""]
+        }
+    },
+    {
+        "Name":  "EPMAutomate",
+        "Source":  {
+            "Manual":true
+        },
+        "Install":  [
+            {
+                "PreScriptBlocks":  [],
+                "Path":  "",
+                "Arguments":  "",
+                "Recurse":  true,
+                "PostScriptBlocks":  []
+            }
+        ],
+        "Registry":  [
+        ],
+        "Detection":  {
+            "DisplayName":  [""],
+            "RegKey":  [
+                {
+                "Path":"",
+                "Property":"",
+                "Value":""
+                }
+            ],
+            "File":  [""]
+        }
+    },
+    {
+        "Name":  "GitHubCLI",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "GitHubCLI",
+                                             "Filter":  "$_.Architecture -eq \"x64\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\GitHubCLI\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "GitHubDesktop",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "GitHubDesktop",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\GitHubDesktop\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "GoogleChrome",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "GoogleChrome",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.Channel -eq \"Stable\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\GoogleChrome\\googlechrome*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "hklm:\\SOFTWARE\\Policies\\Google\\Chrome",
+                             "Name":  "RendererCodeIntegrityEnabled",
+                             "Value":  "0",
+                             "Type":  "DWord",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         },
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "HKLM:\\Software\\Policies\\Google\\Update",
+                             "Name":  "AutoUpdatecheckPeriodMinutes",
+                             "Value":  "0",
+                             "Type":  "DWORD",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         },
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "HKLM:\\Software\\Policies\\Google\\Update",
+                             "Name":  "DisableAutoUpdateChecksCheckboxValue",
+                             "Value":  "1",
+                             "Type":  "DWORD",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         },
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "HKLM:\\Software\\Policies\\Google\\Update",
+                             "Name":  "UpdateDefault",
+                             "Value":  "0",
+                             "Type":  "DWORD",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         },
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "HKLM:\\Software\\Wow6432Node\\Google\\Update",
+                             "Name":  "AutoUpdatecheckPeriodMinutes",
+                             "Value":  "0",
+                             "Type":  "DWORD",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         },
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "HKLM:\\Software\\Wow6432Node\\Google\\Update",
+                             "Name":  "DisableAutoUpdateChecksCheckboxValue",
+                             "Value":  "1",
+                             "Type":  "DWORD",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         },
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "HKLM:\\SOFTWARE\\Wow6432Node\\Google\\Update",
+                             "Name":  "UpdateDefault",
+                             "Value":  "0",
+                             "Type":  "DWORD",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         }
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "GoogleCloudCLI",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/S /allusers /noreporting",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "JetBrainsIntelliJIdea",
+        "Source":  {
+            "PreScriptBlocks":  [],
+            "Download":  [
+                {
+                    "PreScriptBlocks":[],
+                    "FileName":  "idea.exe",
+                    "URI":  "https://data.services.jetbrains.com/products/download?code=IIC&platform=windows",
+                    "PostScriptBlocks":[]
+                }
+            ],
+            "PostScriptBlocks":  []
+        },
+        "Install":  [
+            {
+                "PreScriptBlocks":  [
+                    "$File = Join-Path (Split-Path $item.Path) \"Config.ini\"",
+                    "Set-Content -Path $File -Value \"mode=admin\" -Force",
+                    "Add-Content -Path $File -Value \"contextMenu=1\"",
+                    "Add-Content -Path $File -Value \".java=1\"",
+                    "Add-Content -Path $File -Value \".groovy=1\"",
+                    "Add-Content -Path $File -Value \".kt=1\"",
+                    "Add-Content -Path $File -Value \".kts=1\"",
+                    "Add-Content -Path $File -Value \".pom=1\"",
+                    "Add-Content -Path $File -Value \"updatePATH=1\""
+                ],
+                "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                "Arguments":  "/S /CONFIG=[SoftwarePath]\\[Name]\\Config.ini",
+                "Recurse":  true,
+                "PostScriptBlocks":  []
+            }
+        ],
+        "Registry":  [
+        ],
+        "Detection":  {
+            "DisplayName":  [""],
+            "RegKey":  [
+                {
+                "Path":"",
+                "Property":"",
+                "Value":""
+                }
+            ],
+            "File":  [""]
+        }
+    },
+    {
+        "Name":  "Microsoft.NetSDK",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$Arch = \"x64\"",
+                                                                    "$URL = \"https://dotnet.microsoft.com/en-us/download/dotnet/8.0\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$HREF = (($Response.Links | Where-Object { $_.href -like \"*sdk*windows*installer*\" -and $_.href -like \"*$Arch*\" } | sort-Object -Property \"data-bi-dlid\")[-1]).href",
+                                                                    "$URL = \"https://dotnet.microsoft.com$href\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -URI $URL",
+                                                                    "$Item.URI = ($Response.LINKS | Where-Object { $_.ID -eq \"directLink\"}).HREF"
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        },
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$Arch = \"x86\"",
+                                                                    "$URL = \"https://dotnet.microsoft.com/en-us/download/dotnet/8.0\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$HREF = (($Response.Links | Where-Object { $_.href -like \"*sdk*windows*installer*\" -and $_.href -like \"*$Arch*\" } | sort-Object -Property \"data-bi-dlid\")[-1]).href",
+                                                                    "$URL = \"https://dotnet.microsoft.com$href\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -URI $URL",
+                                                                    "$Item.URI = ($Response.LINKS | Where-Object { $_.ID -eq \"directLink\"}).HREF"
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/install /quiet /norestart",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftEdge",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftEdge",
+                                             "Filter":  "$_.Release -eq \"Enterprise\" -and $_.Type -eq \"MSI\" -and $_.Channel -eq \"Stable\" -and $_.Architecture -eq \"x64\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftEdge\\*.MSI",
+                            "Arguments":  "/qn DONOTCREATEDESKTOPSHORTCUT=true DONOTCREATETASKBARSHORTCUT=true REBOOT=ReallySuppress",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftEdgeWebView2Runtime",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftEdgeWebView2Runtime",
+                                             "Filter":  "$_.Architecture -eq \"x64\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftEdgeWebView2Runtime\\*.exe",
+                            "Arguments":  "/silent /install",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftFSLogixApps",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftFSLogixApps",
+                                             "Filter":  "",
+                                             "PostScriptblocks":  [
+                                                                    "Get-ChildItem (Join-Path $Destination \"*.zip\") -recurse | Expand-Archive -DestinationPath $Destination -Force"
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftFSLogixApps\\*.exe",
+                            "Arguments":  "/silent /install /norestart",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftODBCDriverForSQLServer17",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftODBCDriverForSQLServer17",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.Language -eq \"English\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn IACCEPTMSODBCSQLLICENSETERMS=YES",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftOffice365",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Manual":  true,
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/configure [SoftwarePath]\\[Name]\\Configuration.xml",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftOLEDBDriverForSQLServer",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftOLEDBDriverForSQLServer",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.Language -eq \"English\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn IACCEPTMSOLEDBSQLLICENSETERMS=YES",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftOneDrive",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftOneDrive",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Ring -eq \"Enterprise\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftOneDrive\\*.exe",
+                            "Arguments":  "/AllUsers",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftOpenJDK21",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftOpenJDK21",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftPowerAutomateDesktop",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftPowerAutomateDesktop",
+                                             "Filter":  "",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "-Install -ACCEPTEULA -Silent",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftPowerBIDesktop",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://www.microsoft.com/en-us/download/details.aspx?id=58494&msockid=309b14ebc278605016fb028fc3066164\"",
+                                                                    "$Item.URI = ((Invoke-WebRequest -URI $URL -UseBasicParsing).Links.Href | Where-Object { $_ -like \"*exe*\"})"
+                                                                ],
+                                            "FileName":  "PBIDesktopSetup_x64.exe",
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "-s -norestart ACCEPT_EULA=1 INSTALLDESKTOPSHORTCUT=0 ENABLECXP=0 DISABLE_UPDATE_NOTIFICATION=1",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftReportViewerRuntime",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://download.microsoft.com/download/f/b/7/fb728406-a1ee-4ab5-9c56-74eb8bddf2ff/ReportViewer.msi",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftReportViewerRuntime\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftSsms",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftSsms",
+                                             "Filter":  "",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftSsms\\*.exe",
+                            "Arguments":  "/install /quiet /norestart",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftSQLCLR",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  "SQLSysClrTypes-x86.msi",
+                                            "URI":  "http://go.microsoft.com/fwlink/?LinkID=239643&clcid=0x409",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        },
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  "SQLSysClrTypes-x64.msi",
+                                            "URI":  "http://go.microsoft.com/fwlink/?LinkID=239644&clcid=0x409",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftSQLCLR\\*.MSI",
+                            "Arguments":  "/q",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftSqlNativeClient2012",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://download.microsoft.com/download/B/E/D/BED73AAC-3C8A-43F5-AF4F-EB4FEA6C8F3A/ENU/x64/sqlncli.msi",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftSqlNativeClient2012*\\*.MSI",
+                            "Arguments":  "/q IACCEPTSQLNCLILICENSETERMS=YES",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftTeamsBootstrap",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  "teamsbootstrapper.exe",
+                                            "URI":  "https://go.microsoft.com/fwlink/?linkid=2243204&clcid=0x409",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[NAME]\\teamsbootstrapper.exe",
+                            "Arguments":  "-p",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftTeamsMSIX",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftTeams",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Release -eq \"Enterprise\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "C:\\Windows\\System32\\Dism.exe",
+                            "Arguments":  "/Online /Add-ProvisionedAppxPackage /PackagePath:\"[SoftwarePath]\\MicrosoftTeamsDism\\MSTeams-x64.msix\" /SkipLicense",
+                            "Recurse":  false,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "hklm:\\SOFTWARE\\Microsoft\\Windows\\Appx",
+                             "Name":  "AllowAllTrustedApps",
+                             "Value":  "1",
+                             "Type":  "DWord",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         },
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "hklm:\\SOFTWARE\\Microsoft\\Windows\\Appx",
+                             "Name":  "MdmHosts",
+                             "Value":  "^(?:[^/]*)\\.MANAGE[^\\.]*\\.(MICROSOFT\\.(COM|US)|MICROSOFTONLINE\\.CN)$",
+                             "Type":  "String",
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         }
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftTeamsMeetingAddin",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  "teamsbootstrapper.exe",
+                                            "URI":  "https://go.microsoft.com/fwlink/?linkid=2243204&clcid=0x409",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[NAME]\\teamsbootstrapper.exe",
+                            "Arguments":  "--installTMA",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftVCRedist200x_2010_2012",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Manual":  true,
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\VCRedist\\20[01][5802]\\vcredist*",
+                            "Arguments":  "/q",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftVCRedist2013",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Manual":  true,
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\VCRedist\\2013\\vcredist*",
+                            "Arguments":  "/install /quiet /norestart",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftVCRedist14",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Manual":  true,
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\VCRedist\\14\\vcredist*",
+                            "Arguments":  "/install /quiet /norestart",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftVisualStudioCode",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MicrosoftVisualStudioCode",
+                                             "Filter":  "$_.Channel -eq \"Stable\" -and $_.Architecture -eq \"x64\" -and $_.Platform -eq \"win32-x64\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftVisualStudioCode\\*.exe",
+                            "Arguments":  "/VERYSILENT /NORESTART /mergetasks=!runcode",
+                            "Recurse":  false,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftVSTA2017",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://download.microsoft.com/download/VSTA_2017_ENU_setup.exe",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftVSTA2017\\*.exe",
+                            "Arguments":  "/quiet /norestart",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftVSTO2010",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://download.microsoft.com/download/7/A/F/7AFA5695-2B52-44AA-9A2D-FC431C231EDC/vstor_redist.exe",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MicrosoftVSTO2010\\*.exe",
+                            "Arguments":  "/q /norestart",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MicrosoftWSE3",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://www.microsoft.com/en-us/download/details.aspx?id=14089&msockid=309b14ebc278605016fb028fc3066164\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$Item.URI = ($Response.Links | Where-Object { $_.HREF -like \"*.msi*\" }).href"
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MozillaFirefox",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "MozillaFirefox",
+                                             "Filter":  "$_.Channel -eq \"Extended Support\" -and $_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\MozillaFirefox\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "MTPuTTY",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://ttyplus.com/download/mtputty_setup.exe",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/VERYSILENT /NORESTART /ALLUSERS",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "mySQLWorkbench",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "mySQLWorkbench",
+                                             "Filter":  "",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\mySQLWorkbench\\*.msi",
+                            "Arguments":  "/qn ALLUSERS=1",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "OmnissaAppVolumesAgent",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Manual":  true,
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\Omnissa\\*AppVolumes*.MSI",
+                            "Arguments":  "/qn MANAGER_ADDR=[Manager1] MANAGER_PORT=443 EnforceSSLCertificateValidation=0 REBOOT=R",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
+                             "Name":  "AllowInstallerModification",
+                             "Value":  "1",
+                             "Type":  null,
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         },
+                         {
+                             "PreScriptblocks":  [
+
+                                                 ],
+                             "Path":  "hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
+                             "Name":  "Manager2",
+                             "Value":  "[Manager2]",
+                             "Type":  null,
+                             "PostScriptblocks":  [
+
+                                                  ]
+                         }
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "NodeJs",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "NodeJs",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Channel -eq \"LTS\" -and $_.Type -eq \"msi\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "Download":  [
+                                        {
+                                            "URI":  "https://nodejs.org/dist/v14.17.4/node-v14.17.4-x64.msi"
+                                        },
+                                        {
+                                            "URI":  "https://nodejs.org/dist/v16.17.0/node-v16.17.0-x64.msi"
+                                        },
+                                        {
+                                            "URI":  "https://nodejs.org/dist/v20.11.1/node-v20.11.1-x64.msi"
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\NodeJs\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "NotepadPlusPlus",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "NotepadPlusPlus",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Application]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "NVMforWindows",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://github.com/coreybutler/nvm-windows\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$Version = Split-Path ($Response.Links | Where-Object { $_.OuterHTML -like \"*Download Stable*\"}).HREF -leaf",
+                                                                    "$Item.URI = \"https://github.com/coreybutler/nvm-windows/releases/download/$Version/nvm-setup.exe\""
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "NodeVersionSwitcher",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://github.com/jasongin/nvs/releases\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$Version = (Split-Path ($Response.Links | Where-Object { $_.HREF -like \"*releases/tag*\"})[0].HREF -leaf).Replace(\"v\",\"\")",
+                                                                    "$Item.URI = \"https://github.com/jasongin/nvs/releases/download/v$Version/nvs-$Version.msi\""
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "OmnissaDEM",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Manual":  true,
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\Omnissa\\Omnissa Dynamic Environment Manager*.msi",
+                            "Arguments":  "/q ADDLOCAL=ALL REBOOT=R",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "OmnissaHorizonAgent",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Manual":  true,
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\Omnissa\\Omnissa-Horizon-Agent-x86*",
+                            "Arguments":  "/s /v\"/qn VDM_VC_MANAGED_AGENT=1 VDM_IP_PROTOCOL_USAGE=IPv4 RDP_CHOICE=1 ADDLOCAL=ALL REMOVE=GEOREDIR,PerfTracker,RDSH3D,SdoSensor,SmartCard REBOOT=R\"",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "OracleDBExpressEdition",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://www.oracle.com/database/technologies/xe-downloads.html\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$Item.URI = ($response.Links | Where-Object { $_.HREF -like \"*otn*.zip\" }).href"
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+                                                                    "Get-ChildItem (Join-Path $Destination \"*.zip\") -recurse | Expand-Archive -DestinationPath $Destination -Force"
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\setup.exe",
+                            "Arguments":  "/S /v/qn",
+                            "Recurse":  false,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "OracleJava8",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "OracleJava8",
+                                             "Filter":  "$_.Architecture -eq \"x64\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\OracleJava8\\jre*.exe",
+                            "Arguments":  "INSTALLCFG=\"[SoftwarePath]\\oraclejava8\\InstallConfig.ini\"",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "OraclePLSQLDeveloper",
+        "Source":  {
+            "Download":  [
+                {
+                    "PreScriptBlocks":[
+                        "$URL = \"https://www.oracle.com/database/sqldeveloper/technologies/download/\"",
+                        "$Response = Invoke-WebRequest -Uri $URL -UseBasicParsing",
+                        "$Item.URI = ($Response.Links.HREF | Where-Object { $_.HREF -like \"*x64.zip\" }).HREF"
+                    ],
+                    "URI":  "",
+                    "PostScriptBlocks":[]
+                }
+            ]
+        },
+        "Install":  [
+            {
+                "PreScriptBlocks":  [
+                    "$DestinationPath = \"C:\\Program Files\"",
+                    "New-ItemWrapper $DestinationPath",
+                    "Get-ChildItem (Join-Path $Item.Path \"*.zip\") -recurse | Expand-Archive -DestinationPath $DestinationPath -Force",
+                    "$Item.Path = $null",
+                    "$TargetPath = Get-Childitem (Join-Path $DestinationPath \"SQLDeveloper\\SQLDeveloper.exe\")",
+                    "$StartMenuPath = \"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\"",
+                    "$ShortcutPath = Join-Path $StartMenuPath \"SQLDeveloper.lnk\"",
+                    "$WShell = New-Object -ComObject WScript.Shell",
+                    "$Shortcut = $WShell.CreateShortcut($ShortcutPath)",
+                    "$Shortcut.TargetPath = $TargetPath",
+                    "$Shortcut.Save()"
+                ],
+                "Path":  "[SoftwarePath]\\[Name]",
+                "Arguments":  "",
+                "Recurse":  true,
+                "PostScriptBlocks":  []
+            }
+        ],
+        "Registry":  [
+        ],
+        "Detection":  {
+            "DisplayName":  [""],
+            "RegKey":  [
+                {
+                "Path":"",
+                "Property":"",
+                "Value":""
+                }
+            ],
+            "File":  [""]
+        }
+    },
+    {
+        "Name":  "pgAdmin",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://www.pgadmin.org/download/pgadmin-4-windows/\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$URL = ($response.Links.HREF | Where-Object { $_ -like \"*ftp*\" })[0]",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$Item.URI = ($Response.Links.HREF | Where-Object { $_ -like \"*.exe*\" })[0]"
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Path]\\pgadmin*.exe",
+                            "Arguments":  "/VERYSILENT /NORESTART /ALLUSERS /SUPPRESSMSGBOXES",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "postgreSQL",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://www.enterprisedb.com/downloads/postgres-postgresql-downloads\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$Item.URI = ($Response.Links.HREF | Where-Object { $_ -like \"*fileid*\" })[1]"
+                                                                ],
+                                            "FileName":  "postgresql-windows-x64.exe",
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "",
+                            "Arguments":  "",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "psqlODBC",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://www.postgresql.org/ftp/odbc/releases/\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$HREF = $URL+($Response.Links.HREF | Where-Object { $_ -like \"REL-*mimalloc*\" })[0]",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $HREF",
+                                                                    "$Item.URI = ($Response.Links.Href | where-object { $_ -like \"*x64*msi*\" })[0]"
+                                                                ],
+                                            "FileName":  "psqlodbc_x64-mimalloc.msi",
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "PuTTY",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "PuTTY",
+                                             "Filter":  "$_.Architecture -eq \"x64\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "RSATOffline",
+        "Source":  {
+            "Manual":true
+        },
+        "Install":  [
+            {
+                "PreScriptBlocks":  [
+                    "$ISO = Get-ChildItem $Item.Path",
+                    "$ISO | Mount-DiskImage",
+                    "$Source = (Get-Volume -DiskImage (Get-DiskImage -ImagePath $ISO.FullName)).DriveLetter + \":\\LanguagesAndOptionalFeatures\"",
+                    "$Item.Path = $Null",
+                    "Get-WindowsCapability -Online -Name RSAT* | Add-WindowsCapability -Online -LimitAccess -Source $Source"
+                ],
+                "Path":  "[SoftwarePath]\\WindowsOptionalFeatures\\*.iso"
+            }
+        ],
+        "Registry":  [
+        ],
+        "Detection":  {
+            "DisplayName":  [""],
+            "RegKey":  [
+                {
+                "Path":"",
+                "Property":"",
+                "Value":""
+                }
+            ],
+            "File":  [""]
+        }
+    },
+    {
+        "Name":  "RSATOnline",
+        "Source":  {
+            "Manual":true
+        },
+        "Install":  [
+            {
+                "PreScriptBlocks":  [
+                    "Get-WindowsCapability -Online -Name RSAT* | Add-WindowsCapability -Online"
+                ],
+                "PostScriptBlocks":  []
+            }
+        ],
+        "Registry":  [
+        ],
+        "Detection":  {
+            "DisplayName":  [""],
+            "RegKey":  [
+                {
+                "Path":"",
+                "Property":"",
+                "Value":""
+                }
+            ],
+            "File":  [""]
+        }
+    },
+    {
+        "Name":  "ScooterBeyondCompare",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "ScooterBeyondCompare",
+                                             "Filter":  "$_.Language -eq \"English\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\ScooterBeyondCompare\\*.Exe",
+                            "Arguments":  "/VERYSILENT /NORESTART /ALLUSERS /DISABLEUPDATES /SUPPRESSMSGBOXES",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "SmartBearSoapUI",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "SmartBearSoapUI",
+                                             "Filter":  "",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "-q",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "SnowflakeODBCx64",
+        "Source":  {
+            "PreScriptBlocks":  [],
+            "Download":  [
+                {
+                    "PreScriptBlocks":[
+                        "$URL = \"https://sfc-repo.snowflakecomputing.com/odbc/win64/latest/index.html\"",
+                        "$Response = Invoke-WebRequest -Uri $URL -UseBasicParsing",
+                        "$Item.URI += ($Response.Links | Where-Object { $_.HREF -like \"*.msi*\" }).href"
+                    ],
+                    "FileName":  "",
+                    "URI":  "https://sfc-repo.snowflakecomputing.com/odbc/win64/latest/",
+                    "PostScriptBlocks":[]
+                }
+            ],
+            "PostScriptBlocks":  []
+        },
+        "Install":  [
+            {
+                "PreScriptBlocks":  [],
+                "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                "Arguments":  "/qn",
+                "Recurse":  true,
+                "PostScriptBlocks":  []
+            }
+        ],
+        "Registry":  [
+        ],
+        "Detection":  {
+            "DisplayName":  [""],
+            "RegKey":  [
+                {
+                "Path":"",
+                "Property":"",
+                "Value":""
+                }
+            ],
+            "File":  [""]
+        }
+    },
+    {
+        "Name":  "SnowflakeODBCx86",
+        "Source":  {
+            "PreScriptBlocks":  [],
+            "Download":  [
+                {
+                    "PreScriptBlocks":[
+                        "$URL = \"https://sfc-repo.snowflakecomputing.com/odbc/win32/latest/index.html\"",
+                        "$Response = Invoke-WebRequest -Uri $URL -UseBasicParsing",
+                        "$Item.URI += ($Response.Links | Where-Object { $_.HREF -like \"*.msi*\" }).href"
+                    ],
+                    "FileName":  "",
+                    "URI":  "https://sfc-repo.snowflakecomputing.com/odbc/win32/latest/",
+                    "PostScriptBlocks":[]
+                }
+            ],
+            "PostScriptBlocks":  []
+        },
+        "Install":  [
+            {
+                "PreScriptBlocks":  [],
+                "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                "Arguments":  "/qn",
+                "Recurse":  true,
+                "PostScriptBlocks":  []
+            }
+        ],
+        "Registry":  [
+        ],
+        "Detection":  {
+            "DisplayName":  [""],
+            "RegKey":  [
+                {
+                "Path":"",
+                "Property":"",
+                "Value":""
+                }
+            ],
+            "File":  [""]
+        }
+    },
+    {
+        "Name":  "SuperPutty",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://github.com/jimradford/superputty/releases/latest\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$Version = (Split-Path ($Response.Links | Where-Object { $_.HREF -like \"*releases/tag*\"})[0].HREF -leaf)",
+                                                                    "$Item.URI = \"https://github.com/jimradford/superputty/releases/download/$Version/SuperPuttySetup-$Version.msi\""
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "TableauDesktop",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "TableauDesktop",
+                                             "Filter":  "",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/quiet /norestart ACCEPTEULA=1",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "TextPad9",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Manual":  true,
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftrwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/S /v/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "TortoiseGIT",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://tortoisegit.org/download\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                    "$Item.URI = $Response.Links.Href | Where-Object { $_ -like \"*64bit.msi*\" }"
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "TortoiseSVN",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+                                                                    "$URL = \"https://tortoisesvn.net/downloads.html\"",
+                                                                    "$Response = Invoke-WebRequest -UseBasicParsing -URI $URL",
+                                                                    "$Item.URL = ($Response.Links.Href | Where-Object { $_ -like \"*x64-svn*.msi*\"})"
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "UIPathStudio",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://download.uipath.com/UiPathStudioCloud.msi",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn ORCHESTRATOR_URL=\"\"",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "WinSCP",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "WinSCP",
+                                             "FileName": "WinSCP.msi",
+                                             "Filter":  "$_.Type -eq \"msi\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "Xming",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  "Xming-Setup.exe",
+                                            "URI":  "https://sourceforge.net/projects/xming/files/latest/download",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                            "Arguments":  "/SILENT",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "Yarn",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Download":  [
+                                        {
+                                            "PreScriptblocks":  [
+
+                                                                ],
+                                            "FileName":  null,
+                                            "URI":  "https://classic.yarnpkg.com/latest.msi",
+                                            "PostScriotblocks":  [
+
+                                                                 ]
+                                        }
+                                    ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    },
+    {
+        "Name":  "ZoomVDI",
+        "Source":  {
+                       "PreScriptblocks":  [
+
+                                           ],
+                       "Evergreen":  [
+                                         {
+                                             "PreScriptblocks":  [
+
+                                                                 ],
+                                             "Name":  "ZoomVDI",
+                                             "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.URI -like \"*ZoomInstallerVDI.msi\"",
+                                             "PostScriptblocks":  [
+
+                                                                  ]
+                                         }
+                                     ],
+                       "PostScriptblocks":  [
+
+                                            ]
+                   },
+        "Install":  [
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\ZoomVDI\\ZoomInstaller*.msi",
+                            "Arguments":  "/qn",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        }
+                    ],
+        "Registry":  [
+
+                     ],
+        "Detection":  {
+                          "DisplayName":  {
+                                              "Architecture":  "",
+                                              "Name":  ""
+                                          },
+                          "Registry":  {
+                                           "Path":  "",
+                                           "Property":  "",
+                                           "Value":  ""
+                                       },
+                          "File":  [
+
+                                   ]
+                      }
+    }
+]

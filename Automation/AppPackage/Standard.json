@@ -1,0 +1,29 @@
+{
+    "Name":"Standard",
+    "Libraries":[
+        "ApplicationLibrary-v2.2.JSON"
+    ],
+    "Variables":[
+        {
+            "Name":"LibrayPath",
+            "Value":"C:\\Temp\\Scripts\\AppLibrary"
+        },
+        {
+            "Name":"SoftwarePath",
+            "Value":"C:\\Temp\\Software"
+        }
+    ],
+    "PreScriptBlocks":[],
+    "Applications":[
+        "7zip",
+        "GoogleChrome",
+        "MicrosoftPowerBIDesktop",
+        "MozillaFirefox",
+        "NotepadPlusPlus",
+        "PuTTY",
+        "WinSCP"
+    ],
+    "PostScriptBlocks":[
+        "Get-ChildItem \"C:\\Users\\*\\Desktop\\*.lnk\" | Remove-Item -Force"
+    ]
+}

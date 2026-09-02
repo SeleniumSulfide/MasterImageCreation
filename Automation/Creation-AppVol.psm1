@@ -243,7 +243,7 @@ Function Sync-LibraryApplicationRegistry() {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
-            [PsucstomObject[]]$Application
+            $Application
     )
     Begin {}
     Process{
