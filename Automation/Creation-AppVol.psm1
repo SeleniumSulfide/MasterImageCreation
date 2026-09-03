@@ -277,7 +277,9 @@ Function Sync-LibraryApplicationRegistry() {
             }
         }
     }
-    End{}
+    End{
+        Write-Progress -ID 0 - Activity "Syncing Registry Settings" -Completed
+    }
 }
 
 Function ConvertTo-LibraryCapture() {

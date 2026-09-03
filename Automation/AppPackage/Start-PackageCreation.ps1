@@ -1,6 +1,6 @@
 Param(
     [Parameter(Mandatory=$True)][System.IO.FileInfo]$PackageFile,
-    [Parameter(Madatory=$false)][System.IO.FileInfo]$ScriptRoot = "C:\Temp\Scripts",
+    [Parameter(Mandatory=$false)][System.IO.FileInfo]$ScriptRoot = "C:\Temp\Scripts",
     [Parameter(Mandatory=$False)][Switch]$Confirm
 )
 $Elevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
@@ -39,3 +39,5 @@ ForEach ($App in $Package.Applications) {
 #>
 
 Invoke-ScriptBlocks $Package.PostScriptBlocks
+
+Remove-Item $SoftwarePath -Recurse -Force
