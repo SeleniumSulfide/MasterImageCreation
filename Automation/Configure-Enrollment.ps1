@@ -15,4 +15,4 @@ Set-ADCSTemplateACL -DisplayName "Horizon True SSO" -Identity "$" -Enroll
 
 vdmUtil --authAs  --authDomain .local --authPassword P@! --truesso --environment --add --enrollmentServer ..local
 vdmUtil --authAs  --authDomain .local --authPassword P@! --truesso --environment --list --enrollmentServer ..local --domain .local
-vdmUtil --authAs  --authDomain .local --authPassword P@! --truesso --create --connector --domain .local --template Omnissa_Horizon --primaryEnrollmentServer dgenrl01.dgriffin.local --certificateServer dgenrl01 --mode enabled
+vdmUtil --authAs  --authDomain .local --authPassword P@! --truesso --create --connector --domain .local --template Omnissa_Horizon --primaryEnrollmentServer .local --certificateServer  --mode enabled
