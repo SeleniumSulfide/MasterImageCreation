@@ -10,7 +10,7 @@ $CAParams = @{
 Install-AdcsCertificationAuthority @CAParams
 Install-Module ADCSTemplate -Force
 New-ADCSTemplate -DisplayName "Horizon True SSO" -JSON $JSON
-Set-ADCSTemplateACL -DisplayName "Horizon True SSO" -Identity "dgenrl01$" -Enroll
+Set-ADCSTemplateACL -DisplayName "Horizon True SSO" -Identity "$" -Enroll
 
 
 vdmUtil --authAs  --authDomain .local --authPassword P@! --truesso --environment --add --enrollmentServer ..local
