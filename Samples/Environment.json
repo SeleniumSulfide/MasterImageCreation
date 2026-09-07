@@ -403,12 +403,6 @@
                     "Type":"DWord"
                 },
                 {
-                    "Path":"hklm:\\SOFTWARE\\Policies\\Google\\Chrome",
-                    "Name":"RendererCodeIntegrityEnabled",
-                    "Value":"0",
-                    "Type":"DWord"
-                },
-                {
                     "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
                     "Name":"ExcludeWUDriversInQualityUpdate",
                     "Value":"1",

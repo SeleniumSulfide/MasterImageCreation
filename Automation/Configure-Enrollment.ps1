@@ -13,6 +13,6 @@ New-ADCSTemplate -DisplayName "Horizon True SSO" -JSON $JSON
 Set-ADCSTemplateACL -DisplayName "Horizon True SSO" -Identity "dgenrl01$" -Enroll
 
 
-vdmUtil --authAs dan --authDomain dgriffin.local --authPassword P@ss2026! --truesso --environment --add --enrollmentServer dgenrl01.dgriffin.local
-vdmUtil --authAs dan --authDomain dgriffin.local --authPassword P@ss2026! --truesso --environment --list --enrollmentServer dgenrl01.dgriffin.local --domain dgriffin.local
-vdmUtil --authAs dan --authDomain dgriffin.local --authPassword P@ss2026! --truesso --create --connector --domain dgriffin.local --template Omnissa_Horizon --primaryEnrollmentServer dgenrl01.dgriffin.local --certificateServer dgenrl01 --mode enabled
+vdmUtil --authAs  --authDomain .local --authPassword P@! --truesso --environment --add --enrollmentServer ..local
+vdmUtil --authAs  --authDomain .local --authPassword P@! --truesso --environment --list --enrollmentServer ..local --domain .local
+vdmUtil --authAs  --authDomain .local --authPassword P@! --truesso --create --connector --domain .local --template Omnissa_Horizon --primaryEnrollmentServer dgenrl01.dgriffin.local --certificateServer dgenrl01 --mode enabled

@@ -1,8 +1,5 @@
 {
     "Name":"Standard",
-    "Libraries":[
-        "ApplicationLibrary-v2.2.JSON"
-    ],
     "Variables":[
         {
             "Name":"LibrayPath",

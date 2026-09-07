@@ -243,6 +243,7 @@ Function Sync-LibraryApplicationRegistry() {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
+            [ValidateNotNullOrEmpty()]
             $Application
     )
     Begin {}
@@ -279,6 +280,61 @@ Function Sync-LibraryApplicationRegistry() {
     }
     End{
         Write-Progress -ID 0 - Activity "Syncing Registry Settings" -Completed
+    }
+}
+
+
+Function Test-LibraryPackage() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$True)]
+            [ValidateNotNullOrEmpty()]
+            $PackageFile,
+        [Parameter(Mandatory=$false)]
+            [System.IO.FileInfo]$ScriptRoot = "C:\Temp\Scripts"
+    )
+    Begin {
+        Write-Verbose "ScriptRoot: $ScriptRoot"
+        $Modules = @("Creation-Base","Creation-AppVol")
+        ForEach ($Module in $Modules) {
+            If (!(Get-Module $Module)) {
+                Write-Host "Module Not Loaded: $Module" -ForegroundColor Yellow
+                if ((Test-Path (Join-Path $ScriptRoot "$Module.psm1"))) {
+                    Get-Item (Join-Path $ScriptRoot "$Module.psm1") | Import-Module
+                } Else {
+                    Throw "Module not Found: $Module.psm1"
+                }
+            } else {
+                Write-Host "Module Loaded: $Module" -ForegroundColor Cyan
+            }
+        }
+        Update-Evergreen
+    }
+    Process{
+        if (!(Test-Path $PackageFile)) {
+            Throw "Not Found: $PackageFile"
+        }
+        $Package = Get-Content $PackageFile | ConvertFrom-Json
+        Write-Verbose $Package
+
+        Write-Host "Initializing Variables" -ForegroundColor Cyan
+        Initialize-Variables $Package.Variables
+
+        
+        Write-Host "Analyzing Applications" -ForegroundColor Cyan
+        $Applications = @()
+        ForEach ($Name in $Package.Applications) {
+            Write-Host "`tGetting: $Name"
+            $Application = Get-LibraryApplication $Name
+            if ($Application) {
+                $Applications += $Application
+            } else {
+                
+            }
+        }
+    }
+    End{
+
     }
 }
 

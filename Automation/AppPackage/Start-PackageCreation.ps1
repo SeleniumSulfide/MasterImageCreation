@@ -21,8 +21,34 @@ Initialize-Variables $Package.Variables
 
 Initialize-Library -Library (Get-ChildItem (Join-Path $LibraryPath "*.json"))
 
+
+If ($Confirm.IsPresent) { Read-Host "Press Enter to begin executing PreScriptblocks" }
+
 Invoke-ScriptBlocks $Package.PreScriptBlocks
 
+If ($Confirm.IsPresent) { Read-Host "Press Enter to retrieve Applications from the Library" }
+
+$Applications = $Package.Applications | Get-LibraryApplication
+
+If ($Confirm.IsPresent) { Read-Host "Press Enter to begin Saving Applications" }
+
+$Applications | Save-LibraryApplication -Path $SoftwarePath
+
+If ($Confirm.IsPresent) { Read-Host "Press Enter to begin Installing Applications" }
+
+$Applications | Install-LibraryApplication -Path $SoftwarePath
+
+If ($Confirm.IsPresent) { Read-Host "Press Enter to begin synchronizing Registry settings" }
+
+$Applications | Sync-LibraryApplicationRegistry
+
+If ($Confirm.IsPresent) { Read-Host "Press Enter to begin Post Scriptblocks" }
+
+Invoke-ScriptBlocks $Package.PostScriptBlocks
+
+Remove-Item $SoftwarePath -Recurse -Force
+
+<#
 ForEach ($App in $Package.Applications) {
     Write-Host "Processing: $App" -ForegroundColor Cyan
     $Application = Get-LibraryApplication $App
@@ -30,14 +56,10 @@ ForEach ($App in $Package.Applications) {
     $Application | Install-LibraryApplication -Path $SoftwarePath
     $Application | Sync-LibraryApplicationRegistry
 }
-<#
+
     $Package.Applications | `
         Get-LibraryApplication | `
         Save-LibraryApplication -Path $SoftwarePath | `
         Install-LibraryApplication -Path $SoftwarePath | `
         Sync-LibraryApplicationRegistry
 #>
-
-Invoke-ScriptBlocks $Package.PostScriptBlocks
-
-Remove-Item $SoftwarePath -Recurse -Force
