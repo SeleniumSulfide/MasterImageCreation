@@ -983,7 +983,7 @@
 
                                                                  ],
                                              "Name":  "MicrosoftEdgeWebView2Runtime",
-                                             "Filter":  "$_.Architecture -eq \"x64\"",
+                                             "Filter":  "$_.Architecture -ne \"ARM64\"",
                                              "PostScriptblocks":  [
 
                                                                   ]
@@ -1519,7 +1519,7 @@
 
                                                 ],
                             "Path":  "[SoftwarePath]\\MicrosoftSsms\\*.exe",
-                            "Arguments":  "/install /quiet /norestart",
+                            "Arguments":  "--all --passive --downloadtheninstall",
                             "Recurse":  true,
                             "PostScriptblocks":  [
 
@@ -2315,7 +2315,7 @@
                             "PreScriptblocks":  [
 
                                                 ],
-                            "Path":  "[SoftwarePath]\\mySQLWorkbench\\*.msi",
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
                             "Arguments":  "/qn ALLUSERS=1",
                             "Recurse":  true,
                             "PostScriptblocks":  [
@@ -3721,7 +3721,11 @@
                        "Download":  [
                                         {
                                             "PreScriptblocks":  [
-
+                                                                    "$URI = \"https://github.com/talregev/Xming/releases/latest\"",
+                                                                    "$Response = Invoke-WebRequest -URI $URI -UseBasicParsing",
+                                                                    "$Link = $Response.Links.HREF | Where-Object { $_ -like \"*releases/tag/*\" }",
+                                                                    "$Version = Split-Path $Link -Leaf",
+                                                                    "$Item.URI = \"https://github.com/talregev/Xming/releases/download/$Version/Xming-$($Version.Replace(\".\",\"-\"))-setup.exe\""
                                                                 ],
                                             "FileName":  "Xming-Setup.exe",
                                             "URI":  "https://sourceforge.net/projects/xming/files/latest/download",

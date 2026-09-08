@@ -110,7 +110,7 @@
         {
             "Name":  "MicrosoftEdgeWebView2Runtime",
             "EvergreenApp":  "MicrosoftEdgeWebView2Runtime",
-            "Filter":  "$_.Architecture -eq \"x64\""
+            "Filter":  "$_.Architecture -ne \"ARM64\""
         },
         {
             "Name":"MicrosoftFSLogixApps",
@@ -159,7 +159,7 @@
             ]
         },
         {
-            "Name":"Microsoft.NetSDK",
+            "Name":"Microsoft.NetSDK8",
             "URIs":[
                 {
                     "PreScriptBlocks":[
@@ -177,6 +177,35 @@
                     "PreScriptBlocks":[
                         "$Arch = \"x86\"",
                         "$URL = \"https://dotnet.microsoft.com/en-us/download/dotnet/8.0\"",
+                        "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                        "$HREF = (($Response.Links | Where-Object { $_.href -like \"*sdk*windows*installer*\" -and $_.href -like \"*$Arch*\" } | sort-Object -Property \"data-bi-dlid\")[-1]).href",
+                        "$URL = \"https://dotnet.microsoft.com$href\"",
+                        "$Response = Invoke-WebRequest -UseBasicParsing -URI $URL",
+                        "$URI.URI = ($Response.LINKS | Where-Object { $_.ID -eq \"directLink\"}).HREF"
+                    ],
+                    "URI":""
+                }
+            ]
+        },
+        {
+            "Name":"Microsoft.NetSDK10",
+            "URIs":[
+                {
+                    "PreScriptBlocks":[
+                        "$Arch = \"x64\"",
+                        "$URL = \"https://dotnet.microsoft.com/en-us/download/dotnet/10.0\"",
+                        "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                        "$HREF = (($Response.Links | Where-Object { $_.href -like \"*sdk*windows*installer*\" -and $_.href -like \"*$Arch*\" } | sort-Object -Property \"data-bi-dlid\")[-1]).href",
+                        "$URL = \"https://dotnet.microsoft.com$href\"",
+                        "$Response = Invoke-WebRequest -UseBasicParsing -URI $URL",
+                        "$URI.URI = ($Response.LINKS | Where-Object { $_.ID -eq \"directLink\"}).HREF"
+                    ],
+                    "URI":""
+                },
+                {
+                    "PreScriptBlocks":[
+                        "$Arch = \"x86\"",
+                        "$URL = \"https://dotnet.microsoft.com/en-us/download/dotnet/10.0\"",
                         "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
                         "$HREF = (($Response.Links | Where-Object { $_.href -like \"*sdk*windows*installer*\" -and $_.href -like \"*$Arch*\" } | sort-Object -Property \"data-bi-dlid\")[-1]).href",
                         "$URL = \"https://dotnet.microsoft.com$href\"",
@@ -326,8 +355,8 @@
                     "Arguments":"/q IACCEPTSQLNCLILICENSETERMS=YES"
                 },
                 {
-                    "Name":"Microsoft.NetSDK",
-                    "Path":"[SoftwarePath]\\Microsoft.NetSDK\\*.exe",
+                    "Name":"Microsoft.NetSDK*",
+                    "Path":"[SoftwarePath]\\Microsoft.NetSDK*\\*.exe",
                     "Arguments":"/install /quiet /norestart"
                 },
                 {

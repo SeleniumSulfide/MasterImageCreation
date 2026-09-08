@@ -2,10 +2,14 @@ Function Initialize-Library() {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True,ValueFromPipeline)]
-            [System.IO.FileInfo[]]$Library
+            [System.IO.FileInfo[]]$Library,
+        [Parameter(Mandatory=$False)]
+            [Switch]$Append
     )
     Begin {
-        $Global:AppLibrary = @()
+        If (!$Append.IsPresent) {
+            $Global:AppLibrary = @()
+        }
     }
     Process {
         $Applications = $Library | Get-Content | ConvertFrom-JSON | Where-Object { $_.Name -NotIn $Global:AppLibrary.Name }
@@ -68,7 +72,9 @@ Function Save-LibraryApplication() {
         [Parameter(Mandatory=$False)]
             [Switch]$Force
     )
-    Begin {}
+    Begin {
+        Update-Evergreen
+    }
     Process {
         ForEach ($ScriptBlock in $Application.Source.PreScriptBlocks) {
             Write-Verbose "Executing: $ScriptBlock"
@@ -320,16 +326,23 @@ Function Test-LibraryPackage() {
         Write-Host "Initializing Variables" -ForegroundColor Cyan
         Initialize-Variables $Package.Variables
 
+        $Libraries = Get-Childitem (Join-Path $LibraryPath "*.json")
+        If ($Libraries) {
+            Write-Host "Libraries Found: $($Libraries.Count)"
+        } else { }
         
         Write-Host "Analyzing Applications" -ForegroundColor Cyan
         $Applications = @()
+        $Unfound = @()
         ForEach ($Name in $Package.Applications) {
             Write-Host "`tGetting: $Name"
             $Application = Get-LibraryApplication $Name
             if ($Application) {
+                Write-Host "`t`tFound" -ForegroundColor Green
                 $Applications += $Application
             } else {
-                
+                Write-Host "`t`tUnfound" -ForegroundColor Red
+                $Unfound += Application
             }
         }
     }
