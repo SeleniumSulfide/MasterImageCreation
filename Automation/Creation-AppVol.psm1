@@ -335,65 +335,41 @@ Function Test-LibraryPackage() {
     Param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
             [ValidateNotNullOrEmpty()]
-            $PackageFile,
+                [System.IO.FileInfo[]]$PackageFile,
         [Parameter(Mandatory=$false)]
             [System.IO.FileInfo]$ScriptRoot = "C:\Temp\Scripts"
     )
     Begin {
-        Write-Verbose "ScriptRoot: $ScriptRoot"
-        $Modules = @("Creation-Base","Creation-AppVol")
-        ForEach ($Module in $Modules) {
-            If (!(Get-Module $Module)) {
-                Write-Host "Module Not Loaded: $Module" -ForegroundColor Yellow
-                if ((Test-Path (Join-Path $ScriptRoot "$Module.psm1"))) {
-                    Get-Item (Join-Path $ScriptRoot "$Module.psm1") | Import-Module
-                } Else {
-                    Throw "Module not Found: $Module.psm1"
-                }
-            } else {
-                Write-Host "Module Loaded: $Module" -ForegroundColor Cyan
-            }
-        }
-        #Update-Evergreen -Force
+
     }
     Process{
-        if (!(Test-Path $PackageFile)) {
-            Throw "Not Found: $PackageFile"
-        }
         Write-Host "Package File: $($PackageFile.FullName)"
         $Package = Get-Content $PackageFile | ConvertFrom-Json
+
         Write-Host "Package Name: $($Package.Name)"
         Write-Verbose $Package
 
-        Write-Host "Initializing Variables" -ForegroundColor Cyan
+        Write-verbose "Initializing Variables" -ForegroundColor Cyan
         Initialize-Variables $Package.Variables
 
         $Libraries = Get-Childitem (Join-Path $LibraryPath "*.json")
-        If ($Libraries) {
-            Write-Host "Libraries Found: $($Libraries.Count)"
-        } else { 
-            #Throw "No Libraries Found"
-        }
-        
-        #$Libraries | Initialize-Library
+        Write-Host "Libraries Found: $($Libraries.Count)"
 
-        Write-Host "Analyzing Applications" -ForegroundColor Cyan
+        Write-Verbose "Analyzing Applications"
         $Applications = @()
         $Unfound = @()
         ForEach ($Name in $Package.Applications) {
-            Write-Verbose "`tGetting: $Name"
-            $Application = Get-LibraryApplication $Name
+            Write-Verbose "`tFinding: $Name"
+            $Application = Find-LibraryApplication $Name
             if ($Application) {
-                Write-Verbose "`t`tFound"
                 $Applications += $Application
             } else {
-                Write-Verbose "`t`tUnfound"
                 $Unfound += $Name
             }
         }
-        Write-Host "Found Applications:"
+        Write-Host "Found Applications: $($Applications.Count)" -ForegroundColor Cyan
         $Applications.Name
-        Write-Host "Unfound Applications:" -ForegroundColor Magenta
+        Write-Host "Unfound Applications: $($Unfound.Count)" -ForegroundColor Magenta
         $Unfound
 
         <#
