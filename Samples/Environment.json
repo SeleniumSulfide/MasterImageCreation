@@ -110,7 +110,7 @@
         {
             "Name":  "MicrosoftEdgeWebView2Runtime",
             "EvergreenApp":  "MicrosoftEdgeWebView2Runtime",
-            "Filter":  "$_.Architecture -ne \"ARM64\""
+            "Filter":  "$_.Architecture -eq \"x64\""
         },
         {
             "Name":"MicrosoftFSLogixApps",
@@ -613,11 +613,11 @@
                 },
                 {
                     "PreScriptBlocks":  [
-                        "$RegistrySetting.Value = $RegistrySetting.Value.Replace(\"[Manager2]\",$Environment.DC.($State.DC).AppVol.Manager2)"
+                        "$RegistrySetting.Value = $Environment.DC.($State.DC).AppVol.Manager2"
                     ],
                     "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
                     "Name":"Manager2",
-                    "Value":"[Manager2]",
+                    "Value":"",
                     "PropertyType":"String"
                 }
             ],

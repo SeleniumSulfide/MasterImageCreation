@@ -42,6 +42,7 @@ Param(
         Create "Run" property so script runs on boot
         Create "State" Environment variable to read
 #>
+$ProgressPreference = 'SilentlyContinue'
 $Global:EnvironmentVariables = "HKLM:\system\CurrentControlSet\Control\Session Manager\Environment"
 if (!(Get-Item $EnvironmentVariables).Property.Contains("State")) {
     $Value = @{

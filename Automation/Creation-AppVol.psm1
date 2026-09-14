@@ -73,9 +73,11 @@ Function Save-LibraryApplication() {
             [Switch]$Force
     )
     Begin {
-        Update-Evergreen
+        Update-Evergreen -Force
     }
     Process {
+        $ProgressPreference = 'SilentlyContinue'
+
         ForEach ($ScriptBlock in $Application.Source.PreScriptBlocks) {
             Write-Verbose "Executing: $ScriptBlock"
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
@@ -95,6 +97,9 @@ Function Save-LibraryApplication() {
                 Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
             }
             Write-Host "Copy: $($Application.Name)"
+            
+            If ($Item.Source -like "\\*") { $Item | Connect-LibraryApplicationShare }
+
             Write-Verbose "Source: $($Item.Source)"
             Copy-ItemWrapper -Path $Item.Source -Destination $Destination
 
@@ -109,6 +114,8 @@ Function Save-LibraryApplication() {
                 Write-Verbose "Executing: $ScriptBlock"
                 Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
             }
+            
+            Write-Host "Download: $($Application.Name)"
 
             if ($Item.FileName) {
                 $OutFile = Join-Path $Destination $Item.FileName
@@ -118,7 +125,6 @@ Function Save-LibraryApplication() {
             Write-Verbose "OutFile: $OutFile"
 
             If (!(Test-Path $OutFile) -or $Force.IsPresent ) {
-                Write-Host "Download: $($Application.Name)"
                 Write-Verbose "URI: $($Item.URI)"
                 Invoke-WebRequest -UseBasicParsing -Uri $Item.URI -OutFile $OutFile
             }
@@ -138,6 +144,8 @@ Function Save-LibraryApplication() {
                 Write-Verbose "Executing: $ScriptBlock"
                 Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
             }
+            Write-Host "Evergreen: $($Item.Name)"
+
             $EvergreenApp = Get-EvergreenApp -Name $Item.Name
             If ($Item.Filter -ne "") {
                 Write-Verbose "Filtering: $($Item.Filter)"
@@ -145,23 +153,25 @@ Function Save-LibraryApplication() {
                 $EvergreenApp = ($EvergreenApp | Where-Object -FilterScript $Filter)[0]
             }
 
-            If ($Item.FileName){
-                $File = $Item.Filename
-            } Else {
-                $File = [system.uri]::UnescapeDataString((Split-Path -Path $EvergreenApp.Uri -Leaf))
-            }
-            Write-Verbose "File: $File"
-            $OutFile = Join-Path -Path $Destination -ChildPath ($File)
-            Write-Verbose "OutFile: $OutFile"
+            ForEach ($App in $EvergreenApp) {
+                If ($Item.FileName){
+                    $File = $Item.Filename
+                } Else {
+                    $File = [system.uri]::UnescapeDataString((Split-Path -Path $App.Uri -Leaf))
+                }
 
-            if (!(Test-Path $OutFile) -or $Force.IsPresent) {
-                Write-Host "Evergreen: $($Item.Name)"
-                Write-Verbose "Downloading: $($EvergreenApp.URI)"
-                Invoke-WebRequest -UseBasicParsing -Uri $EvergreenApp.uri -OutFile $OutFile
-            }
+                Write-Verbose "File: $File"
+                $OutFile = Join-Path -Path $Destination -ChildPath ($File)
+                Write-Verbose "OutFile: $OutFile"
 
-            If (!(Test-Path $OutFile)) {
-                Throw "Failed to download $Outfile"
+                if (!(Test-Path $OutFile) -or $Force.IsPresent) {
+                    Write-Verbose "Downloading: $($App.URI)"
+                    Invoke-WebRequest -UseBasicParsing -Uri $App.uri -OutFile $OutFile
+                }
+
+                If (!(Test-Path $OutFile)) {
+                    Throw "Failed to download $Outfile"
+                }
             }
 
             ForEach ($ScriptBlock in $Item.PostScriptBlocks) { 
@@ -245,6 +255,36 @@ Function Install-LibraryApplication() {
     }
 }
 
+Function Connect-LibraryApplicationShare() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$True)]
+            $Applications
+    )
+    Begin {}
+    Process {
+        $Paths = $Applications | Where-object {$_.Source.Copy.Source -like "\\*" } | ForEach-Object { 
+            $URI = [System.URI]$_.Source.Copy.Source
+            $Path = "\\"+(Join-Path $URI.Host $URI.Segments[1].Replace("/",""))
+            $Path
+        } | Sort-Object -Unique
+
+        ForEach ($Path in $Paths){
+            Do {
+                If (Get-SMBMapping $Path -ErrorAction SilentlyContinue){
+                    $Connect = $true
+                } else {
+                    Write-Host "Please provide SMB Share Credentials" -ForegroundColor DarkYellow
+                    Write-Host "`t$Path" -ForegroundColor Blue
+                    $cred = Get-Credential
+                    New-SMBMapping -RemotePath $Path -UserName $Cred.UserName -Password $Cred.GetNetworkCredential().Password
+                }
+            } While (!($Connected))
+        }
+    }
+    End {}
+}
+
 Function Sync-LibraryApplicationRegistry() {
     [CmdletBinding()]
     Param(
@@ -293,7 +333,7 @@ Function Sync-LibraryApplicationRegistry() {
 Function Test-LibraryPackage() {
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$True)]
+        [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
             [ValidateNotNullOrEmpty()]
             $PackageFile,
         [Parameter(Mandatory=$false)]
@@ -314,13 +354,15 @@ Function Test-LibraryPackage() {
                 Write-Host "Module Loaded: $Module" -ForegroundColor Cyan
             }
         }
-        Update-Evergreen
+        #Update-Evergreen -Force
     }
     Process{
         if (!(Test-Path $PackageFile)) {
             Throw "Not Found: $PackageFile"
         }
+        Write-Host "Package File: $($PackageFile.FullName)"
         $Package = Get-Content $PackageFile | ConvertFrom-Json
+        Write-Host "Package Name: $($Package.Name)"
         Write-Verbose $Package
 
         Write-Host "Initializing Variables" -ForegroundColor Cyan
@@ -329,22 +371,40 @@ Function Test-LibraryPackage() {
         $Libraries = Get-Childitem (Join-Path $LibraryPath "*.json")
         If ($Libraries) {
             Write-Host "Libraries Found: $($Libraries.Count)"
-        } else { }
+        } else { 
+            #Throw "No Libraries Found"
+        }
         
+        #$Libraries | Initialize-Library
+
         Write-Host "Analyzing Applications" -ForegroundColor Cyan
         $Applications = @()
         $Unfound = @()
         ForEach ($Name in $Package.Applications) {
-            Write-Host "`tGetting: $Name"
+            Write-Verbose "`tGetting: $Name"
             $Application = Get-LibraryApplication $Name
             if ($Application) {
-                Write-Host "`t`tFound" -ForegroundColor Green
+                Write-Verbose "`t`tFound"
                 $Applications += $Application
             } else {
-                Write-Host "`t`tUnfound" -ForegroundColor Red
-                $Unfound += Application
+                Write-Verbose "`t`tUnfound"
+                $Unfound += $Name
             }
         }
+        Write-Host "Found Applications:"
+        $Applications.Name
+        Write-Host "Unfound Applications:" -ForegroundColor Magenta
+        $Unfound
+
+        <#
+        Read-Host "Press Enter to start Source Testing"
+        ForEach ($Application in $Applications) {
+            Write-Host "Testing: $($Application.Name)"
+            
+
+        }
+        #>
+
     }
     End{
 

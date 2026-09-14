@@ -1058,7 +1058,7 @@
 
                                                                  ],
                                              "Name":  "MicrosoftEdgeWebView2Runtime",
-                                             "Filter":  "$_.Architecture -ne \"ARM64\"",
+                                             "Filter":  "$_.Architecture -eq \"x64\"",
                                              "PostScriptblocks":  [
 
                                                                   ]

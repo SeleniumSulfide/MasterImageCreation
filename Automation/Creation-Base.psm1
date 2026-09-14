@@ -65,7 +65,7 @@ Function Initialize-PreReqs() {
             Name="Evergreen"
             Package=$false
             PostScriptBlocks=@(
-                "Update-Evergreen"
+                "Update-Evergreen -Force"
             )
         },
         @{
@@ -492,21 +492,28 @@ Function Get-AppsEvergreen() {
             Write-Host $ScriptBlock
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
         }
+
+        $Destination = Join-Path -Path $DownloadPath -ChildPath $Application.EvergreenApp
+        if (!(Test-Path $Destination)) { 
+            New-ItemWrapper -Path $Destination 
+        }
+
         $EvergreenApp = Get-EvergreenApp -Name $Application.EverGreenApp
         If ($Application.Filter -ne "") { 
             $Filter = [ScriptBlock]::Create($Application.Filter)
-            $EvergreenApp = ($EvergreenApp | Where-Object -FilterScript $Filter)[0]
+            $EvergreenApp = ($EvergreenApp | Where-Object -FilterScript $Filter)
         }
 
-        $File = Split-Path -Path $EvergreenApp.Uri -Leaf
-        $Destination = Join-Path -Path $DownloadPath -ChildPath $Application.EvergreenApp
-        $OutFile = Join-Path -Path $Destination -ChildPath ([system.uri]::UnescapeDataString($File))
-        if (!(Test-Path $Destination)) { New-ItemWrapper -Path $Destination }
-
-        if (!(Test-Path $OutFile) -or $Force.IsPresent) {
-            Write-Host "Evergreen: $($Application.EvergreenApp)"
-            Invoke-WebRequest -UseBasicParsing -Uri $EvergreenApp.uri -OutFile $OutFile
+        $ProgressPreference = 'SilentlyContinue'
+        ForEach ($App in $EvergreenApp) {
+            $File = Split-Path -Path $App.Uri -Leaf
+            $OutFile = Join-Path -Path $Destination -ChildPath ([system.uri]::UnescapeDataString($File))
+            if (!(Test-Path $OutFile) -or $Force.IsPresent) {
+                Write-Host "`tDownloading: $($App.URI)"
+                Invoke-WebRequest -UseBasicParsing -Uri $App.uri -OutFile $OutFile
+            }
         }
+
         ForEach ($ScriptBlock in $Application.PostScriptBlocks) { 
             Write-Host $ScriptBlock
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
@@ -541,6 +548,8 @@ Function Get-AppsDownload() {
             Write-Host $ScriptBlock
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
         }
+
+        $ProgressPreference = 'SilentlyContinue'
         ForEach ($URI in $Application.URIs) {
             ForEach ($ScriptBlock in $URI.PreScriptBlocks) { 
                 Write-Host $ScriptBlock
@@ -553,8 +562,10 @@ Function Get-AppsDownload() {
             }
 
             If (!(Test-Path $OutFile) -or $Force.IsPresent ) {
+                Write-Host "`tDownloading: $($URI.URI)"
                 Invoke-WebRequest -UseBasicParsing -Uri $URI.URI -OutFile $OutFile
             }
+
             ForEach ($ScriptBlock in $URI.PostScriptBlocks) { 
                 Write-Host $ScriptBlock
                 Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope

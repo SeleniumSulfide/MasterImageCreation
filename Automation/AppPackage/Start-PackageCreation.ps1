@@ -12,7 +12,7 @@ $Services | ForEach-Object {
     Get-Service -Name $_ | Set-Service -StartupType Disabled
     Get-Service -Name $_ | Stop-Service
 }
-
+$ProgressPreference = 'SilentlyContinue'
 Get-ChildItem (Join-Path $ScriptRoot "*.psm1") | Import-Module
 
 $Package = Get-Content $PackageFile | ConvertFrom-Json
@@ -25,6 +25,8 @@ Invoke-ScriptBlocks $Package.PreScriptBlocks
 
 $Applications = $Package.Applications | Get-LibraryApplication
 
+Connect-LibraryApplicationShare -Applications $Applications
+
 $Applications | Save-LibraryApplication -Path $SoftwarePath
 
 $Applications | Install-LibraryApplication -Path $SoftwarePath
@@ -36,6 +38,7 @@ Invoke-ScriptBlocks $Package.PostScriptBlocks
 Remove-Item $SoftwarePath -Recurse -Force
 
 Remove-Item "C:\Users\*\Desktop\*.lnk" -Force
+
 <#
 ForEach ($App in $Package.Applications) {
     Write-Host "Processing: $App" -ForegroundColor Cyan

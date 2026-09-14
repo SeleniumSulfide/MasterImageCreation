@@ -19,6 +19,7 @@ If ($MyInvocation.MyCommand.Path) {
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
+$ProgressPreference = 'SilentlyContinue'
 $Modules = Get-ChildItem (Join-Path $CommandPath "*.psm1")
 $Modules | %{ Import-Module $_.Fullname -ErrorAction Stop }
 
