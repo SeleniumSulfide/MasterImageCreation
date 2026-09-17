@@ -63,7 +63,7 @@ Function Find-LibraryApplication() {
 }
 
 Function Save-LibraryApplication() {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess=$true)]
     Param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
             $Application,
@@ -88,7 +88,9 @@ Function Save-LibraryApplication() {
 
         if (!(Test-Path $Destination)) { 
             Write-Verbose "Creating Destination"
-            New-ItemWrapper -Path $Destination
+            If ($PSCmdlet.ShouldProcess($Destination,"Creating Destination Folder")) {
+                New-ItemWrapper -Path $Destination
+            }
         }
 
         ForEach ($Item in $Application.Source.Copy) {
@@ -98,18 +100,26 @@ Function Save-LibraryApplication() {
             }
             Write-Host "Copy: $($Application.Name)"
             
-            If ($Item.Source -like "\\*") { $Item | Connect-LibraryApplicationShare }
+            If ($Item.Source -like "\\*") { 
+                $Item | Connect-LibraryApplicationShare 
+            }
 
             Write-Verbose "Source: $($Item.Source)"
-            Copy-ItemWrapper -Path $Item.Source -Destination $Destination
+            If ($PSCmdlet.ShouldProcess($Item.Source,"Copying from")) {
+                Copy-ItemWrapper -Path $Item.Source -Destination $Destination
+            } Else {
+                Test-Path $Item.Source
+            }
 
             ForEach ($ScriptBlock in $Item.PostScriptBlocks) { 
                 Write-Verbose "Executing: $ScriptBlock"
-                Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
+                If ($PSCmdlet.ShouldProcess($ScriptBlock,"Execute")) {
+                    Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
+                }
             }
         }
 
-        forEach ($Item in $Application.Source.Download) {
+        ForEach ($Item in $Application.Source.Download) {
             ForEach ($ScriptBlock in $Item.PreScriptBlocks) {
                 Write-Verbose "Executing: $ScriptBlock"
                 Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
@@ -126,16 +136,21 @@ Function Save-LibraryApplication() {
 
             If (!(Test-Path $OutFile) -or $Force.IsPresent ) {
                 Write-Verbose "URI: $($Item.URI)"
-                Invoke-WebRequest -UseBasicParsing -Uri $Item.URI -OutFile $OutFile
-            }
-
-            If (!(Test-Path $OutFile)) {
-                Throw "Failed to download $Outfile"
+                If ($PSCmdlet.ShouldProcess($OutFile,"Download")) {
+                    Invoke-WebRequest -UseBasicParsing -Uri $Item.URI -OutFile $OutFile
+                    If (!(Test-Path $OutFile)) {
+                        Throw "File Not Found: $Outfile"
+                    }
+                } else {
+                    Write-Host "From" $Item.URI
+                }
             }
 
             ForEach ($ScriptBlock in $Item.PostScriptBlocks) { 
                 Write-Verbose "Executing: $ScriptBlock"
-                Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
+                If ($PSCmdlet.ShouldProcess($ScriptBlock,"Execute")) {
+                    Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+                }
             }
         }
 
@@ -166,17 +181,22 @@ Function Save-LibraryApplication() {
 
                 if (!(Test-Path $OutFile) -or $Force.IsPresent) {
                     Write-Verbose "Downloading: $($App.URI)"
-                    Invoke-WebRequest -UseBasicParsing -Uri $App.uri -OutFile $OutFile
-                }
-
-                If (!(Test-Path $OutFile)) {
-                    Throw "Failed to download $Outfile"
+                    If ($PSCmdlet.ShouldProcess($OutFile,"Download")) {
+                        Invoke-WebRequest -UseBasicParsing -Uri $App.uri -OutFile $OutFile
+                        If (!(Test-Path $OutFile)) {
+                            Throw "Failed to download $Outfile"
+                        }
+                    } Else {
+                        Write-Host "From" $App.URI
+                    }
                 }
             }
 
             ForEach ($ScriptBlock in $Item.PostScriptBlocks) { 
                 Write-Verbose "Executing: $ScriptBlock"
-                Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
+                If ($PSCmdlet.ShouldProcess($ScriptBlock,"Execute")) {
+                    Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
+                }
             }
         }
 
@@ -187,18 +207,26 @@ Function Save-LibraryApplication() {
             }
 
             $WinGet = Get-Item (Join-Path $env:LOCALAPPDATA "Microsoft\WindowsApps\WinGet.exe")
-            $Process = Start-Process -FilePath $WinGet.FullName -ArgumentList "download $($Item.Name) --download-directory `"$Destination`" --skip-license" -PassThru
+            If ($PSCmdlet.ShouldProcess($Item.Name,"WinGet")) {
+                $Process = Start-Process -FilePath $WinGet.FullName -ArgumentList "download $($Item.Name) --download-directory `"$Destination`" --skip-license" -PassThru
+            } else {
+                $Process = Start-Process -FilePath $WinGet.Fullname -ArgumentList "search $($Item.Name)" -PassThru
+            }
             Watch-Process -Process $Process
 
             ForEach ($ScriptBlock in $Item.PostScriptBlocks) { 
                 Write-Verbose "Executing: $ScriptBlock"
-                Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
+                If ($PSCmdlet.ShouldProcess($ScriptBlock,"Execute")) {
+                    Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
+                }
             }
         }
 
         ForEach ($ScriptBlock in $Application.Source.PostScriptBlocks) { 
             Write-Verbose "Executing: $ScriptBlock"
-            Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+            If ($PSCmdlet.ShouldProcess($ScriptBlock,"Execute")) {
+                Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
+            }
         }
     }
     End {}
@@ -339,9 +367,7 @@ Function Test-LibraryPackage() {
         [Parameter(Mandatory=$false)]
             [System.IO.FileInfo]$ScriptRoot = "C:\Temp\Scripts"
     )
-    Begin {
-
-    }
+    Begin {}
     Process{
         Write-Host "Package File: $($PackageFile.FullName)"
         $Package = Get-Content $PackageFile | ConvertFrom-Json
@@ -367,24 +393,33 @@ Function Test-LibraryPackage() {
                 $Unfound += $Name
             }
         }
+
         Write-Host "Found Applications: $($Applications.Count)" -ForegroundColor Cyan
         $Applications.Name
         Write-Host "Unfound Applications: $($Unfound.Count)" -ForegroundColor Magenta
         $Unfound
 
-        <#
-        Read-Host "Press Enter to start Source Testing"
-        ForEach ($Application in $Applications) {
-            Write-Host "Testing: $($Application.Name)"
-            
 
-        }
-        #>
-
+        Read-Host "Press Enter to start Application Source Testing"
+        $Applications | Test-LibraryApplication -Path $SoftwarePath
     }
-    End{
+    End{}
+}
 
+Function Test-LibraryApplication() {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
+            [ValidateNotNullOrEmpty()]
+                $Application,
+        [ParaMeter(Mandatory=$True)]
+            [System.IO.FileInfo]$Path
+    )
+    Begin {}
+    Process {
+        $Application | Save-LibraryApplication -Path $Path -WhatIf
     }
+    End {}
 }
 
 Function ConvertTo-LibraryCapture() {
