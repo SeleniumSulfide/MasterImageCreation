@@ -325,18 +325,23 @@
             ],
             "Applications":[
                 {
-                    "Name":"VCRedist200X_2010_2012",
-                    "Path":"[SoftwarePath]\\VCRedist\\20[01][5802]\\vcredist*",
+                    "Name":"VCRedist2005_2008",
+                    "Path":"[SoftwarePath]\\VCRedist\\200[58]\\vcredist*",
                     "Arguments":"/q"
                 },
                 {
-                    "Name":"VCRedist2013",
-                    "Path":"[SoftwarePath]\\VCRedist\\2013\\vcredist*",
+                    "Name":"VCRedist2010_2012",
+                    "Path":"[SoftwarePath]\\VCRedist\\201[02]\\vcredist*",
+                    "Arguments":"/q"
+                },
+                {
+                    "Name":"VCRedist2013_2019",
+                    "Path":"[SoftwarePath]\\VCRedist\\201[3579]\\vc*redist*",
                     "Arguments":"/install /quiet /norestart"
                 },
                 {
                     "Name":"VCRedist14",
-                    "Path":"[SoftwarePath]\\VCRedist\\14\\vcredist*",
+                    "Path":"[SoftwarePath]\\VCRedist\\14\\vc*redist*",
                     "Arguments":"/install /quiet /norestart"
                 },
                 {
