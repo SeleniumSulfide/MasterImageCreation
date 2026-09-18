@@ -3065,7 +3065,8 @@
                     "$ISO | Mount-DiskImage",
                     "$Source = (Get-Volume -DiskImage (Get-DiskImage -ImagePath $ISO.FullName)).DriveLetter + \":\\LanguagesAndOptionalFeatures\"",
                     "$Item.Path = $Null",
-                    "Get-WindowsCapability -Online -Name RSAT* | Add-WindowsCapability -Online -LimitAccess -Source $Source"
+                    "Get-WindowsCapability -Online -Name RSAT* | %{ Write-Host $_.DisplayName -ForegroundColor Cyan; $_ | Add-WindowsCapability -Online -LimitAccess -Source $Source }",
+                    "Dismount-DiskImage -ImagePath $ISO.FullName"
                 ],
                 "Path":  "[SoftwarePath]\\WindowsOptionalFeatures\\*.iso"
             }
@@ -3092,7 +3093,7 @@
         "Install":  [
             {
                 "PreScriptBlocks":  [
-                    "Get-WindowsCapability -Online -Name RSAT* | Add-WindowsCapability -Online"
+                    "Get-WindowsCapability -Online -Name RSAT* | %{ Write-Host $_.DisplayName -ForegroundColor Cyan; $_ | Add-WindowsCapability -Online }"
                 ],
                 "PostScriptBlocks":  []
             }
