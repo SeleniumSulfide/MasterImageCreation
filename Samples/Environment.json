@@ -159,8 +159,6 @@
                 "$Environment.Copy | ForEach-Object { Copy-ItemWrapper -Path $_.Source -Destination $_.Destination }",
                 "Initialize-Variables -Variables $Variables",
                 "Unblock-File -Path (Join-Path $ScriptPath \"Start-BaseCreation.bat\")",
-                "#-----Get-AppsEvergreen -Applications $Environment.Evergreen -DownloadPath $SoftwarePath",
-                "#-----Get-AppsDownload -Applications $Environment.Download -DownloadPath $SoftwarePath",
                 "Get-AppsVCRedist -Releases $Environment.VCRedist -Path (Join-Path $SoftwarePath \"VCRedist\")",
                 "Install-Drivers -Path $DriverPath",
                 "Initialize-PrinterDrivers $Environment.PrinterDrivers",
@@ -168,9 +166,7 @@
                 "Add-AntivirusExclusions -FSLogixPaths $Environment.DC.($State.DC).FSLogixPaths"
             ],
             "Applications":[
-                "VCRedist200X_2010_2012",
-                "VCRedist2013-2019",
-                "VCRedist14",
+                "MicrosoftVCRedist",
                 "MicrosoftOffice365",
                 "MicrosoftOneDrive",
                 "MicrosoftSQLNativeClient",
@@ -313,21 +309,6 @@
                     "MicrosoftFSLogixApps"
             ],
             "RegistrySettings":[
-                {
-                    "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
-                    "Name":"AllowInstallerModification",
-                    "Value":"1",
-                    "PropertyType":"Dword"
-                },
-                {
-                    "PreScriptBlocks":  [
-                        "$RegistrySetting.Value = $Environment.DC.($State.DC).AppVol.Manager2"
-                    ],
-                    "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
-                    "Name":"Manager2",
-                    "Value":"",
-                    "PropertyType":"String"
-                }
             ],
             "PostScriptBlocks":[
                 "$State.Phase++",

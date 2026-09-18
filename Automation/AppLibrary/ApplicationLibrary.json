@@ -1849,7 +1849,7 @@
                       }
     },
     {
-        "Name":  "MicrosoftVCRedist200x_2010_2012",
+        "Name":  "MicrosoftVCRedist",
         "Source":  {
                        "PreScriptblocks":  [
 
@@ -1864,91 +1864,40 @@
                             "PreScriptblocks":  [
 
                                                 ],
-                            "Path":  "[SoftwarePath]\\VCRedist\\20[01][5802]\\vcredist*",
+                            "Path":  "[SoftwarePath]\\VCRedist\\200[58]\\vcredist*",
                             "Arguments":  "/q",
                             "Recurse":  true,
                             "PostScriptblocks":  [
 
                                                  ]
-                        }
-                    ],
-        "Registry":  [
-
-                     ],
-        "Detection":  {
-                          "DisplayName":  {
-                                              "Architecture":  "",
-                                              "Name":  ""
-                                          },
-                          "Registry":  {
-                                           "Path":  "",
-                                           "Property":  "",
-                                           "Value":  ""
-                                       },
-                          "File":  [
-
-                                   ]
-                      }
-    },
-    {
-        "Name":  "MicrosoftVCRedist2013-2019",
-        "Source":  {
-                       "PreScriptblocks":  [
-
-                                           ],
-                       "Manual":  true,
-                       "PostScriptblocks":  [
-
-                                            ]
-                   },
-        "Install":  [
+                        },
                         {
                             "PreScriptblocks":  [
 
                                                 ],
-                            "Path":  "[SoftwarePath]\\VCRedist\\201[3579]\\vcredist*",
+                            "Path":  "[SoftwarePath]\\VCRedist\\201[02]\\vcredist*",
+                            "Arguments":  "/q",
+                            "Recurse":  true,
+                            "PostScriptblocks":  [
+
+                                                 ]
+                        },
+                        {
+                            "PreScriptblocks":  [
+
+                                                ],
+                            "Path":  "[SoftwarePath]\\VCRedist\\201[3579]\\vc*redist*",
                             "Arguments":  "/install /quiet /norestart",
                             "Recurse":  true,
                             "PostScriptblocks":  [
 
                                                  ]
-                        }
-                    ],
-        "Registry":  [
-
-                     ],
-        "Detection":  {
-                          "DisplayName":  {
-                                              "Architecture":  "",
-                                              "Name":  ""
-                                          },
-                          "Registry":  {
-                                           "Path":  "",
-                                           "Property":  "",
-                                           "Value":  ""
-                                       },
-                          "File":  [
-
-                                   ]
-                      }
-    },
-    {
-        "Name":  "MicrosoftVCRedist14",
-        "Source":  {
-                       "PreScriptblocks":  [
-
-                                           ],
-                       "Manual":  true,
-                       "PostScriptblocks":  [
-
-                                            ]
-                   },
-        "Install":  [
+                        },
                         {
                             "PreScriptblocks":  [
 
                                                 ],
-                            "Path":  "[SoftwarePath]\\VCRedist\\14\\vcredist*",
+                            "Path":  "[SoftwarePath]\\VCRedist\\14\\vc*redist*",
                             "Arguments":  "/install /quiet /norestart",
                             "Recurse":  true,
                             "PostScriptblocks":  [
@@ -2379,19 +2328,19 @@
                              "Path":  "hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
                              "Name":  "AllowInstallerModification",
                              "Value":  "1",
-                             "Type":  null,
+                             "Type":  "DWORD",
                              "PostScriptblocks":  [
 
                                                   ]
                          },
                          {
                              "PreScriptblocks":  [
-
+                                                    "$Item.Value = $Environment.DC.($State.DC).AppVol.Manager2"
                                                  ],
                              "Path":  "hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
                              "Name":  "Manager2",
-                             "Value":  "[Manager2]",
-                             "Type":  null,
+                             "Value":  "",
+                             "Type":  "String",
                              "PostScriptblocks":  [
 
                                                   ]
