@@ -1522,7 +1522,7 @@
                             "Arguments":  "--all --passive --downloadtheninstall",
                             "Recurse":  true,
                             "PostScriptblocks":  [
-
+                                                    "Do { Watch-Process -Process (Get-Process -Name \"Setup*\")[0] } While ((Get-Process -Name \"Setup*\" -Erroraction SilentlyContinue))"
                                                  ]
                         }
                     ],
@@ -1749,6 +1749,12 @@
                         }
                     ],
         "Registry":  [
+                        {
+                            "Path":"hklm:\\SOFTWARE\\Microsoft\\Teams",
+                            "Name":"IsWVDEnvironment",
+                            "Value":"1",
+                            "Type":"DWord"
+                        },
                          {
                              "PreScriptblocks":  [
 
@@ -1885,7 +1891,7 @@
                       }
     },
     {
-        "Name":  "MicrosoftVCRedist2013",
+        "Name":  "MicrosoftVCRedist2013-2019",
         "Source":  {
                        "PreScriptblocks":  [
 
@@ -1900,7 +1906,7 @@
                             "PreScriptblocks":  [
 
                                                 ],
-                            "Path":  "[SoftwarePath]\\VCRedist\\2013\\vcredist*",
+                            "Path":  "[SoftwarePath]\\VCRedist\\201[3579]\\vcredist*",
                             "Arguments":  "/install /quiet /norestart",
                             "Recurse":  true,
                             "PostScriptblocks":  [

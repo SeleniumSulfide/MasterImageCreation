@@ -110,6 +110,9 @@ Initialize-PreReqs                                        #Ensures the PSSession
 Initialize-Variables  -Variables        $Variables        #Creates or sets all variables
 Connect-FileShares    -FileShares       $FileShares       #Connects any fileshares necessary for later phases
 Invoke-ScriptBlocks   -ScriptBlocks     $PreScriptBlocks  #Executes the PreScriptBlocks for the current phase
-Install-Applications  -Applications     $Applications     #Installs applications for thed Phase
+Get-ChildItem $LibraryPath | Initialize-Library
+$Applications | Get-LibraryApplication | Save-LibraryApplication -Path $SoftwarePath
+$Applications | Get-LibraryApplication | Install-LibraryApplication -Path $SoftwarePath
+#Install-Applications  -Applications     $Applications     #Installs applications for thed Phase
 Sync-RegistrySettings -RegistrySettings $RegistrySettings #Sets registry settings for the current phase
 Invoke-ScriptBlocks   -ScriptBlocks     $PostScriptBlocks #Executes the PostScriptBlocks for the current phase
