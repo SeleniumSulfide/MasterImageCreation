@@ -3218,7 +3218,7 @@
                       }
     },
     {
-        "Name":  "SnowflakeODBCx64",
+        "Name":  "SnowflakeODBC",
         "Source":  {
             "PreScriptBlocks":  [],
             "Download":  [
@@ -3228,49 +3228,18 @@
                         "$Response = Invoke-WebRequest -Uri $URL -UseBasicParsing",
                         "$Item.URI += ($Response.Links | Where-Object { $_.HREF -like \"*.msi*\" }).href"
                     ],
-                    "FileName":  "",
-                    "URI":  "https://sfc-repo.snowflakecomputing.com/odbc/win64/latest/",
+                    "FileName":  null,
+                    "URI":  "",
                     "PostScriptBlocks":[]
-                }
-            ],
-            "PostScriptBlocks":  []
-        },
-        "Install":  [
-            {
-                "PreScriptBlocks":  [],
-                "Path":  "[SoftwarePath]\\[Name]\\*.msi",
-                "Arguments":  "/qn",
-                "Recurse":  true,
-                "PostScriptBlocks":  []
-            }
-        ],
-        "Registry":  [
-        ],
-        "Detection":  {
-            "DisplayName":  [""],
-            "RegKey":  [
-                {
-                "Path":"",
-                "Property":"",
-                "Value":""
-                }
-            ],
-            "File":  [""]
-        }
-    },
-    {
-        "Name":  "SnowflakeODBCx86",
-        "Source":  {
-            "PreScriptBlocks":  [],
-            "Download":  [
+                },
                 {
                     "PreScriptBlocks":[
                         "$URL = \"https://sfc-repo.snowflakecomputing.com/odbc/win32/latest/index.html\"",
                         "$Response = Invoke-WebRequest -Uri $URL -UseBasicParsing",
                         "$Item.URI += ($Response.Links | Where-Object { $_.HREF -like \"*.msi*\" }).href"
                     ],
-                    "FileName":  "",
-                    "URI":  "https://sfc-repo.snowflakecomputing.com/odbc/win32/latest/",
+                    "FileName":  null,
+                    "URI":  "",
                     "PostScriptBlocks":[]
                 }
             ],
