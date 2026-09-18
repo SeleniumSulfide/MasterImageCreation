@@ -5,8 +5,8 @@
 
 [CmdletBinding(SupportsShouldProcess = $False)] param ()  
 #region Get CmdLets for import
-$Root = Join-Path -Path $PSScriptRoot -ChildPath "CmdLets"
-$CmdLets = Get-ChildItem -Recurse -Path (Join-Path $Root "*.ps1") -ErrorAction "SilentlyContinue"
+$Root = Join-Path -Path $PSScriptRoot -ChildPath "Automation"
+$CmdLets = Get-ChildItem -Recurse -Path (Join-Path $Root "*.psm1") -ErrorAction "SilentlyContinue"
 
 # Dot source the files 
 foreach ($CmdLet in $CmdLets) {
@@ -18,7 +18,7 @@ foreach ($CmdLet in $CmdLets) {
         throw $_
     } 
 }  # Export the public modules and aliases 
-Export-ModuleMember -Function $CmdLets.Basename -Alias * 
+#Export-ModuleMember -Function $CmdLets.Basename -Alias * 
 #endregion  
 # Get module strings 
 #$script:resourceStrings = Get-ModuleResource

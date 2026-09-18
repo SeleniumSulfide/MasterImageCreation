@@ -20,6 +20,8 @@ public class WinAPI {
     Checks for and, if neccessary, installs prereqs eg Modules/Packages and PackageSources (Nuget, PSGallery)
 #>
 Function Initialize-PreReqs() {
+    Write-Host "Checking PreReqs"
+    
     $PackageSources = @(
         @{
             Name="nuget.org"
@@ -40,8 +42,8 @@ Function Initialize-PreReqs() {
     Set-TLSVersion
 
     $PackageSources | ForEach-Object {
-        Write-Host "Package Source: $($_.Name)"
         if(!(get-packagesource -Name $_.Name -ErrorAction SilentlyContinue)){
+            Write-Verbose "`tAdding Source: $($_.Name)"
             Register-PackageSource -Name $_.Name `
                 -Location $_.Location `
                 -ProviderName $_.ProviderName `
@@ -51,6 +53,7 @@ Function Initialize-PreReqs() {
                 -ForceBootstrap | Out-Null
         } else {
             if ((Get-PackageSource -Name $_.Name).Trusted -ne $_.Trusted) {
+                Write-Verbose "`tSetting Trusted: $($_.Name)"
                 Set-PackageSource -Name $_.Name -Trusted:$_.Trusted -Force | Out-Null
             }
         }
@@ -97,9 +100,11 @@ Function Initialize-PreReqs() {
     }
 
     $PSModulePath = "C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules\HorizonAutomation"
-    New-ItemWrapper $PSModulePath
-    $Modules = Get-Childitem (Join-Path $CommandPath "*.psm1")
-    #$Modules | Copy-Item -Destination $PSModulePath #Commented out till fixing Param PSCustomObject issue
+    If (!(Test-Path $PSModulePath)) { 
+        New-ItemWrapper $PSModulePath
+        $Modules = Get-Childitem (Join-Path $CommandPath "*.psm1")
+        $Modules | Copy-Item -Destination $PSModulePath
+    }
 }
 
 

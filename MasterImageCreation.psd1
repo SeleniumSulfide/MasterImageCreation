@@ -5,7 +5,7 @@
     # Script module or binary module file associated with this manifest. 
     RootModule = 'MasterImageCreation.psm1'  
     # Version number of this module. 
-    ModuleVersion = '0.1'  
+    ModuleVersion = '1.0.0'  
 
     # Supported PSEditions 
     # CompatiblePSEditions = @()  
@@ -23,7 +23,7 @@
     Copyright = '(c) 2023 MalkSoft. All rights reserved.'  
 
     # Description of the functionality provided by this module 
-    Description = 'Horizon Automation'  
+    Description = 'Windows master image creation, application packaging, and Omnissa Horizon automation framework.'  
 
     # Minimum version of the Windows PowerShell engine required by this module 
     PowerShellVersion = '3.0'  
@@ -44,7 +44,7 @@
     # ProcessorArchitecture = ''  
 
     # Modules that must be imported into the global environment prior to importing this module 
-    RequiredModules = @('Evergreen','VCRedist')
+    #RequiredModules = @('Evergreen','VCRedist')
 
     # Assemblies that must be loaded prior to importing this module 
     # RequiredAssemblies = @()  
@@ -64,7 +64,7 @@
     # NestedModules = @()  
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export. 
-    FunctionsToExport = @()   
+    FunctionsToExport = '*'#@()   
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export. 
     CmdletsToExport = @()  
@@ -74,7 +74,7 @@
 
     # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export. 
     # AliasesToExport = 'sea', 'gea', 'fea', 'tea', 'iea' 
-    AliasesToExport = ""  
+    #AliasesToExport = ""  
 
     # DSC resources to export from this module 
     # DscResourcesToExport = @()  
@@ -92,13 +92,21 @@
         PSData = @{
             # Tags applied to this module. These help with module discovery in online galleries.
             #Tags = 'Evergreen','Packer','Automation','MDT','ConfigMgr','DevOps','AzureVirtualDesktop','Intune','Windows'
-            Tags = ''
+            Tags = @(
+                'Horizon',
+                'Omnissa',
+                'VDI',
+                'Evergreen',
+                'ImageCreation',
+                'PowerShell',
+                'BootStrap'
+            )
 
             # A URL to the license for this module.
-            LicenseUri = ''
+            LicenseUri = 'https://github.com/SeleniumSulfide/MasterImageCreation/blob/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri = ''
+            ProjectUri = 'https://github.com/SeleniumSulfide/MasterImageCreation'
 
             # A URL to an icon representing this module.
             IconUri = ''

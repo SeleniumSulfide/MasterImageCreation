@@ -353,7 +353,7 @@ Function Sync-LibraryApplicationRegistry() {
         }
     }
     End{
-        Write-Progress -ID 0 - Activity "Syncing Registry Settings" -Completed
+        Write-Progress -ID 0 -Activity "Syncing Registry Settings" -Completed
     }
 }
 
