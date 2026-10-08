@@ -55,20 +55,6 @@
                     "Refernce":"https://docs.omnissa.com/bundle/Optimizing-Images-for-Horizon/page/OptimizationParameters.html",
                     "UseCommon":false,
                     "UseSettings":false,
-                    "Common":{
-                        "SyncHkuWithHku":"enable",
-                        "VisualEffect":"balanced",
-                        "Notification":"disable",
-                        "WindowsUpdate":"disable",
-                        "OfficeUpdate":"disable",
-                        "WindowsSearch":"searchboxasicon",
-                        "StoreApp":"remove-all",
-                        "Exclude":"Alarms ScreenSketch Camera Calculator MSPaint Photos WebExtension",
-                        "Background":"#000000",
-                        "Firewall":"disable",
-                        "Antivirus":"disable",
-                        "SecurityCenter":"disable"
-                    },
                     "SettingsJSON":""
                 }
             }
