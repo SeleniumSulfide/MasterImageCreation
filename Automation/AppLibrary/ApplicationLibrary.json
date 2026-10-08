@@ -120,7 +120,7 @@
                                                                 ],
                                             "FileName":  "",
                                             "URI":  "",
-                                            "PostScriotblocks":  [
+                                            "PostScriptblocks":  [
                                                                     "Get-ChildItem (Join-Path $Destination \"*.zip\") -recurse | Expand-Archive -DestinationPath $Destination -Force"
                                                                  ]
                                         }
@@ -2497,8 +2497,8 @@
                             "PreScriptblocks":  [
 
                                                 ],
-                            "Path":  "[SoftwarePath]\\[Application]\\*.msi",
-                            "Arguments":  "/qn",
+                            "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                            "Arguments":  "/qn ADDLOCAL=ALL REMOVE=AutoUpdaterFeature",
                             "Recurse":  true,
                             "PostScriptblocks":  [
 
@@ -3413,6 +3413,7 @@
                                                                  ],
                                              "Name":  "TableauDesktop",
                                              "Filter":  "",
+                                             "BITSTransfer":true,
                                              "PostScriptblocks":  [
 
                                                                   ]
@@ -3506,7 +3507,7 @@
                                             "PreScriptblocks":  [
                                                                     "$URL = \"https://tortoisegit.org/download\"",
                                                                     "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
-                                                                    "$Item.URI = $Response.Links.Href | Where-Object { $_ -like \"*64bit.msi*\" }"
+                                                                    "$Item.URI = \"https:\" + ($Response.Links.Href | Where-Object { $_ -like \"*64bit.msi*\" })"
                                                                 ],
                                             "FileName":  null,
                                             "URI":  "",
@@ -3561,10 +3562,11 @@
                                             "PreScriptblocks":  [
                                                                     "$URL = \"https://tortoisesvn.net/downloads.html\"",
                                                                     "$Response = Invoke-WebRequest -UseBasicParsing -URI $URL",
-                                                                    "$Item.URL = ($Response.Links.Href | Where-Object { $_ -like \"*x64-svn*.msi*\"})"
+                                                                    "$Item.URI = ($Response.Links.Href | Where-Object { $_ -like \"*x64-svn*.msi*\"})"
                                                                 ],
                                             "FileName":  null,
                                             "URI":  "",
+                                            "BITSTransfer":true,
                                             "PostScriotblocks":  [
 
                                                                  ]

@@ -101,12 +101,20 @@ Function Save-LibraryApplication() {
             Write-Host "Copy: $($Application.Name)"
             
             If ($Item.Source -like "\\*") { 
-                $Item | Connect-LibraryApplicationShare 
+                Connect-LibraryApplicationShare $Item
             }
 
-            Write-Verbose "Source: $($Item.Source)"
-            If ($PSCmdlet.ShouldProcess($Item.Source,"Copying from")) {
-                Copy-ItemWrapper -Path $Item.Source -Destination $Destination
+            If ($Item.Source.EndsWith("\*")) {
+                $Source = $Item.Source
+            } elseif ($Item.Source.Endswith("\")) {
+                $Source = $Item.Source + "*"
+            } Else {
+                $Source = $Item.Source + "\*"
+            }
+            
+            Write-Verbose "Source: $Source"
+            If ($PSCmdlet.ShouldProcess($Source,"Copying from")) {
+                Copy-ItemWrapper -Path $Source -Destination $Destination
             } Else {
                 Test-Path $Item.Source
             }
@@ -137,7 +145,11 @@ Function Save-LibraryApplication() {
             If (!(Test-Path $OutFile) -or $Force.IsPresent ) {
                 Write-Verbose "URI: $($Item.URI)"
                 If ($PSCmdlet.ShouldProcess($OutFile,"Download")) {
-                    Invoke-WebRequest -UseBasicParsing -Uri $Item.URI -OutFile $OutFile
+                    If ($Item.BITSTransfer) {
+                        Start-BitsTransfer -Source $Item.URI -Destination $OutFile
+                    } else {
+                        Invoke-WebRequest -UseBasicParsing -Uri $Item.URI -OutFile $OutFile
+                    }
                     If (!(Test-Path $OutFile)) {
                         Throw "File Not Found: $Outfile"
                     }
@@ -182,7 +194,11 @@ Function Save-LibraryApplication() {
                 if (!(Test-Path $OutFile) -or $Force.IsPresent) {
                     Write-Verbose "Downloading: $($App.URI)"
                     If ($PSCmdlet.ShouldProcess($OutFile,"Download")) {
-                        Invoke-WebRequest -UseBasicParsing -Uri $App.uri -OutFile $OutFile
+                        If ($Item.BITSTransfer) {
+                            Start-BitsTransfer -Source $App.URI -Destination $OutFile
+                        } else {
+                            Invoke-WebRequest -UseBasicParsing -Uri $App.uri -OutFile $OutFile
+                        }
                         If (!(Test-Path $OutFile)) {
                             Throw "Failed to download $Outfile"
                         }
@@ -284,28 +300,40 @@ Function Install-LibraryApplication() {
 }
 
 Function Connect-LibraryApplicationShare() {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName="App")]
     Param(
-        [Parameter(Mandatory=$True)]
-            $Applications
+        [Parameter(Mandatory=$True,ParameterSetName="App")]
+            $Applications,
+        [Parameter(Mandatory=$True,ParameterSetName="Path")]
+            $Path
     )
     Begin {}
     Process {
-        $Paths = $Applications | Where-object {$_.Source.Copy.Source -like "\\*" } | ForEach-Object { 
-            $URI = [System.URI]$_.Source.Copy.Source
-            $Path = "\\"+(Join-Path $URI.Host $URI.Segments[1].Replace("/",""))
-            $Path
-        } | Sort-Object -Unique
+        Switch ($PSCmdlet.ParameterSetName){
+            "App"{
+                $Paths = ($Applications | Where-object {$_.Source.Copy.Source -like "\\*" }).Source.Copy.Source | Sort-Object -Unique
+            }
+            "Path"{
+                $Paths = $Path
+            }
+        }
 
         ForEach ($Path in $Paths){
+            $UNC = "\\"
+            $Path.Substring(2).Split("\")[0..1] | ForEach-Object {
+                Write-Debug "Joining $UNC and $_"
+                $UNC = Join-Path $UNC $_
+            }
             Do {
-                If (Get-SMBMapping $Path -ErrorAction SilentlyContinue){
-                    $Connect = $true
+                If (Get-SMBMapping -RemotePath $UNC -ErrorAction SilentlyContinue){
+                    Write-Verbose "Connected: $UNC"
+                    $Connected = $true
                 } else {
+                    $Connected = $false
                     Write-Host "Please provide SMB Share Credentials" -ForegroundColor DarkYellow
-                    Write-Host "`t$Path" -ForegroundColor Blue
-                    $cred = Get-Credential
-                    New-SMBMapping -RemotePath $Path -UserName $Cred.UserName -Password $Cred.GetNetworkCredential().Password
+                    Write-Host "`t$UNC" -ForegroundColor Blue
+                    $cred = Get-Credential -Message "Please provide SMB Credentials"
+                    New-SMBMapping -RemotePath $UNC -UserName $Cred.UserName -Password $Cred.GetNetworkCredential().Password
                 }
             } While (!($Connected))
         }

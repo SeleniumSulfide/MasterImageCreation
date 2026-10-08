@@ -320,8 +320,7 @@
                 "Get-AppsVCRedist -Releases $Environment.VCRedist -Path (Join-Path $SoftwarePath \"VCRedist\")",
                 "Install-Drivers -Path $DriverPath",
                 "Initialize-PrinterDrivers $Environment.PrinterDrivers",
-                "Initialize-ZebraDrivers $Environment.ZebraDrivers",
-                "Add-AntivirusExclusions -FSLogixPaths $Environment.DC.($State.DC).FSLogixPaths"
+                "Initialize-ZebraDrivers $Environment.ZebraDrivers"
             ],
             "Applications":[
                 {
@@ -377,15 +376,10 @@
                     ]
                 },
                 {
-                    "Name":"MicrosoftEdgeWebView2",
-                    "Path":"[SoftwarePath]\\MicrosoftEdgeWebView2Runtime\\*.exe",
+                    "Name":"MicrosoftEdgeWebView2Runtime",
+                    "Path":"[SoftwarePath]\\[Name]\\*.exe",
                     "Arguments":"/silent /install",
                     "PostScriptBlocks":[
-                        "Get-Service -Displayname *edge* | Set-Service -StartupType Disabled",
-                        "Get-Process -Name *EdgeUpdate* | Stop-Process -Force",
-                        "Rename-Item -Path \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\" -NewName \"EdgeUpdate.disabled\"",
-                        "Get-Item \"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\*\\elevation_service.exe\" | Rename-Item -NewName \"elevation_service.disabled.exe\"",
-                        "Get-ScheduledTask -TaskName *edge* | Disable-ScheduledTask | Out-Null"
                     ]
                 },
                 {
@@ -675,14 +669,11 @@
             "RegistrySettings":[
             ],
             "PostScriptBlocks":[
+                "Add-AntivirusExclusions -FSLogixPaths $Environment.DC.($State.DC).FSLogixPaths",
                 "Get-ChildItem \"c:\\users\\*\\Desktop\\*.lnk\" | Remove-Item -Force",
                 "Remove-Item $SoftwarePath -Recurse -Force",
-                "#New-LocalUser -name \"AppCap\" -password (ConvertTo-SecureString -String \"P@ssw0rd\" -AsPlainText -Force) -PasswordNeverExpires -UserMayNotchangePassword",
-                "#Add-LocalGroupMember -group \"Administrators\" -Member \"AppCap\"",
-                "#Set-LocalUser -Name \"Administrator\" -Password (ConvertTo-SecureString -String \"P@ssw0rd\" -AsPlainText -Force)",
                 "$Run = \"hklm:\\software\\microsoft\\windows\\currentversion\\run\"",
                 "If ((Get-Item $Run).Property -contains \"*Image\") { Remove-ItemProperty -Path $Run -Name \"*Image\" }",
-                "#PowerShell.exe -NonInteractive -Command { & (Join-Path $OSOTPath \"OmnissaHorizonOSOptimizationTool.exe\") -Finalize All }",
                 "& \"$OSOT\" -Finalize All",
                 "If ($State.Pause) { Read-Host \"Pausing before shutdown, press enter to continue\" }",
                 "Stop-Computer"

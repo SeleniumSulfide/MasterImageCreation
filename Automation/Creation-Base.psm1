@@ -20,6 +20,7 @@ public class WinAPI {
     Checks for and, if neccessary, installs prereqs eg Modules/Packages and PackageSources (Nuget, PSGallery)
 #>
 Function Initialize-PreReqs() {
+
     Write-Host "Checking PreReqs"
     
     $PackageSources = @(
@@ -77,8 +78,8 @@ Function Initialize-PreReqs() {
         }
     )
     ForEach ($Module in $Modules) { 
-        Write-Host "Module: $($Module.Name)"
         if(!(Confirm-PreReq -PreReq $Module.Name -Package $Module.Package)) {
+            Write-Verbose "`tAdding Module: $($Module.Name)"
             ForEach ($ScriptBlock in $Module.PreScriptBlocks) { 
                 Write-Host $ScriptBlock
                 Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
@@ -96,6 +97,7 @@ Function Initialize-PreReqs() {
         This adds the PSDrive so the rest of the script can interact with it
     #>
     If (!(Test-Path HKCR:\)){
+        Write-Verbose "`tAdding PSDrive: HKCR"
         New-PSDrive -Name "HKCR" -PSProvider Registry -Root "HKEY_Classes_Root" | out-null
     }
 
@@ -112,6 +114,7 @@ Function Initialize-PreReqs() {
     Sets TLSVersion used to 1.2, necessary for NuGet
 #>
 Function Set-TLSVersion() {
+    [CmdletBinding()]
     Param([Parameter(Mandatory=$False)]
             [Net.SecurityProtocolType]$TlsVer="Tls12")
     [Net.ServicePointManager]::SecurityProtocol = [enum]::parse([Net.SecurityProtocolType], $TlsVer)
@@ -122,6 +125,7 @@ Function Set-TLSVersion() {
     Check if the PreReq exists and returns T/F
 #>
 Function Confirm-PreReq() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)][String]$PreReq,
         [Parameter(Mandatory=$true)][Boolean]$Package
@@ -151,6 +155,7 @@ Function Confirm-PreReq() {
     Install Pre-Reqs for the script to function based on "Initialize-Prereqs" function
 #>
 function Install-PreReq() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)][String]$PreReq,
         [Parameter(Mandatory=$true)][Boolean]$Package
@@ -168,12 +173,20 @@ function Install-PreReq() {
     Over engineered copy-item from when I was having issues, could probably be removed
 #>
 Function Copy-ItemWrapper() {
-    Param([Parameter(Mandatory=$True)][String]$Path,
-            [Parameter(Mandatory=$True)][String]$Destination)
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$True)][String]$Path,
+        [Parameter(Mandatory=$True)][String]$Destination
+    )
     $Path = $Path.Replace("[LocalRoot]",$LocalRoot).Replace("[RemoteRoot]",$RemoteRoot)
     $Destination = $Destination.Replace("[LocalRoot]",$LocalRoot).Replace("[RemoteRoot]",$RemoteRoot)
     if (!(test-path $Destination)) {
+        Write-Verbose "Creating: $Destination"
         New-ItemWrapper $Destination
+    }
+
+    If (!(Test-Path $Path) -and $Path -like "\\*"){
+        Connect-LibraryApplicationShare -Path $Path
     }
     Write-Host "Copying: $($Path)"
     Get-Item $Path | Copy-Item -Destination "$Destination" -Force -Recurse
@@ -190,6 +203,7 @@ Function Copy-ItemWrapper() {
         Further, specifying ItemType Directory is necessary or New-Item creates a file
 #>
 Function New-ItemWrapper() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)][String]$Path
     )
@@ -218,19 +232,26 @@ Function New-ItemWrapper() {
     Important for: Horizon Agent, SolidWorks
 #>
 Function Restart-OnPending() {
+    [CmdletBinding()]
     Param(
         [Parameter()][Int32]$Delay=15
     )
     $ControlSets = Get-ChildItem "hklm:\system\*control*"
+    $Properties = @(
+        "PendingFileRenameOperations",
+        "FileRenameOperations"
+    )
     foreach ($ControlSet in $ControlSets) {
         $Path = (join-path $ControlSet "Control\Session Manager").Replace("HKEY_LOCAL_MACHINE","HKLM:")
         $Manager = Get-Item $Path
-        If ($Manager.Property -Contains "PendingFileRenameOperations" -or $Manager.Property -Contains "FileRenameOperations") {
-            for ($i=0; $i -lt $Delay; $i++){
-                Write-Progress -Activity "Pending File Rename operations detected" -Status "Rebooting in $($Delay-$i) seconds"
-                start-sleep -seconds 1
+        $Properties | ForEach-Object { 
+            If ($Manager.Property -Contains $_) {
+                Write-Host "Pending operations detected, Rebooting in $Delay seconds"
+                Write-Verbose "`t$($Manager.PSPath)"
+                Write-Verbose "`t$_"
+                Start-Sleep -Seconds $Delay
+                Restart-Computer
             }
-            Restart-Computer
         }
     } 
 }
@@ -241,6 +262,7 @@ Function Restart-OnPending() {
     If any ScriptBlocks are specified to ran, they are used to modify the Arguments or similar for things like AppVol Manager
 #>
 Function Install-Applications() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]
             $Applications
@@ -287,6 +309,7 @@ Function Install-Applications() {
 }
 
 Function Watch-Process() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]
             $Process
@@ -315,6 +338,7 @@ Function Watch-Process() {
     If there are ScriptBlocks specified they are ran. SBs are used here to modify the setting dynamically for things like AppVol Managers
 #>
 Function Sync-RegistrySettings() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$False)]
             [PSCustomObject[]]$RegistrySettings
@@ -324,7 +348,7 @@ Function Sync-RegistrySettings() {
         $i++; Write-Progress -ID 0 -Activity "Synching Registry Settings" -Status "Synching: $($RegistrySetting.Name)" -PercentComplete (($i/$RegistrySettings.Count)*100);
         Write-Host "Syncing: $($RegistrySetting.Name)"
         ForEach ($ScriptBlock in $RegistrySettings.PreScriptBlocks) { 
-            Write-Host $ScriptBlock
+            Write-Verbose $ScriptBlock
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
         }
         if (!(Test-Path $RegistrySetting.Path )) {
@@ -343,7 +367,7 @@ Function Sync-RegistrySettings() {
                 -PropertyType $RegistrySetting.Type | out-null
         }
         ForEach ($ScriptBlock in $RegistrySettings.PostScriptBlocks) { 
-            Write-Host $ScriptBlock
+            Write-Verbose $ScriptBlock
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
         }
     }
@@ -356,6 +380,7 @@ Function Sync-RegistrySettings() {
     Unfortunately you can't use this within other functions as doing so changes the scope which doesn't allow for variable manipulation
 #>
 Function Invoke-ScriptBlocks() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]$ScriptBlocks
     )
@@ -370,11 +395,14 @@ Function Invoke-ScriptBlocks() {
     Installs Drivers from the $DriverPath
 #>
 Function Install-Drivers() {
+    [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$True)]$Path
+        [Parameter(Mandatory=$True)]
+            [System.IO.FileInfo]$Path
     )
+    
     #Import Publisher Certificates if they exist
-    Get-ChildItem (Join-Path $DriverPath "*.cer") -Recurse | ForEach-Object { 
+    Get-ChildItem (Join-Path $Path "*.cer") -Recurse | ForEach-Object { 
         $Cert.Import($_.FullName)
         If (!(Test-Path "Cert:\LocalMachine\TrustedPublisher\$($Cert.Thumbprint)")) { 
             Import-Certificate $_.FullName -CertStoreLocation Cert:\LocalMachine\TrustedPublisher; 
@@ -395,7 +423,8 @@ Function Install-Drivers() {
     This accepts the list specified in the main Environment.JSON
     To generate the list, run Get-PrinterDriverList.PS1 -Server <ServerName>
 #>
-Function Initialize-PrinterDrivers(){
+Function Initialize-PrinterDrivers() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]$PrinterDrivers
     )
@@ -412,7 +441,8 @@ Function Initialize-PrinterDrivers(){
 <#
     Create the global variables from the Environment and Overlay files
 #>
-Function Initialize-Variables(){
+Function Initialize-Variables() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]$Variables
     )
@@ -438,6 +468,7 @@ Function Initialize-Variables(){
 }
 
 Function Convert-PlaceholderVariables() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$False)]
             [String]$Value,
@@ -461,6 +492,7 @@ Function Convert-PlaceholderVariables() {
         
 #>
 Function Initialize-ZebraDrivers(){
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]$PrinterDrivers
     )
@@ -481,6 +513,7 @@ Function Initialize-ZebraDrivers(){
     https://stealthpuppy.com/evergreen/
 #>
 Function Get-AppsEvergreen() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]
             $Applications,
@@ -535,6 +568,7 @@ Function Get-AppsEvergreen() {
     If an Application has a specified ScriptBlock, that is ran prior to downloading. The SBs are used to parse a main URI for a download link
 #>
 Function Get-AppsDownload() {
+    [CmdletBinding()]
      Param(
         [Parameter(Mandatory=$True)]
             $Applications,
@@ -588,6 +622,7 @@ Function Get-AppsDownload() {
     Downloads Visual C++ Redistributables using VCRedist powershell module
 #>
 Function Get-AppsVCRedist() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]$Releases,
         [Parameter(Mandatory=$True)]$Path
@@ -613,6 +648,7 @@ Function Get-AppsVCRedist() {
     The Creds are stored after the first connection so that after reboots the connection can be reestablished
 #>
 Function Connect-Fileshares() {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$False)]$FileShares
     )
@@ -654,24 +690,75 @@ Function Connect-Fileshares() {
     Add Defender Antivirus Exclusions
 #>
 Function Add-AntivirusExclusions() {
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory=$False)]$FSLogixPaths
     )
     Import-Module Defender
-    $Exclusions = @(
-        @{ ExclusionProcess = "C:\Program Files\VMware\VMware View\Agent\bin\wsnm.exe" },
-        @{ ExclusionProcess = "C:\Program Files\VMware\VMware View\Agent\bin\wsnm_jms.exe" },
-        @{ ExclusionProcess = "C:\Program Files\VMware\VMware View\Agent\bin\ws_scripthost.exe" },
-        @{ ExclusionProcess = "C:\Program Files\VMware\VMware View\Agent\bin\SecurityGateway.exe" },
-        @{ ExclusionProcess = "C:\Program Files\VMware\VMware View\Agent\bin\tsdrvdisvc.dll" },
-        @{ ExclusionProcess = "C:\Program Files\VMware\VMware View\Agent\VMware Blast\VMBlastS.exe" },
-        @{ ExclusionProcess = "C:\Program Files\VMware\VMware View\Agent\VMware Blast\VMBlastW.exe" },
-        @{ ExclusionProcess = "C:\Program Files (x86)\Common Files\VMware\USB\VMware-usbarbitrator64.exe" },
-        @{ ExclusionProcess = "C:\Program Files\Common Files\VMware\ScannerRedirection\Scanner.exe" },
-        @{ ExclusionProcess = "C:\Program Files (x86)\CloudVolumes\Agent\svservice.exe" }
+    $Exclusions = @()
+    $Paths = @(
+        "C:\Program Files (x86)\Common Files\Omnissa\DeviceRedirectionCommon\ftnlping.exe",
+        "C:\Program Files (x86)\Common Files\Omnissa\USB\\omnissa-usbarbitrator64.exe",
+        "C:\Program Files\Common Files\Omnissa\DeviceRedirectionCommon\ftnlping.exe",
+        "C:\Program Files\Common Files\Omnissa\DeviceRedirectionCommon\ftnlsv.exe",
+        "C:\Program Files\Common Files\Omnissa\ScannerRedirection\diagutil32.exe",
+        "C:\Program Files\Common Files\Omnissa\ScannerRedirection\diagutil64.exe",
+        "C:\Program Files\Common Files\Omnissa\ScannerRedirection\ftscansvchv.exe",
+        "C:\Program Files\Common Files\Omnissa\ScannerRedirection\scanmd.exe",
+        "C:\Program Files\Common Files\Omnissa\ScannerRedirection\scanner.exe",
+        "C:\Program Files\Common Files\Omnissa\SerialPortRedirection\Agent\hznsprrdctl.exe",
+        "C:\Program Files\Common Files\Omnissa\SerialPortRedirection\Agent\hznsprrdp.exe",
+        "C:\Program Files\Common Files\Omnissa\SerialPortRedirection\Agent\hznsprrdpsrv.exe",
+        "C:\Program Files\Common Files\Omnissa\SerialPortRedirection\Agent\hznsprrdpUI.exe",
+        "C:\Program Files\Common Files\Omnissa\Teradici PCoIP Server\x64\\pcoip_server_win32.exe",
+        "C:\Program Files\Omnissa\Horizon Agents\Horizon Agent\bin\\SecurityGateway.exe",
+        "C:\Program Files\Omnissa\Horizon Agents\Horizon Agent\bin\\tsdrvdisvc.dll",
+        "C:\Program Files\Omnissa\Horizon Agents\Horizon Agent\bin\\ws_scripthost.exe",
+        "C:\Program Files\Omnissa\Horizon Agents\Horizon Agent\bin\\wsnm.exe",
+        "C:\Program Files\Omnissa\Horizon Agents\Horizon Agent\bin\\wsnm_jms.exe",
+        "C:\Program Files\Omnissa\Horizon Agents\Horizon Agent\Blast\\VMBlastS.exe",
+        "C:\Program Files\Omnissa\Horizon Agents\Horizon Agent\Blast\\VMBlastW.exe",
+        "C:\Program Files\Omnissa\Horizon\Agent\VMBlastS.exe",
+        "C:\Program Files\Omnissa\Horizon\Agent\VMBlastW.exe",
+        "C:\Program Files\Omnissa\Horizon\Agent\bin\tsdrvdisvc.dll",
+        "C:\Program Files\Omnissa\Horizon\Agent\bin\ws_scripthost.exe",
+        "C:\Program Files\Omnissa\Horizon\Agent\bin\wsnm_jms.exe",
+        "C:\Program Files\Omnissa\Horizon\Agent\bin\wssm.exe",
+        "C:\Program Files\Omnissa\Horizon\Agent\bin\UrlRedirection\\horizon-url-filtering-plugin.dll",
+        "C:\Program Files\Omnissa\Horizon\Agent\bin\UrlRedirection\\horizon-url-filtering-plugin-x64.dll",
+        "C:\Program Files\Omnissa\Horizon\Agent\bin\UrlRedirection\\horizon-url-protocol-intercept.dll",
+        "C:\Program Files\Omnissa\Horizon\Agent\bin\UrlRedirection\\horizon-url-protocol-launch-helper.exe",
+        "C:\Program Files\Omnissa\Horizon\Agent\bin\UrlRedirection\x64\\horizon-url-protocol-intercept.dll",
+        "C:\Program Files\Omnissa\Horizon\Agent\DCT\hzdct.exe",
+        "C:\Program Files\Omnissa\Horizon\Agent\DCT\ws_diag.exe",
+        "C:\Program Files\Omnissa\Horizon\Instant Clone Agent\omnissa-ic-ga.exe",
+        "C:\Program Files\Immidio\Flex Profiles\FlexEngine.exe",
+        "C:\Program Files\Immidio\Flex Profiles\FlexService.exe",
+        "C:\Program Files\Immidio\Flex Profiles\Flex+ Self-Support.exe"
     )
+    ForEach ($Path in $Paths) {
+        Write-Verbose "Testing: $Path"
+        $File = Get-Item $Path -ErrorAction SilentlyContinue
+        if ($File) {
+            Write-Verbose "`tAdding to Exclusions"
+            $Exclusions += @{ ExclusionProcess = $File.FullName }
+        }
+    }
+
+    If (Test-Path "C:\Program Files (x86)\CloudVolumes\Agent\svservice.exe") {
+        Write-Verbose "Adding CloudVolumes Exclusions"
+        $Exclusions = $Exclusions + @(
+            @{ ExclusionPath = "C:\Program Files (x86)\CloudVolumes\Agent\svservice.exe" },
+            @{ ExclusionPath = "C:\Program Files\Omnissa\AppVolumes\svservice.exe" },
+            @{ ExclusionPath = "C:\Program Files\Omnissa\AppVolumes\Agent\svservice.exe" },
+            @{ ExclusionPath = "C:\SnapVolumesTemp\svservice.exe" },
+            @{ ExclusionPath = "C:\SVROOT\svservice.exe" },
+            @{ ExclusionPath = "C:\{00000000-0000-0000-0000-000000000000}\SVROOT\svservice.exe" }
+        )
+    }
 
     If ($FSLogixPaths) {
+        Write-Verbose "Adding FSLogix Exclusions"
         $Exclusions = $Exclusions + @(
             @{ ExclusionPath = "%TEMP%\*\*.VHD" },
             @{ ExclusionPath = "%TEMP%\*\*.VHDX" },
@@ -709,6 +796,7 @@ Function Add-AntivirusExclusions() {
     Third-party functions to download and install windows updates
 #>
 function Update-Windows {
+    [CmdletBinding()]
     Param(
         [Parameter()][Switch]$Reboot
     )
@@ -735,6 +823,7 @@ function Update-Windows {
 }
 
 function Get-WindowsUpdates {
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]$Session
     )
@@ -748,6 +837,7 @@ function Get-WindowsUpdates {
 }
 
 function Install-WindowsUpdates {
+    [CmdletBinding()]
     Param (
         [Parameter(Mandatory=$True)]$Updates,
         [Parameter(Mandatory=$True)]$Session
@@ -762,13 +852,16 @@ function Install-WindowsUpdates {
             $UpdatesToInstall.Add($_) | out-null
             $Installer.Updates = $UpdatesToInstall
             $Result = $Installer.Install()
-            if ($Result.RebootRequired) { $Reboot = $true }
+            if ($Result.RebootRequired) { 
+                $Reboot = $true 
+            }
         }
     }
-    Return $Reboot 
+    $Reboot
 }
 
 function Sync-WindowsUpdates {
+    [CmdletBinding()]
     Param (
         [Parameter(Mandatory=$True)]$Updates,
         [Parameter(Mandatory=$True)]$Session
@@ -788,11 +881,12 @@ function Sync-WindowsUpdates {
 }
 
 function Send-KeyToProcess {
+    [CmdletBinding()]
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory=$true)]
         [string]$ProcessName,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory=$true)]
         [string]$Key
     )
     <#
