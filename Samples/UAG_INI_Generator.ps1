@@ -1,20 +1,34 @@
-﻿$UAG = [PSCustomObject]@{
+﻿$RP = Get-ResourcePool -Name "<name>"
+$Parts = @()
+$Parts += $RP.Name
+$Current = $RP
+While ($null -ne $Current) {
+    $parts += $Current.Parent.Name
+    $Current = $Current.Parent
+}
+[Array]::Reverse($Parts)
+"vi://$vcserver"+($Parts -Join "/")
+
+
+
+$UAG = [PSCustomObject]@{
     Source="<fullpathtoova>"
     Name=""
     vCenter=""
     Datacenter=""
+    Cluster=""
     ResourcePool = ""
-    Target="vi://<vcenter>/<datacenter>/Resources/<resourcepool>"
+    Target="vi://<vcenter>/<datacenter>/host/<cluster>/Resources/<resourcepool>" #Case Sensitive
     DS=""
     defaultGateway=""
-        netInternet="" #vcenter network name
-        ip0=""
-        netmask0="255.255.255.0"
-        routes0=""
-        netBackendNetwork="" #vcenter network name
-        ip1=""
-        netmask1="255.255.255.0"
-        routes1="" #IP/CIDR GTWY,<repeat>
+    netInternet="" #vcenter network name
+    ip0=""
+    netmask0="255.255.255.0"
+    routes0=""
+    netBackendNetwork="" #vcenter network name
+    ip1=""
+    netmask1="255.255.255.0"
+    routes1="" #IP/CIDR GTWY,<repeat>
     DNS="" #space delimited
     proxyDestinationUrl="https://<connectionServer>" #CS
     proxyDestinationUrlThumbprints="Sha256:<thumbprint>"
