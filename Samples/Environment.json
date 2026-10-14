@@ -55,7 +55,7 @@
                     "Refernce":"https://docs.omnissa.com/bundle/Optimizing-Images-for-Horizon/page/OptimizationParameters.html",
                     "UseCommon":false,
                     "UseSettings":false,
-                    "SettingsJSON":""
+                    "SettingsJSON":"settings.json"
                 }
             }
         }
