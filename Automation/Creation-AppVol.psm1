@@ -357,6 +357,14 @@ Function Sync-LibraryApplicationRegistry() {
                 Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope 
             }
 
+            ForEach ($Property in @("Path","Name","Value","Type")) {
+                If ($Property -notIn $RegistrySetting.psobject.Properties.Name) {
+                    Throw "Property $Property not found"
+                } elseIf ($null -eq ($RegistrySetting.psobject.Properties | Where-Object { $_.Name -eq $Property }).Value){
+                    Throw "Property $Property is null"
+                }
+            }
+
             if (!(Test-Path $RegistrySetting.Path )) {
                 New-ItemWrapper $RegistrySetting.Path 
             }
@@ -515,3 +523,5 @@ Function ConvertTo-LibraryCapture() {
     }
 
 }
+
+Export-ModuleMember -Function *

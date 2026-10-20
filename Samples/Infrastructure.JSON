@@ -43,6 +43,9 @@
             "Connection":{},
             "Enrollment":{
                 "CA":""
+            },
+            "UAG":{
+
             }
         }
     },

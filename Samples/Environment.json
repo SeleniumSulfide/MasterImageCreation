@@ -504,7 +504,7 @@
                     "Path":"hklm:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WorkplaceJoin",
                     "Name":"BlockAADWorkplaceJoin",
                     "Value":"1",
-                    "PropertyType":"Dword"
+                    "Type":"Dword"
                 }
             ],
             "PostScriptBlocks":[
@@ -594,7 +594,7 @@
                     "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
                     "Name":"AllowInstallerModification",
                     "Value":"1",
-                    "PropertyType":"Dword"
+                    "Type":"Dword"
                 },
                 {
                     "PreScriptBlocks":  [
@@ -603,7 +603,7 @@
                     "Path":"hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
                     "Name":"Manager2",
                     "Value":"",
-                    "PropertyType":"String"
+                    "Type":"String"
                 }
             ],
             "PostScriptBlocks":[

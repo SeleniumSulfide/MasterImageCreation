@@ -2373,7 +2373,7 @@
                              "Path":  "hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
                              "Name":  "AllowInstallerModification",
                              "Value":  "1",
-                             "Type":  null,
+                             "Type":  "DWORD",
                              "PostScriptblocks":  [
 
                                                   ]
@@ -2385,7 +2385,7 @@
                              "Path":  "hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
                              "Name":  "Manager2",
                              "Value":  "[Manager2]",
-                             "Type":  null,
+                             "Type":  "String",
                              "PostScriptblocks":  [
 
                                                   ]

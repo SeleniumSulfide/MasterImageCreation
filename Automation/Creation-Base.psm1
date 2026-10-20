@@ -341,16 +341,26 @@ Function Sync-RegistrySettings() {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$False)]
-            [PSCustomObject[]]$RegistrySettings
+            $RegistrySettings
     )
 
     ForEach ($RegistrySetting in $RegistrySettings) {
-        $i++; Write-Progress -ID 0 -Activity "Synching Registry Settings" -Status "Synching: $($RegistrySetting.Name)" -PercentComplete (($i/$RegistrySettings.Count)*100);
+        $i++; Write-Progress -ID 0 -Activity "Synching Registry Settings" -Status "Syncing: $($RegistrySetting.Name)" -PercentComplete (($i/$RegistrySettings.Count)*100);
         Write-Host "Syncing: $($RegistrySetting.Name)"
+
         ForEach ($ScriptBlock in $RegistrySettings.PreScriptBlocks) { 
             Write-Verbose $ScriptBlock
             Invoke-Command -ScriptBlock ([ScriptBlock]::Create($ScriptBlock)) -NoNewScope
         }
+
+        ForEach ($Property in @("Path","Name","Value","Type")) {
+            If ($Property -notIn $RegistrySetting.psobject.Properties.Name) {
+                Throw "Property $Property not found"
+            } elseIf ($null -eq ($RegistrySetting.psobject.Properties | Where-Object { $_.Name -eq $Property }).Value){
+                Throw "Property $Property is null"
+            }
+        }
+
         if (!(Test-Path $RegistrySetting.Path )) {
             New-ItemWrapper $RegistrySetting.Path 
         }
@@ -774,14 +784,14 @@ Function Add-AntivirusExclusions() {
 
         $FSLogixPaths | ForEach-Object {
             $Exclusions = $Exclusions + @(
-                @{ ExclusionPath = "\\$_\*\*.VHD" },
-                @{ ExclusionPath = "\\$_\*\*.VHD.lock" },
-                @{ ExclusionPath = "\\$_\*\*.VHD.meta" },
-                @{ ExclusionPath = "\\$_\*\*.VHD.metadata" },
-                @{ ExclusionPath = "\\$_\*\*.VHDX" },
-                @{ ExclusionPath = "\\$_\*\*.VHDX.lock" },
-                @{ ExclusionPath = "\\$_\*\*.VHDX.meta" },
-                @{ ExclusionPath = "\\$_\*\*.VHDX.metadata" }
+                @{ ExclusionPath = (Join-Path $_ "*\*.VHD") },
+                @{ ExclusionPath = (Join-Path $_ "*\*.VHD.lock") },
+                @{ ExclusionPath = (Join-Path $_ "*\*.VHD.meta") },
+                @{ ExclusionPath = (Join-Path $_ "*\*.VHD.metadata") },
+                @{ ExclusionPath = (Join-Path $_ "*\*.VHDX") },
+                @{ ExclusionPath = (Join-Path $_ "*\*.VHDX.lock") },
+                @{ ExclusionPath = (Join-Path $_ "*\*.VHDX.meta") },
+                @{ ExclusionPath = (Join-Path $_ "*\*.VHDX.metadata") }
             )
         }
     }
@@ -930,3 +940,4 @@ function Send-KeyToProcess {
     }
 }
 
+Export-ModuleMember -Function *
