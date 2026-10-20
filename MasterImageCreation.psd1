@@ -64,7 +64,44 @@
     # NestedModules = @()  
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export. 
-    FunctionsToExport = '*'#@()   
+    FunctionsToExport = @(
+        "Connect-Fileshares",
+        "Get-AppsVCRedist",
+        "Get-AppsEvergreen",
+        "Initialize-PreReqs",
+        "Initialize-Variables",
+        "Sync-WindowsUpdates",
+        "Connect-LibraryApplicationShare",
+        "Install-PreReq",
+        "Initialize-Library",
+        "Add-AntivirusExclusions",
+        "Update-Windows",
+        "Confirm-PreReq",
+        "Get-WindowsUpdates",
+        "Set-TLSVersion",
+        "Convert-PlaceholderVariables",
+        "Install-Applications",
+        "ConvertTo-LibraryCapture",
+        "Test-LibraryApplication",
+        "Find-LibraryApplication",
+        "Send-KeyToProcess",
+        "Install-WindowsUpdates",
+        "Get-LibraryApplication",
+        "Initialize-PrinterDrivers",
+        "Invoke-ScriptBlocks",
+        "Restart-OnPending",
+        "Test-LibraryPackage",
+        "Get-AppsDownload",
+        "Watch-Process",
+        "Install-LibraryApplication",
+        "Copy-ItemWrapper",
+        "Sync-LibraryApplicationRegistry",
+        "Install-Drivers",
+        "Sync-RegistrySettings",
+        "New-ItemWrapper",
+        "Save-LibraryApplication",
+        "Initialize-ZebraDrivers"
+        )   
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export. 
     CmdletsToExport = '*'#@()  
@@ -80,7 +117,7 @@
     # DscResourcesToExport = @()  
 
     # List of all modules packaged with this module 
-    # ModuleList = @()  
+    #ModuleList = @("Creation-AppVol.PSM1","Creation-Base.psm1")  
 
     # List of all files packaged with this module 
     # FileList = @()  
