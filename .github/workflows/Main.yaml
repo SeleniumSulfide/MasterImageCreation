@@ -1,0 +1,23 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - 'main'
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Publish Module
+        env:
+          PSGALLERY_KEY: ${{ secrets.PSGALLERY_API }}
+        shell: pwsh
+        run: |
+          # Replace './src/MyModuleName' with the path to your module directory (containing the .psd1 file)
+          Publish-Module -Path "./src/MasterImageCreation" -NuGetApiKey $env:PSGALLERY_KEY -Verbose
