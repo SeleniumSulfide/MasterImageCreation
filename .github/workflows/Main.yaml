@@ -16,12 +16,12 @@ jobs:
 
       - name: Publish Module
         env:
-          SCRIPT_NAME: MasterImageCreation
-          SCRIPT_PATH: ./MasterImageCreation.psd1
-          DISPLAY_NAME: MasterImageCreation
           PSGALLERY_KEY: ${{ secrets.PSGALLERY_API }}
         shell: pwsh
         run: |
-          # Replace './src/MyModuleName' with the path to your module directory (containing the .psd1 file)
-          #Publish-Module -Path "./src/MasterImageCreation" -NuGetApiKey $env:PSGALLERY_KEY -Verbose
-          Publish-Script -Path "$env:SCRIPT_PATH" -NuGetApiKey "$env:PSGALLERY_KEY" -Verbose
+          $params = @{
+              Path        = "${{ github.workspace }}/MasterImageCreation"
+              NuGetApiKey = "${{ secrets.PSGALLERY_API }}"
+              ErrorAction = "Stop"
+          }
+          Publish-Module @params
