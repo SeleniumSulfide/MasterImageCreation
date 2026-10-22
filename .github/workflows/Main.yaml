@@ -20,7 +20,7 @@ jobs:
         shell: pwsh
         run: |
           $params = @{
-              Path        = "${{ github.workspace }}/MasterImageCreation"
+              Path        = "${{ github.workspace }}"
               NuGetApiKey = "${{ secrets.PSGALLERY_API }}"
               ErrorAction = "Stop"
           }
