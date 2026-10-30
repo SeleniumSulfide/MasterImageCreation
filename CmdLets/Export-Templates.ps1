@@ -1,4 +1,4 @@
-Function Export-Emplates() {
+Function Export-Templates() {
         [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]
