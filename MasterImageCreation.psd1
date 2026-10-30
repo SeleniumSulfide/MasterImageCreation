@@ -5,7 +5,7 @@
     # Script module or binary module file associated with this manifest. 
     RootModule = 'MasterImageCreation.psm1'  
     # Version number of this module. 
-    ModuleVersion = '1.0.0'  
+    ModuleVersion = '2.0.0'  
 
     # Supported PSEditions 
     # CompatiblePSEditions = @()  
@@ -64,44 +64,7 @@
     # NestedModules = @()  
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export. 
-    FunctionsToExport = @(
-        "Connect-Fileshares",
-        "Get-AppsVCRedist",
-        "Get-AppsEvergreen",
-        "Initialize-PreReqs",
-        "Initialize-Variables",
-        "Sync-WindowsUpdates",
-        "Connect-LibraryApplicationShare",
-        "Install-PreReq",
-        "Initialize-Library",
-        "Add-AntivirusExclusions",
-        "Update-Windows",
-        "Confirm-PreReq",
-        "Get-WindowsUpdates",
-        "Set-TLSVersion",
-        "Convert-PlaceholderVariables",
-        "Install-Applications",
-        "ConvertTo-LibraryCapture",
-        "Test-LibraryApplication",
-        "Find-LibraryApplication",
-        "Send-KeyToProcess",
-        "Install-WindowsUpdates",
-        "Get-LibraryApplication",
-        "Initialize-PrinterDrivers",
-        "Invoke-ScriptBlocks",
-        "Restart-OnPending",
-        "Test-LibraryPackage",
-        "Get-AppsDownload",
-        "Watch-Process",
-        "Install-LibraryApplication",
-        "Copy-ItemWrapper",
-        "Sync-LibraryApplicationRegistry",
-        "Install-Drivers",
-        "Sync-RegistrySettings",
-        "New-ItemWrapper",
-        "Save-LibraryApplication",
-        "Initialize-ZebraDrivers"
-        )   
+    FunctionsToExport = @("Connect-LibraryApplicationShare","ConvertTo-LibraryCapture","Find-LibraryApplication","Get-LibraryApplication","Initialize-Library","Install-LibraryApplication","Save-LibraryApplication","Start-LibraryCapture","Sync-LibraryApplicationRegistry","Test-LibraryApplication","Test-LibraryPackage","Initialize-PrinterDrivers","Initialize-ZebraDrivers","Install-Drivers","Confirm-PreReq","Initialize-PreReqs","Install-PreReq","Add-MasterState","Get-MasterState","Set-MasterState","Step-MasterState","Get-AppsVCRedist","Install-MasterVCRedist","Get-WindowsUpdates","Install-WindowsUpdates","Sync-WindowsUpdates","Update-Windows","Add-AntivirusExclusions","Connect-Fileshares","Convert-PlaceholderVariables","Copy-ItemWrapper","Get-AppsDownload","Get-AppsEvergreen","Initialize-Variables","Install-Applications","Invoke-ScriptBlocks","New-ItemWrapper","Restart-OnPending","Send-KeyToProcess","Set-TLSVersion","Start-MasterBuild","Sync-RegistrySettings","Watch-Process","Export-Templates")   
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export. 
     CmdletsToExport = '*'#@()  

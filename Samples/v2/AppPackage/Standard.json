@@ -1,0 +1,24 @@
+{
+    "Name":"Standard",
+    "Variables":[
+        {
+            "Name":"LibraryPath",
+            "Value":"C:\\Temp\\Scripts\\AppLibrary"
+        },
+        {
+            "Name":"SoftwarePath",
+            "Value":"C:\\Temp\\Software"
+        }
+    ],
+    "PreScriptBlocks":[],
+    "Applications":[
+        "7zip",
+        "GoogleChrome",
+        "MicrosoftPowerBIDesktop",
+        "MozillaFirefox",
+        "NotepadPlusPlus",
+        "PuTTY",
+        "WinSCP"
+    ],
+    "PostScriptBlocks":[]
+}

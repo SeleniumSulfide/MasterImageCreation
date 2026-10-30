@@ -23,5 +23,6 @@ jobs:
               Path        = "${{ github.workspace }}"
               NuGetApiKey = "${{ secrets.PSGALLERY_API }}"
               ErrorAction = "Stop"
+              Verbose = $true
           }
           Publish-Module @params

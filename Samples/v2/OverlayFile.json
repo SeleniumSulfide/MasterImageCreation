@@ -1,0 +1,37 @@
+{ 
+    "Fileshares":[],
+    "Variables":[],
+    "Phases":{
+        "0":{
+            "PreScriptBlocks":[],
+            "Applications":[],
+            "RegistrySettings":[],
+            "PostScriptBlocks":[]
+        },
+        "1":{
+            "PreScriptBlocks":[],
+            "Applications":[],
+            "RegistrySettings":[],
+            "PostScriptBlocks":[]
+        },
+        "2":{
+            "PreScriptBlocks":[],
+            "Applications":[],
+            "RegistrySettings":[],
+            "PostScriptBlocks":[]
+        },
+        "3":{
+            "PreScriptBlocks":[],
+            "Applications":[],
+            "RegistrySettings":[
+            ],
+            "PostScriptBlocks":[]
+        },
+        "4":{
+            "PreScriptBlocks":[],
+            "Applications":[],
+            "RegistrySettings":[],
+            "PostScriptBlocks":[]
+        }
+    }
+}
