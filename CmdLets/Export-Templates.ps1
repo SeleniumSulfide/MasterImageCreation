@@ -6,7 +6,7 @@ Function Export-Templates() {
         [Parameter(Mandatory=$false)]
             [ValidateSet("v1","v2")]
             $Version="v2",
-        [Parameter(Madatory=$False)]
+        [Parameter(Mandatory=$False)]
             [Switch]$Force
     )
     $Module = Get-Module MasterImageCreation -ListAvailable
