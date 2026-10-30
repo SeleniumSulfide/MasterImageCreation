@@ -9,11 +9,7 @@ Function Export-Templates() {
         [Parameter(Mandatory=$False)]
             [Switch]$Force
     )
-    $Module = Get-Module MasterImageCreation -ListAvailable
-    Write-Verbose "Found Module"
-    Write-Verbose $Module
-    $Source = Join-Path (Split-Path $Module.Fullname -Parent) "Samples\$Version\*"
+    $Source = Join-Path $PSScriptRoot "..\Samples\$Version\*"
     Write-Verbose "Source: $Source"
-    
     Copy-Item -Path $Source -Destination $Path -Force:$Force.IsPresent
 }
