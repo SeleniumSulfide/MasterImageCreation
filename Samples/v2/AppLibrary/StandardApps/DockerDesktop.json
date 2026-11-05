@@ -37,18 +37,5 @@
 
                  ],
     "Detection":  {
-                      "DisplayName":  [
-                                          ""
-                                      ],
-                      "RegKey":  [
-                                     {
-                                         "Path":  "",
-                                         "Property":  "",
-                                         "Value":  ""
-                                     }
-                                 ],
-                      "File":  [
-                                   ""
-                               ]
                   }
 }

@@ -49,17 +49,5 @@
                      }
                  ],
     "Detection":  {
-                      "DisplayName":  {
-                                          "Architecture":  "",
-                                          "Name":  ""
-                                      },
-                      "Registry":  {
-                                       "Path":  "",
-                                       "Property":  "",
-                                       "Value":  ""
-                                   },
-                      "File":  [
-
-                               ]
                   }
 }

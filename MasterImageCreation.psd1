@@ -26,7 +26,7 @@
     Description = 'Windows master image creation, application packaging, and Omnissa Horizon automation framework.'  
 
     # Minimum version of the Windows PowerShell engine required by this module 
-    PowerShellVersion = '3.0'  
+    PowerShellVersion = '5.1'  
 
     # Name of the Windows PowerShell host required by this module 
     # PowerShellHostName = ''  

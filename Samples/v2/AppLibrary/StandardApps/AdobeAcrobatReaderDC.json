@@ -38,16 +38,8 @@
                  ],
     "Detection":  {
                       "DisplayName":  {
-                                          "Architecture":  "",
-                                          "Name":  ""
-                                      },
-                      "Registry":  {
-                                       "Path":  "",
-                                       "Property":  "",
-                                       "Value":  ""
-                                   },
-                      "File":  [
-
-                               ]
+                                          "Architecture":  "x64",
+                                          "Name":  "*Acrobat*Reader*DC*"
+                                      }
                   }
 }

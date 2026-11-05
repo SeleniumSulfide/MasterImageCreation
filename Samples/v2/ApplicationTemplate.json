@@ -56,11 +56,16 @@
             }
         ],
         "Detection":  {
-            "DisplayName":  [""],
-            "RegKey":  [
+            "DisplayName":  [
+                        {
+                        "Architecture":  "",
+                        "Name":  ""
+                        }
+                    ],
+            "Registry":  [
                 {
                 "Path":"",
-                "Property":"",
+                "Name":"",
                 "Value":""
                 }
             ],
