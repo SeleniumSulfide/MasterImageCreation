@@ -1,4 +1,42 @@
 Function Start-MasterBuild() {
+<#
+.SYNOPSIS
+    Orchestrates the master build pipeline by loading configuration files, mapping network shares, and executing deployment phases.
+
+.DESCRIPTION
+    The Start-MasterBuild function acts as the core controller for automated build and deployment processes. 
+    It ingests a state tracking object containing paths to base and overlay configuration JSON files, merges 
+    their settings (file shares, variables, phases, applications, and registry settings), establishes prerequisites, 
+    maps network shares, and delegates execution based on the environment version (running legacy tasks or library-driven workflows).
+
+.PARAMETER State
+    A mandatory custom object containing build configuration and execution states. Typically includes:
+    - BaseFile: Path to the base JSON configuration file.
+    - OverlayFile: (Optional) Path to an overlay/override JSON configuration file.
+    - Phase: The current execution phase string.
+    - Shares: Pre-configured file share objects.
+    - Pause: A switch parameter to prompt for manual confirmation before proceeding with the phase.
+
+.EXAMPLE
+    $BuildState = [PSCustomObject]@{
+        BaseFile    = "C:\Config\base.json"
+        OverlayFile = "C:\Config\overlay.json"
+        Phase       = "Phase1"
+        Pause       = [System.Management.Automation.SwitchParameter]::Present
+    }
+    Start-MasterBuild -State $BuildState
+    
+    Description:
+    Loads the base and overlay JSON configurations, pauses for user confirmation, and runs the master build pipeline for Phase1.
+
+.NOTES
+    Prerequisites:
+    - Relies on several supporting functions in the session, such as Initialize-PreReqs, Initialize-Variables, 
+      Connect-FileShares, Invoke-ScriptBlocks, Install-Applications, and Sync-RegistrySettings.
+
+.LINK
+    https://learn.microsoft.com/en-us/powershell/scripting/developer/help/writing-comment-based-help
+#>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$True)]
