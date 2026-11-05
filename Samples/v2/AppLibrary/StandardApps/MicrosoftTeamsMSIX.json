@@ -1,0 +1,76 @@
+{
+    "Name":  "MicrosoftTeamsMSIX",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
+
+                                                             ],
+                                         "Name":  "MicrosoftTeams",
+                                         "Filter":  "$_.Architecture -eq \"x64\" -and $_.Release -eq \"Enterprise\"",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "C:\\Windows\\System32\\Dism.exe",
+                        "Arguments":  "/Online /Add-ProvisionedAppxPackage /PackagePath:\"[SoftwarePath]\\MicrosoftTeamsDism\\MSTeams-x64.msix\" /SkipLicense",
+                        "Recurse":  false,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "hklm:\\SOFTWARE\\Microsoft\\Windows\\Appx",
+                         "Name":  "AllowAllTrustedApps",
+                         "Value":  "1",
+                         "Type":  "DWord",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     },
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "hklm:\\SOFTWARE\\Microsoft\\Windows\\Appx",
+                         "Name":  "MdmHosts",
+                         "Value":  "^(?:[^/]*)\\.MANAGE[^\\.]*\\.(MICROSOFT\\.(COM|US)|MICROSOFTONLINE\\.CN)$",
+                         "Type":  "String",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     }
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

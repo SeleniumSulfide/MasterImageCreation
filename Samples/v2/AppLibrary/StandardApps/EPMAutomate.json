@@ -1,0 +1,37 @@
+{
+    "Name":  "EPMAutomate",
+    "Source":  {
+                   "Manual":  true
+               },
+    "Install":  [
+                    {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "",
+                        "Arguments":  "",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  [
+                                          ""
+                                      ],
+                      "RegKey":  [
+                                     {
+                                         "Path":  "",
+                                         "Property":  "",
+                                         "Value":  ""
+                                     }
+                                 ],
+                      "File":  [
+                                   ""
+                               ]
+                  }
+}

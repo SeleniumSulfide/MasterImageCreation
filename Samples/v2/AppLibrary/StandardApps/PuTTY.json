@@ -1,0 +1,53 @@
+{
+    "Name":  "PuTTY",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
+
+                                                             ],
+                                         "Name":  "PuTTY",
+                                         "Filter":  "$_.Architecture -eq \"x64\"",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

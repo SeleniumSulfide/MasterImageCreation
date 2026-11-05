@@ -1,0 +1,53 @@
+{
+    "Name":  "MicrosoftEdgeWebView2Runtime",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
+
+                                                             ],
+                                         "Name":  "MicrosoftEdgeWebView2Runtime",
+                                         "Filter":  "$_.Architecture -eq \"x64\"",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftEdgeWebView2Runtime\\*.exe",
+                        "Arguments":  "/silent /install",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

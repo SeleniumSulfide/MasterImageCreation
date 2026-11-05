@@ -1,0 +1,53 @@
+{
+    "Name":  "UIPathStudio",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+
+                                                            ],
+                                        "FileName":  null,
+                                        "URI":  "https://download.uipath.com/UiPathStudioCloud.msi",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                        "Arguments":  "/qn ORCHESTRATOR_URL=\"\"",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

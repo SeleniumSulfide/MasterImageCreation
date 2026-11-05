@@ -1,0 +1,56 @@
+{
+    "Name":  "SnowflakeODBCx64",
+    "Source":  {
+                   "PreScriptBlocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptBlocks":  [
+                                                                "$URL = \"https://sfc-repo.snowflakecomputing.com/odbc/win64/latest/index.html\"",
+                                                                "$Response = Invoke-WebRequest -Uri $URL -UseBasicParsing",
+                                                                "$Item.URI += ($Response.Links | Where-Object { $_.HREF -like \"*.msi*\" }).href"
+                                                            ],
+                                        "FileName":  "",
+                                        "URI":  "https://sfc-repo.snowflakecomputing.com/odbc/win64/latest/",
+                                        "PostScriptBlocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptBlocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  [
+                                          ""
+                                      ],
+                      "RegKey":  [
+                                     {
+                                         "Path":  "",
+                                         "Property":  "",
+                                         "Value":  ""
+                                     }
+                                 ],
+                      "File":  [
+                                   ""
+                               ]
+                  }
+}

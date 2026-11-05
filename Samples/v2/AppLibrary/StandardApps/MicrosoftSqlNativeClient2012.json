@@ -1,0 +1,53 @@
+{
+    "Name":  "MicrosoftSqlNativeClient2012",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+
+                                                            ],
+                                        "FileName":  null,
+                                        "URI":  "https://download.microsoft.com/download/B/E/D/BED73AAC-3C8A-43F5-AF4F-EB4FEA6C8F3A/ENU/x64/sqlncli.msi",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftSqlNativeClient2012*\\*.MSI",
+                        "Arguments":  "/q IACCEPTSQLNCLILICENSETERMS=YES",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

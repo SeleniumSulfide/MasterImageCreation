@@ -1,0 +1,54 @@
+{
+    "Name":  "MicrosoftPowerBIDesktop",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+                                                                "$URL = \"https://www.microsoft.com/en-us/download/details.aspx?id=58494\u0026msockid=309b14ebc278605016fb028fc3066164\"",
+                                                                "$Item.URI = ((Invoke-WebRequest -URI $URL -UseBasicParsing).Links.Href | Where-Object { $_ -like \"*exe*\"})"
+                                                            ],
+                                        "FileName":  "PBIDesktopSetup_x64.exe",
+                                        "URI":  "",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                        "Arguments":  "-s -norestart ACCEPT_EULA=1 INSTALLDESKTOPSHORTCUT=0 ENABLECXP=0 DISABLE_UPDATE_NOTIFICATION=1",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

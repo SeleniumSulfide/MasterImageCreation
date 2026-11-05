@@ -1,0 +1,57 @@
+{
+    "Name":  "pgAdmin",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+                                                                "$URL = \"https://www.pgadmin.org/download/pgadmin-4-windows/\"",
+                                                                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                "$URL = ($response.Links.HREF | Where-Object { $_ -like \"*ftp*\" })[0]",
+                                                                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                "$Item.URI = ($Response.Links.HREF | Where-Object { $_ -like \"*.exe*\" })[0]"
+                                                            ],
+                                        "FileName":  null,
+                                        "URI":  "",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Path]\\pgadmin*.exe",
+                        "Arguments":  "/VERYSILENT /NORESTART /ALLUSERS /SUPPRESSMSGBOXES",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

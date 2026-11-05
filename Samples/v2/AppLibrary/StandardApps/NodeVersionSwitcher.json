@@ -1,0 +1,56 @@
+{
+    "Name":  "NodeVersionSwitcher",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+                                                                "$URL = \"https://github.com/jasongin/nvs/releases\"",
+                                                                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                "$Version = (Split-Path ($Response.Links | Where-Object { $_.HREF -like \"*releases/tag*\"})[0].HREF -leaf).Replace(\"v\",\"\")",
+                                                                "$Item.URI = \"https://github.com/jasongin/nvs/releases/download/v$Version/nvs-$Version.msi\""
+                                                            ],
+                                        "FileName":  null,
+                                        "URI":  "",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

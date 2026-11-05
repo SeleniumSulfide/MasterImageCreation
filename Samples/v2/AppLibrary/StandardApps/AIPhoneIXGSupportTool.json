@@ -1,0 +1,55 @@
+{
+    "Name":  "AIPhoneIXGSupportTool",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+                                                                "$URL = \"https://know.aiphone.com/en_US/ix-ixg-series-software/ixg-support-tool-download\"",
+                                                                "$Item.URI = (Invoke-WebRequest -UseBasicParsing -Uri $URL).Links.href | Where-Object { $_ -like \"*exe*\" }",
+                                                                "$Item.Filename = \"$($Item.URI | Split-Path -Leaf).zip\""
+                                                            ],
+                                        "FileName":  "",
+                                        "URI":  "",
+                                        "PostScriptblocks":  [
+                                                                 "Get-ChildItem (Join-Path $Destination \"*.zip\") -recurse | Expand-Archive -DestinationPath $Destination -Force"
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                        "Arguments":  "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

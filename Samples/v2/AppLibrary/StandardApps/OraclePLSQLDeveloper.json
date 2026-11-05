@@ -1,0 +1,59 @@
+{
+    "Name":  "OraclePLSQLDeveloper",
+    "Source":  {
+                   "Download":  [
+                                    {
+                                        "PreScriptBlocks":  [
+                                                                "$URL = \"https://www.oracle.com/database/sqldeveloper/technologies/download/\"",
+                                                                "$Response = Invoke-WebRequest -Uri $URL -UseBasicParsing",
+                                                                "$Item.URI = ($Response.Links.HREF | Where-Object { $_.HREF -like \"*x64.zip\" }).HREF"
+                                                            ],
+                                        "URI":  "",
+                                        "PostScriptBlocks":  [
+
+                                                             ]
+                                    }
+                                ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptBlocks":  [
+                                                "$DestinationPath = \"C:\\Program Files\"",
+                                                "New-ItemWrapper $DestinationPath",
+                                                "Get-ChildItem (Join-Path $Item.Path \"*.zip\") -recurse | Expand-Archive -DestinationPath $DestinationPath -Force",
+                                                "$Item.Path = $null",
+                                                "$TargetPath = Get-Childitem (Join-Path $DestinationPath \"SQLDeveloper\\SQLDeveloper.exe\")",
+                                                "$StartMenuPath = \"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\"",
+                                                "$ShortcutPath = Join-Path $StartMenuPath \"SQLDeveloper.lnk\"",
+                                                "$WShell = New-Object -ComObject WScript.Shell",
+                                                "$Shortcut = $WShell.CreateShortcut($ShortcutPath)",
+                                                "$Shortcut.TargetPath = $TargetPath",
+                                                "$Shortcut.Save()"
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]",
+                        "Arguments":  "",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  [
+                                          ""
+                                      ],
+                      "RegKey":  [
+                                     {
+                                         "Path":  "",
+                                         "Property":  "",
+                                         "Value":  ""
+                                     }
+                                 ],
+                      "File":  [
+                                   ""
+                               ]
+                  }
+}

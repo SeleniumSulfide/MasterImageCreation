@@ -1,0 +1,65 @@
+{
+    "Name":  "OmnissaAppVolumesAgent",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Manual":  true,
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+                                                "$Item.Arguments = $Item.Arguments.Replace(\"[Manager1]\",$Environment.DC.($State.DC).AppVol.Manager1)"
+                                            ],
+                        "Path":  "[SoftwarePath]\\Omnissa\\*AppVolumes*.MSI",
+                        "Arguments":  "/qn MANAGER_ADDR=[Manager1] MANAGER_PORT=443 EnforceSSLCertificateValidation=0 REBOOT=R",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
+                         "Name":  "AllowInstallerModification",
+                         "Value":  "1",
+                         "Type":  "DWORD",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     },
+                     {
+                         "PreScriptblocks":  [
+                                                 "$RegistrySetting.Value = $Environment.DC.($State.DC).AppVol.Manager2"
+                                             ],
+                         "Path":  "hklm:\\SYSTEM\\CurrentControlSet\\services\\svdriver\\Parameters",
+                         "Name":  "Manager2",
+                         "Value":  "",
+                         "Type":  "String",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     }
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

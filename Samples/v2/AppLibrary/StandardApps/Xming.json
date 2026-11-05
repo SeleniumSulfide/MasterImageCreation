@@ -1,0 +1,57 @@
+{
+    "Name":  "Xming",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+                                                                "$URI = \"https://github.com/talregev/Xming/releases/latest\"",
+                                                                "$Response = Invoke-WebRequest -URI $URI -UseBasicParsing",
+                                                                "$Link = $Response.Links.HREF | Where-Object { $_ -like \"*releases/tag/*\" }",
+                                                                "$Version = Split-Path $Link -Leaf",
+                                                                "$Item.URI = \"https://github.com/talregev/Xming/releases/download/$Version/Xming-$($Version.Replace(\".\",\"-\"))-setup.exe\""
+                                                            ],
+                                        "FileName":  "Xming-Setup.exe",
+                                        "URI":  "",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                        "Arguments":  "/SILENT",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

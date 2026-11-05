@@ -1,0 +1,136 @@
+{
+    "Name":  "GoogleChrome",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
+
+                                                             ],
+                                         "Name":  "GoogleChrome",
+                                         "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\" -and $_.Channel -eq \"Stable\"",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\GoogleChrome\\googlechrome*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "hklm:\\SOFTWARE\\Policies\\Google\\Chrome",
+                         "Name":  "RendererCodeIntegrityEnabled",
+                         "Value":  "0",
+                         "Type":  "DWord",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     },
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "HKLM:\\Software\\Policies\\Google\\Update",
+                         "Name":  "AutoUpdatecheckPeriodMinutes",
+                         "Value":  "0",
+                         "Type":  "DWORD",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     },
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "HKLM:\\Software\\Policies\\Google\\Update",
+                         "Name":  "DisableAutoUpdateChecksCheckboxValue",
+                         "Value":  "1",
+                         "Type":  "DWORD",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     },
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "HKLM:\\Software\\Policies\\Google\\Update",
+                         "Name":  "UpdateDefault",
+                         "Value":  "0",
+                         "Type":  "DWORD",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     },
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "HKLM:\\Software\\Wow6432Node\\Google\\Update",
+                         "Name":  "AutoUpdatecheckPeriodMinutes",
+                         "Value":  "0",
+                         "Type":  "DWORD",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     },
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "HKLM:\\Software\\Wow6432Node\\Google\\Update",
+                         "Name":  "DisableAutoUpdateChecksCheckboxValue",
+                         "Value":  "1",
+                         "Type":  "DWORD",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     },
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "HKLM:\\SOFTWARE\\Wow6432Node\\Google\\Update",
+                         "Name":  "UpdateDefault",
+                         "Value":  "0",
+                         "Type":  "DWORD",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     }
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

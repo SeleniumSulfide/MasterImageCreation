@@ -73,7 +73,7 @@ Function Start-MasterBuild() {
         2 {
             Invoke-ScriptBlocks   -ScriptBlocks     $PreScriptBlocks
 
-            Initialize-Library    -Library          (Get-Childitem (Join-Path $LibraryPath "*.json"))
+            Initialize-Library    -Library          (Get-Childitem (Join-Path $LibraryPath "*.json") -Recurse)
             
             $Applications | Get-LibraryApplication | Save-LibraryApplication -Path $SoftwarePath
             $Applications | Get-LibraryApplication | Install-LibraryApplication -Path $SoftwarePath

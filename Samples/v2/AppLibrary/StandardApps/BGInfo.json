@@ -1,0 +1,64 @@
+{
+    "Name":  "BGInfo",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+
+                                                            ],
+                                        "FileName":  null,
+                                        "URI":  "https://download.sysinternals.com/files/BGInfo.zip",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+                                            "Get-ChildItem (Join-Path $Destination \"*.zip\") -recurse | Expand-Archive -DestinationPath $Destination -Force"
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "C:\\Program Files\\BGInfo\\Bginfo64.exe",
+                        "Arguments":  "\"C:\\Program Files\\BGInfo\\BGInfo.bgi\" /nolicprompt /timer:60",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+                     {
+                         "PreScriptblocks":  [
+
+                                             ],
+                         "Path":  "hklm:\\software\\microsoft\\windows\\currentversion\\run",
+                         "Name":  "*BGInfo",
+                         "Value":  "\"C:\\Program Files\\BGInfo\\Bginfo64.exe\" \"C:\\Program Files\\BGInfo\\BGInfo.bgi\" /nolicprompt /timer:60",
+                         "Type":  "String",
+                         "PostScriptblocks":  [
+
+                                              ]
+                     }
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

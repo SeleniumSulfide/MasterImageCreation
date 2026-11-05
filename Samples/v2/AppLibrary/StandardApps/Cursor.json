@@ -1,0 +1,54 @@
+{
+    "Name":  "Cursor",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+                                                                "$Response = (Invoke-WebRequest -UseBasicParsing -Uri \"https://cursor.com/download\")",
+                                                                "$Item.URI = ($Response.Links.Href | Where-Object { $_ -like \"*download*win32-x64/cursor*\"} | Sort-Object)[-1]"
+                                                            ],
+                                        "FileName":  "CursorSetup-x64.exe",
+                                        "URI":  "",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                        "Arguments":  "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

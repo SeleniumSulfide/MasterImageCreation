@@ -1,0 +1,64 @@
+{
+    "Name":  "NodeJs",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
+
+                                                             ],
+                                         "Name":  "NodeJs",
+                                         "Filter":  "$_.Architecture -eq \"x64\" -and $_.Channel -eq \"LTS\" -and $_.Type -eq \"msi\"",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
+                   "Download":  [
+                                    {
+                                        "URI":  "https://nodejs.org/dist/v14.17.4/node-v14.17.4-x64.msi"
+                                    },
+                                    {
+                                        "URI":  "https://nodejs.org/dist/v16.17.0/node-v16.17.0-x64.msi"
+                                    },
+                                    {
+                                        "URI":  "https://nodejs.org/dist/v20.11.1/node-v20.11.1-x64.msi"
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\NodeJs\\*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

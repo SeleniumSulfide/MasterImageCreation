@@ -1,0 +1,53 @@
+{
+    "Name":  "CitrixWorkspaceApp",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
+
+                                                             ],
+                                         "Name":  "CitrixWorkspaceApp",
+                                         "Filter":  "$_.Stream -eq \"LTSR\"",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\CitrixWorkspaceApp\\CitrixWorkspaceApp*.exe",
+                        "Arguments":  "/silent  AutoUpdateCheck=disabled ADDLOCAL=ALL ADDONS=ZoomVDIPlugin  /InstallMSTeamsPlugin=Y",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

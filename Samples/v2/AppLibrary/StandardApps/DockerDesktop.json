@@ -1,0 +1,54 @@
+{
+    "Name":  "DockerDesktop",
+    "Source":  {
+                   "PreScriptBlocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptBlocks":  [
+
+                                                            ],
+                                        "FileName":  "DockerDesktopInstaller.exe",
+                                        "URI":  "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe",
+                                        "PostScriptBlocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptBlocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptBlocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                        "Arguments":  "install --quiet",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  [
+                                          ""
+                                      ],
+                      "RegKey":  [
+                                     {
+                                         "Path":  "",
+                                         "Property":  "",
+                                         "Value":  ""
+                                     }
+                                 ],
+                      "File":  [
+                                   ""
+                               ]
+                  }
+}

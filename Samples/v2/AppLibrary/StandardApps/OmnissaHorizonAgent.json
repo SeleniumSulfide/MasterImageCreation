@@ -1,0 +1,42 @@
+{
+    "Name":  "OmnissaHorizonAgent",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Manual":  true,
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\Omnissa\\Omnissa-Horizon-Agent-x86*",
+                        "Arguments":  "/s /v\"/qn VDM_VC_MANAGED_AGENT=1 VDM_IP_PROTOCOL_USAGE=IPv4 RDP_CHOICE=1 ADDLOCAL=ALL REMOVE=GEOREDIR,PerfTracker,RDSH3D,SdoSensor,SmartCard REBOOT=R\"",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

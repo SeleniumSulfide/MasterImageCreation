@@ -1,9 +1,6 @@
 name: Main
 
 on:
-  push:
-    branches:
-      - 'main'
   release:
     types: [published]
 
@@ -16,7 +13,6 @@ jobs:
 
       - name: Publish Module
         env:
-          PSGALLERY_KEY: ${{ secrets.PSGALLERY_API }}
         shell: pwsh
         run: |
           $params = @{

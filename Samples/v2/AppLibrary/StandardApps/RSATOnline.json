@@ -1,0 +1,34 @@
+{
+    "Name":  "RSATOnline",
+    "Source":  {
+                   "Manual":  true
+               },
+    "Install":  [
+                    {
+                        "PreScriptBlocks":  [
+                                                "Get-WindowsCapability -Online -Name RSAT* | Add-WindowsCapability -Online"
+                                            ],
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  [
+                                          ""
+                                      ],
+                      "RegKey":  [
+                                     {
+                                         "Path":  "",
+                                         "Property":  "",
+                                         "Value":  ""
+                                     }
+                                 ],
+                      "File":  [
+                                   ""
+                               ]
+                  }
+}

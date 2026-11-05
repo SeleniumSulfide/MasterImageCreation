@@ -1,0 +1,36 @@
+{
+    "Name":  "RSATOffline",
+    "Source":  {
+                   "Manual":  true
+               },
+    "Install":  [
+                    {
+                        "PreScriptBlocks":  [
+                                                "$ISO = Get-ChildItem $Item.Path",
+                                                "$ISO | Mount-DiskImage",
+                                                "$Source = (Get-Volume -DiskImage (Get-DiskImage -ImagePath $ISO.FullName)).DriveLetter + \":\\LanguagesAndOptionalFeatures\"",
+                                                "$Item.Path = $Null",
+                                                "Get-WindowsCapability -Online -Name RSAT* | Add-WindowsCapability -Online -LimitAccess -Source $Source"
+                                            ],
+                        "Path":  "[SoftwarePath]\\WindowsOptionalFeatures\\*.iso"
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  [
+                                          ""
+                                      ],
+                      "RegKey":  [
+                                     {
+                                         "Path":  "",
+                                         "Property":  "",
+                                         "Value":  ""
+                                     }
+                                 ],
+                      "File":  [
+                                   ""
+                               ]
+                  }
+}

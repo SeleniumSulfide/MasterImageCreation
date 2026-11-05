@@ -1,0 +1,62 @@
+{
+    "Name":  "JetBrainsIntelliJIdea",
+    "Source":  {
+                   "PreScriptBlocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptBlocks":  [
+
+                                                            ],
+                                        "FileName":  "idea.exe",
+                                        "URI":  "https://data.services.jetbrains.com/products/download?code=IIC\u0026platform=windows",
+                                        "PostScriptBlocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptBlocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptBlocks":  [
+                                                "$File = Join-Path (Split-Path $item.Path) \"Config.ini\"",
+                                                "Set-Content -Path $File -Value \"mode=admin\" -Force",
+                                                "Add-Content -Path $File -Value \"contextMenu=1\"",
+                                                "Add-Content -Path $File -Value \".java=1\"",
+                                                "Add-Content -Path $File -Value \".groovy=1\"",
+                                                "Add-Content -Path $File -Value \".kt=1\"",
+                                                "Add-Content -Path $File -Value \".kts=1\"",
+                                                "Add-Content -Path $File -Value \".pom=1\"",
+                                                "Add-Content -Path $File -Value \"updatePATH=1\""
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                        "Arguments":  "/S /CONFIG=[SoftwarePath]\\[Name]\\Config.ini",
+                        "Recurse":  true,
+                        "PostScriptBlocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  [
+                                          ""
+                                      ],
+                      "RegKey":  [
+                                     {
+                                         "Path":  "",
+                                         "Property":  "",
+                                         "Value":  ""
+                                     }
+                                 ],
+                      "File":  [
+                                   ""
+                               ]
+                  }
+}

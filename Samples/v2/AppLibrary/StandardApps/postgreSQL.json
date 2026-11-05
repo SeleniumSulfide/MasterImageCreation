@@ -1,0 +1,55 @@
+{
+    "Name":  "postgreSQL",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+                                                                "$URL = \"https://www.enterprisedb.com/downloads/postgres-postgresql-downloads\"",
+                                                                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
+                                                                "$Item.URI = ($Response.Links.HREF | Where-Object { $_ -like \"*fileid*\" })[1]"
+                                                            ],
+                                        "FileName":  "postgresql-windows-x64.exe",
+                                        "URI":  "",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "",
+                        "Arguments":  "",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

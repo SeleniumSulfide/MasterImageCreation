@@ -1,0 +1,42 @@
+{
+    "Name":  "OmnissaDEM",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Manual":  true,
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\Omnissa\\Omnissa Dynamic Environment Manager*.msi",
+                        "Arguments":  "/q ADDLOCAL=ALL REBOOT=R",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}

@@ -1,0 +1,63 @@
+{
+    "Name":  "MicrosoftSQLCLR",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+
+                                                            ],
+                                        "FileName":  "SQLSysClrTypes-x86.msi",
+                                        "URI":  "http://go.microsoft.com/fwlink/?LinkID=239643\u0026clcid=0x409",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    },
+                                    {
+                                        "PreScriptblocks":  [
+
+                                                            ],
+                                        "FileName":  "SQLSysClrTypes-x64.msi",
+                                        "URI":  "http://go.microsoft.com/fwlink/?LinkID=239644\u0026clcid=0x409",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\MicrosoftSQLCLR\\*.MSI",
+                        "Arguments":  "/q",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                      "DisplayName":  {
+                                          "Architecture":  "",
+                                          "Name":  ""
+                                      },
+                      "Registry":  {
+                                       "Path":  "",
+                                       "Property":  "",
+                                       "Value":  ""
+                                   },
+                      "File":  [
+
+                               ]
+                  }
+}
