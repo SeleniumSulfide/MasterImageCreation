@@ -204,7 +204,7 @@ All shell output is logged via Start-Transcript to `[LocalRoot]\Phase-#.log`
 These steps should only need to be executed either when moving from one `Windows 11 Feature Update` or to new `VMware Tools`.
 
 1. Create virtual machine per [Manually creating optimized Windows images for Horizon VMs](https://techzone.omnissa.com/resource/manually-creating-optimized-windows-images-horizon-vms#overview-of-the-procedure-to-build-a-golden-image)
-2. Install Windos and enter into Audit Mode during the OOBE
+2. Install Windows and enter into Audit Mode during the OOBE
 3. Configure OS
     + Install `Generic / Text Only` printer driver
     + Disable Bitlocker
