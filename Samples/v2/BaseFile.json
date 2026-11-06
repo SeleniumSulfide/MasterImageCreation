@@ -20,8 +20,8 @@
             "OSOT":{
                 "Optimize":{
                     "Refernce":"https://docs.omnissa.com/bundle/Optimizing-Images-for-Horizon/page/OptimizationParameters.html",
-                    "UseSettings":false,
-                    "SettingsJSON":""
+                    "UseSettings":  true,
+                    "SettingsJSON": ""
                 }
             }
         },
