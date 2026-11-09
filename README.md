@@ -89,7 +89,7 @@ Param(
     [System.IO.FileSystemInfo]$OverlayFile,
 
     [Parameter()]
-    [ValidateSet("YourYourDataCenter1", "YourDataCenter2")]
+    [ValidateSet("YourDataCenter1", "YourDataCenter2")]
     [String]$DC,
 
     [Parameter()]
@@ -109,7 +109,7 @@ Param(
 To run the master image build on a the master image VM:
 
 ```powershell
-.\Start-BaseCreation.ps1 -DC "YourDC1"
+.\Start-BaseCreation.ps1 -DC "YourDataCenter1"
 ```
 
 ---
