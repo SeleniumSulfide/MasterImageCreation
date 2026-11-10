@@ -1,0 +1,41 @@
+{
+    "Name":  "Cursor",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
+
+                                                             ],
+                                         "Name":  "Anyspherecursor",
+                                         "Filter":  "$_.Platform -eq \"win32-x64\"",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.exe",
+                        "Arguments":  "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                  }
+}

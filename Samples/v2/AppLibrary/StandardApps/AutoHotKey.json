@@ -4,18 +4,18 @@
                    "PreScriptblocks":  [
 
                                        ],
-                   "Download":  [
-                                    {
-                                        "PreScriptblocks":  [
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
 
-                                                            ],
-                                        "FileName":  null,
-                                        "URI":  "https://www.autohotkey.com/download/ahk-v2.exe",
-                                        "PostScriotblocks":  [
+                                                             ],
+                                         "Name":  "AutoHotKey",
+                                         "Filter":  "",
+                                         "PostScriptblocks":  [
 
-                                                             ]
-                                    }
-                                ],
+                                                              ]
+                                     }
+                                 ],
                    "PostScriptblocks":  [
 
                                         ]
@@ -25,7 +25,7 @@
                         "PreScriptblocks":  [
 
                                             ],
-                        "Path":  "[SoftwarePath]\\AutoHotKey\\ahk-v2.exe",
+                        "Path":  "[SoftwarePath]\\[Name]\\*.exe",
                         "Arguments":  "/silent /elevate",
                         "Recurse":  true,
                         "PostScriptblocks":  [

@@ -4,18 +4,18 @@
                    "PreScriptBlocks":  [
 
                                        ],
-                   "Download":  [
-                                    {
-                                        "PreScriptBlocks":  [
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
+                                                                "$Version = ((Get-EvergreenApp $Item.Name).Version | Sort-Object -Unique)[-1]"
+                                                             ],
+                                         "Name":  "JetBrainsIntelliJIDEA",
+                                         "Filter":  "$_.Architecture -eq \"x86\" -and $_.Type -eq \"exe\"-and $_.Version -eq $Version",
+                                         "PostScriptblocks":  [
 
-                                                            ],
-                                        "FileName":  "idea.exe",
-                                        "URI":  "https://data.services.jetbrains.com/products/download?code=IIC\u0026platform=windows",
-                                        "PostScriptBlocks":  [
-
-                                                             ]
-                                    }
-                                ],
+                                                              ]
+                                     }
+                                 ],
                    "PostScriptBlocks":  [
 
                                         ]

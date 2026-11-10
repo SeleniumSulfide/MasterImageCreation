@@ -4,19 +4,18 @@
                    "PreScriptblocks":  [
 
                                        ],
-                   "Download":  [
-                                    {
-                                        "PreScriptblocks":  [
-                                                                "$URL = \"https://www.microsoft.com/en-us/download/details.aspx?id=58494\u0026msockid=309b14ebc278605016fb028fc3066164\"",
-                                                                "$Item.URI = ((Invoke-WebRequest -URI $URL -UseBasicParsing).Links.Href | Where-Object { $_ -like \"*exe*\"})"
-                                                            ],
-                                        "FileName":  "PBIDesktopSetup_x64.exe",
-                                        "URI":  "",
-                                        "PostScriotblocks":  [
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
 
-                                                             ]
-                                    }
-                                ],
+                                                             ],
+                                         "Name":  "MicrosoftPowerBI",
+                                         "Filter":  "",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
                    "PostScriptblocks":  [
 
                                         ]

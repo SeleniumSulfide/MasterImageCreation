@@ -1,0 +1,41 @@
+{
+    "Name":  "PostgreSQLODBCDriver",
+    "Source":  {
+                   "PreScriptblocks":  [
+
+                                       ],
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
+
+                                                             ],
+                                         "Name":  "PostgreSQLODBCDriver",
+                                         "Filter":  "$_.Architecture -eq \"x64\" -and $_.Type -eq \"msi\"",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
+                   "PostScriptblocks":  [
+
+                                        ]
+               },
+    "Install":  [
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\*.msi",
+                        "Arguments":  "/qn",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    }
+                ],
+    "Registry":  [
+
+                 ],
+    "Detection":  {
+                  }
+}

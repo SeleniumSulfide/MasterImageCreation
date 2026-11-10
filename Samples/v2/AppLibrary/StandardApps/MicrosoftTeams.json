@@ -1,5 +1,5 @@
 {
-    "Name":  "MicrosoftTeamsMSIX",
+    "Name":  "MicrosoftTeams",
     "Source":  {
                    "PreScriptblocks":  [
 
@@ -16,6 +16,18 @@
                                                               ]
                                      }
                                  ],
+                   "Download":  [
+                                    {
+                                        "PreScriptblocks":  [
+
+                                                            ],
+                                        "FileName":  "teamsbootstrapper.exe",
+                                        "URI":  "https://go.microsoft.com/fwlink/?linkid=2243204\u0026clcid=0x409",
+                                        "PostScriotblocks":  [
+
+                                                             ]
+                                    }
+                                ],
                    "PostScriptblocks":  [
 
                                         ]
@@ -23,11 +35,33 @@
     "Install":  [
                     {
                         "PreScriptblocks":  [
-
+                                                "Sync-LibraryApplicationRegistry -Application $App"
                                             ],
                         "Path":  "C:\\Windows\\System32\\Dism.exe",
-                        "Arguments":  "/Online /Add-ProvisionedAppxPackage /PackagePath:\"[SoftwarePath]\\MicrosoftTeamsDism\\MSTeams-x64.msix\" /SkipLicense",
+                        "Arguments":  "/Online /Add-ProvisionedAppxPackage /PackagePath:\"[SoftwarePath]\\[Name]\\MSTeams-x64.msix\" /SkipLicense",
                         "Recurse":  false,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    },
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\teamsbootstrapper.exe",
+                        "Arguments":  "--installTMA",
+                        "Recurse":  true,
+                        "PostScriptblocks":  [
+
+                                             ]
+                    },
+                    {
+                        "PreScriptblocks":  [
+
+                                            ],
+                        "Path":  "[SoftwarePath]\\[Name]\\teamsbootstrapper.exe",
+                        "Arguments":  "-p",
+                        "Recurse":  true,
                         "PostScriptblocks":  [
 
                                              ]

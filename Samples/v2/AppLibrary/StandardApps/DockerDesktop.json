@@ -4,18 +4,18 @@
                    "PreScriptBlocks":  [
 
                                        ],
-                   "Download":  [
-                                    {
-                                        "PreScriptBlocks":  [
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
 
-                                                            ],
-                                        "FileName":  "DockerDesktopInstaller.exe",
-                                        "URI":  "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe",
-                                        "PostScriptBlocks":  [
+                                                             ],
+                                         "Name":  "DockerDesktop",
+                                         "Filter":  "$_.Architecture -eq \"x64\"",
+                                         "PostScriptblocks":  [
 
-                                                             ]
-                                    }
-                                ],
+                                                              ]
+                                     }
+                                 ],
                    "PostScriptBlocks":  [
 
                                         ]

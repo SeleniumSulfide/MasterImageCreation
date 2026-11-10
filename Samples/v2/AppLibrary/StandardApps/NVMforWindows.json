@@ -4,21 +4,18 @@
                    "PreScriptblocks":  [
 
                                        ],
-                   "Download":  [
-                                    {
-                                        "PreScriptblocks":  [
-                                                                "$URL = \"https://github.com/coreybutler/nvm-windows\"",
-                                                                "$Response = Invoke-WebRequest -UseBasicParsing -Uri $URL",
-                                                                "$Version = Split-Path ($Response.Links | Where-Object { $_.OuterHTML -like \"*Download Stable*\"}).HREF -leaf",
-                                                                "$Item.URI = \"https://github.com/coreybutler/nvm-windows/releases/download/$Version/nvm-setup.exe\""
-                                                            ],
-                                        "FileName":  null,
-                                        "URI":  "",
-                                        "PostScriotblocks":  [
+                   "Evergreen":  [
+                                     {
+                                         "PreScriptblocks":  [
 
-                                                             ]
-                                    }
-                                ],
+                                                             ],
+                                         "Name":  "NodeVersionManager",
+                                         "Filter":  "$_.Architecture -eq \"x64\" -and $_.URI -like \"*-setup.exe\"",
+                                         "PostScriptblocks":  [
+
+                                                              ]
+                                     }
+                                 ],
                    "PostScriptblocks":  [
 
                                         ]
