@@ -12,7 +12,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Publish Module
-        env:
         shell: pwsh
         run: |
           $params = @{
